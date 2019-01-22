@@ -3,40 +3,66 @@
     <md-field class="field">
       <ul class="play-list">
         <li
-          class="play-item"
+          class="play-item ripple"
           v-for="(music,idx) in listdata"
           :key="idx"
           @click="playMusic(music)"
+          :class="[playingId == music.id?'playing':'']"
         >
-          <i class="iconfont icon-yinliang"></i>
-          <p class="idx">{{idx+1}}</p>
+          <i class="iconfont icon-yinliang" v-if="playingId == music.id"></i>
+          <p class="idx" v-else>{{idx+1}}</p>
           <div class="info">
             <p class="name">{{music.songName}}</p>
             <p class="singer">{{music.singer}} - {{music.alName}}</p>
           </div>
-          <i class="iconfont icon-iconfontclose"></i>
+          <i class="iconfont icon-btn_more" @click.stop="moreOperations"></i>
         </li>
       </ul>
     </md-field>
+    <md-popup
+      v-model="isPopupShow"
+      :hasMask="false"
+      position="top"
+    >
+      <div class="popup-info">
+        暂无后续逻辑，更多操作敬请期待
+      </div>
+    </md-popup>
   </div>
 </template>
 
 <script>
-import { Field } from "mand-mobile";
+import { Field, Popup } from "mand-mobile";
 import { mapState, mapMutations } from "vuex";
 import { setMusic } from "@/untils";
+  
 export default {
   props: {
     listdata: Array
   },
   components: {
-    [Field.name]: Field
+    [Field.name]: Field,
+    [Popup.name]: Popup
+  },
+  data() {
+    return {
+      isPopupShow: false
+    }
+  },
+  computed: {
+    ...mapState(['playingId'])
   },
   methods: {
     ...mapMutations(["addMusic"]),
     playMusic(music) {
         let playList = setMusic(music);
         this.addMusic(playList);
+    },
+    moreOperations() {
+      this.isPopupShow = true;
+      setTimeout(() => {
+        this.isPopupShow = false;
+      }, 2000);
     }
   },
 };
@@ -58,7 +84,7 @@ export default {
     .iconfont
       font-size 36px
     .icon-yinliang
-      display none
+      color $defColor
     .idx
       width 40px
       font-size 28px
@@ -71,17 +97,26 @@ export default {
         color $titleColor
         font-size 26px
         font-weight 500
-        width 600px
+        width 580px
         ellipsis()
       .singer
-        width 594px
+        width 580px
         margin-top 4px
         color $subColor 
         font-size 20px
         ellipsis()
+    .icon-btn_more
+      margin-right -20px
+      padding 10px 20px;
   .playing
-    .icon-yinliang, .name, .singer
-      color $defColor
-    .icon-yinliang
-      display block
+    .info
+      .name, .singer
+        color $defColor
+.popup-info
+  color #fff
+  width 100%
+  height 80px
+  line-height 80px
+  text-align center 
+  background-color $defColor
 </style>

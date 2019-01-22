@@ -7,6 +7,7 @@
       ref="aplayer"
       @listShow="listShow"
       @listAdd="lisenAdd"
+      @listSwitch="onPlayingChange"
     />
     <md-popup
       v-model="isListShow"
@@ -35,7 +36,10 @@
               {{music.name}}
               <span class="singer">- {{music.artist}}</span>
             </p>
-            <i class="iconfont icon-iconfontclose" @click="removeMusic(music.id)"></i>
+            <i
+              class="iconfont icon-iconfontclose"
+              @click="removeMusic(music.id)"
+            ></i>
           </li>
         </ul>
       </md-field>
@@ -61,7 +65,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["playList", "onPlaying"])
+    ...mapState(["playList", "onPlaying", "playingId"])
   },
   watch: {
     onPlaying() {
@@ -69,7 +73,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(["clearPlayList","delMusic"]),
+    ...mapMutations(["clearPlayList", "delMusic", "changePlayingId"]),
     listShow() {
       this.isListShow = true;
       this.currentMusic = this.$refs.aplayer.currentMusic.id;
@@ -93,8 +97,13 @@ export default {
       this.currentMusic = this.$refs.aplayer.currentMusic.id;
     },
     removeMusic(id) {
-      this.$refs.aplayer.pause();
+      if (this.$refs.aplayer.currentMusic.id == id) {
+        this.$refs.aplayer.pause();
+      }
       this.delMusic(id);
+    },
+    onPlayingChange() {
+      this.changePlayingId(this.$refs.aplayer.currentMusic.id);
     }
   }
 };
@@ -112,7 +121,7 @@ export default {
       .aplayer-play
         width 36px
         height 36px
-        margin 0 -15px -15px 0
+        margin 0 -22px -22px 0
         svg
           top 2px
           left 4px
@@ -188,26 +197,32 @@ export default {
       color #f56c6c
   .field
     padding 20px
-    .play-item
-      display flex
-      align-items center
-      font-size 36px
-      height 80px
-      border-bottom 1px solid $divider
-      .iconfont
-        font-size 36px
-      .icon-yinliang
+    .play-list
+      max-height 600px
+      overflow-x hidden
+      overflow-y scroll
+      &::-webkit-scrollbar
         display none
-      .name
-        flex 1
-        margin-left 10px
-        ellipsis()
-        width 200px
-        font-size 26px
-        padding-right 40px
-      .singer
-        margin-left 4px
-        font-size 22px
+      .play-item
+        display flex
+        align-items center
+        font-size 36px
+        height 80px
+        border-bottom 1px solid $divider
+        .iconfont
+          font-size 36px
+        .icon-yinliang
+          display none
+        .name
+          flex 1
+          margin-left 10px
+          ellipsis()
+          width 200px
+          font-size 26px
+          padding-right 40px
+        .singer
+          margin-left 4px
+          font-size 22px
     .playing
       .icon-yinliang, .name, .singer
         color $defColor
