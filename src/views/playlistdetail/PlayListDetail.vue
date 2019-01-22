@@ -17,7 +17,11 @@
               alt=""
             >
             <p class="nick-name">{{nickname}}</p>
-            <icon name="arrow-right" color="#fff" size="sm"></icon>
+            <icon
+              name="arrow-right"
+              color="#fff"
+              size="sm"
+            ></icon>
           </div>
           <ul class="tags">
             <li>#</li>
@@ -46,7 +50,10 @@
           </div>
         </div>
       </div>
-      <song-list class="song-list" :listdata="listDetail.tracks"></song-list>
+      <song-list
+        class="song-list"
+        :listdata="listDetail.tracks"
+      ></song-list>
     </div>
   </div>
 </template>
@@ -56,31 +63,34 @@ import { playListDetail } from "@/untils";
 import { Icon } from "mand-mobile";
 import BackNav from "@/components/BackNav";
 import SongList from "@/components/SongList";
+import { mapMutations } from "vuex";
 export default {
   components: {
     BackNav,
     Icon,
-    SongList,
+    SongList
   },
   data() {
     return {
       listDetail: {},
-      avatarUrl: '',
-      nickname: '',
+      avatarUrl: "",
+      nickname: ""
     };
   },
   computed: {
     tags() {
-      let tags = Array.of(this.listDetail.tags)
-      return tags.join('.')
-    },
+      let tags = Array.of(this.listDetail.tags);
+      return tags.join(".");
+    }
   },
   methods: {
+    ...mapMutations(['closeLoading']),
     getListDetail() {
       this.axios(`/playlist/detail?id=${this.$route.query.id}`).then(res => {
         this.listDetail = playListDetail(res.data.playlist);
         this.avatarUrl = this.listDetail.creator.avatarUrl;
         this.nickname = this.listDetail.creator.nickname;
+        this.closeLoading();
       });
     }
   },
@@ -91,7 +101,8 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '~styles/mixins.styl';
+@import '~styles/mixins.styl'
+
 .play-list
   height 100%
   display flex

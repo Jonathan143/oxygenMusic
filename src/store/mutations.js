@@ -37,10 +37,19 @@ let changePlayList = (state, list) => {
   state.playList = list;
   localStorage.setItem(`playList`, JSON.stringify(state.playList));
 };
+
+let closeLoading = state => {
+  state.isLoading = false;
+};
+let openLoading = state => {
+  state.isLoading = true;
+};
 export default {
   clearPlayList,
   addMusic,
   delMusic,
   changePlayingId,
-  changePlayList
+  changePlayList,
+  closeLoading,
+  openLoading
 };

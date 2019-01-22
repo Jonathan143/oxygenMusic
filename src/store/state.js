@@ -1,3 +1,4 @@
+let isLoading = true;
 let isPlay = false;
 let playList = [];
 if (localStorage.playList) {
@@ -11,6 +12,7 @@ if (playList.length) {
 let onPlaying = 0; //添加歌曲时列表有相同歌曲时的index
 let playingId = 0;
 export default {
+  isLoading,
   isPlay,
   playList,
   isPlayerShow,

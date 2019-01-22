@@ -1,12 +1,24 @@
 <template>
   <div id="app">
+    <div class="loading-container" v-show="isLoading">
+      <md-activity-indicator
+      :size="66"
+      :text-size="36"
+      color="#9025fc"
+      text-color="#9025fc"
+      vertical
+      >Music loading</md-activity-indicator>
+    </div>
     <div class="router-view">
       <keep-alive>
-        <router-view v-if="$route.meta.KeepAlive"/>
+        <router-view v-if="$route.meta.KeepAlive" />
       </keep-alive>
-        <router-view v-if="!$route.meta.KeepAlive"/>
+      <router-view v-if="!$route.meta.KeepAlive" />
     </div>
-    <div class="bottom-player" v-show="isPlayerShow">
+    <div
+      class="bottom-player"
+      v-show="isPlayerShow"
+    >
       <player></player>
     </div>
   </div>
@@ -14,16 +26,15 @@
 
 <script>
 import Player from "./components/Player";
+import {ActivityIndicator} from 'mand-mobile';
 import { mapState } from "vuex";
 export default {
   components: {
-    Player
-  },
-  data() {
-    return {};
+    Player,
+    [ActivityIndicator.name]: ActivityIndicator
   },
   computed: {
-    ...mapState(['isPlayerShow'])
+    ...mapState(['isPlayerShow','isLoading'])
   }
 };
 </script>
@@ -38,6 +49,15 @@ export default {
   .router-view
     flex 1
     overflow auto
+  .loading-container
+    display flex
+    align-items center
+    justify-content center
+    position absolute
+    width 100%
+    height 100%
+    z-index 999
+    background-color #fff
   .bottom-player
     font-size 28px
     background-color #fff

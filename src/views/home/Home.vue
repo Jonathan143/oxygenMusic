@@ -32,6 +32,7 @@ import ScrollView from "./components/ScrollView";
 import TopNav from "@/components/TopNav";
 import Banner from "@/components/Banner";
 import { getSongs, getPlayList, getAlbums } from "@/untils";
+import { mapMutations } from "vuex";
 export default {
   name: "home",
   components: {
@@ -52,6 +53,7 @@ export default {
     this.getHotPlayList();
   },
   methods: {
+    ...mapMutations(['closeLoading']),
     getNewSong() {
       this.axios("personalized/newsong?limit=6").then(res => {
         this.newSong = getSongs(res.data.result).splice(0, 6);
@@ -65,6 +67,7 @@ export default {
     getHotPlayList() {
       this.axios("top/playlist?limit=6&order=hot").then(res => {
         this.hotPlayList = getPlayList(res.data.playlists);
+        this.closeLoading();
       });
     }
   }
@@ -76,7 +79,7 @@ export default {
   height 100%
   display flex
   flex-direction column
-  .content 
+  .content
     flex 1
     overflow auto
   .scroll-view

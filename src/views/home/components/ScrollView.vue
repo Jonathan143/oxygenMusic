@@ -57,10 +57,11 @@ export default {
     return {};
   },
   methods: {
-    ...mapMutations(["addMusic"]),
+    ...mapMutations(['addMusic','openLoading']),
     playMusic(song) {
       if (this.hasDetails) {
         this.$router.push({ path: '/playlistdetail', query: { id: song.id }});
+        this.openLoading();
       } else {
         let playList = setMusic(song);
         this.addMusic(playList);
