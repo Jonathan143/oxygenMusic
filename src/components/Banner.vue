@@ -54,7 +54,6 @@ export default {
 .swp
   width 100%
   height 320px
-  margin-bottom 20px
   .md-swiper-item 
     width 750px
   .banner-item

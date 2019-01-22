@@ -164,7 +164,7 @@ export default {
         .operat-item
           text-align center
           .iconfont
-            font-size 66px
+            font-size 60px
             color #928ffa
           .opeart-count
             color #928ffa

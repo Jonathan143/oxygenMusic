@@ -19,6 +19,7 @@
         @confirm="clearList"
         title="播放列表"
         ok-text="清空 "
+        :cancel-text="playType"
       ></md-popup-title-bar>
       <md-field class="field">
         <ul class="play-list">
@@ -65,7 +66,10 @@ export default {
     };
   },
   computed: {
-    ...mapState(["playList", "onPlaying", "playingId"])
+    ...mapState(["playList", "onPlaying", "playingId"]),
+    playType() {
+      return `列表循环(${this.playList.length})`
+    }
   },
   watch: {
     onPlaying() {
@@ -180,21 +184,20 @@ export default {
       display none
     .aplayer-list
       display none !important
-      // li
-      // padding 0 20px
-      // font-size 20px
-      // .aplayer-list-cur
-      // width 6px
-      // background-color rgb(144, 37, 252) !important
   .popup-title-bar
     height 80px
     .title-bar-title
       .title
         font-size 30px !important
         color #303133 !important
+    .title-bar-left
+      font-size 26px
+      letter-spacing 1px
+      margin-left: 20px;
     .title-bar-right
       font-size 26px
       color #f56c6c
+      letter-spacing 1px
   .field
     padding 20px
     .play-list

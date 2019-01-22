@@ -2,7 +2,7 @@
   <div class="scroll-view">
     <div class="top-container">
       <h2 class="title">{{title}}</h2>
-      <md-icon name="arrow-right"></md-icon>
+      <md-icon name="arrow-right" class="arrow-icon"></md-icon>
     </div>
     <div class="scroll-view-list">
       <div
@@ -15,6 +15,7 @@
           class="item-img"
           v-lazy="song.picUrl"
           alt=""
+          :class="{circle:circle}"
         >
         <p
           class="item-title"
@@ -47,14 +48,15 @@ export default {
     hasDetails: {
       type: Boolean,
       default: false
+    },
+    circle: {
+      type: Boolean,
+      default: false
     }
   },
   components: {
     [ScrollView.name]: ScrollView,
     [Icon.name]: Icon
-  },
-  data() {
-    return {};
   },
   methods: {
     ...mapMutations(['addMusic','openLoading']),
@@ -88,8 +90,11 @@ export default {
     justify-content space-between
     .title
       color $titleColor
-      font-size 28px
+      font-size 30px
       font-weight 500
+      padding 10px 0
+    .arrow-icon
+      padding 10px 0
   .scroll-view-list
     display flex
     flex-wrap wrap
@@ -107,13 +112,17 @@ export default {
         margin-top 10px
         color $titleColor
         line-height 36px
+        text-align center
       .item-sub-title
         ellipsis()
         width 180px
         font-size 18px
         color $subColor
+        text-align center
 .multi-ellipsis
   multiEllipsis()
 .ellipsis
   ellipsis()
+.circle
+  border-radius 50% !important
 </style>

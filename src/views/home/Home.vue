@@ -3,11 +3,13 @@
     <top-nav></top-nav>
     <div class="content">
       <banner></banner>
+      <btn-nav></btn-nav>
       <div class="music-content">
         <scroll-view
           class="scroll-view"
           title="新歌速递"
           :musicData="newSong"
+          circle
         ></scroll-view>
         <scroll-view
           class="scroll-view"
@@ -21,6 +23,7 @@
           title="新碟上架"
           :hasDetails="true"
           :musicData="newAlbums"
+          circle
         ></scroll-view>
       </div>
     </div>
@@ -31,6 +34,7 @@
 import ScrollView from "./components/ScrollView";
 import TopNav from "@/components/TopNav";
 import Banner from "@/components/Banner";
+import BtnNav from "./components/BtnNav";
 import { getSongs, getPlayList, getAlbums } from "@/untils";
 import { mapMutations } from "vuex";
 export default {
@@ -38,7 +42,8 @@ export default {
   components: {
     ScrollView,
     TopNav,
-    Banner
+    Banner,
+    BtnNav
   },
   data() {
     return {

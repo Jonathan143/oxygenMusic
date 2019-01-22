@@ -1,32 +1,45 @@
 <template>
   <div id="app">
-    <div class="loading-container" v-show="isLoading">
-      <md-activity-indicator
-      :size="66"
-      :text-size="36"
-      color="#9025fc"
-      text-color="#9025fc"
-      vertical
-      >Music loading</md-activity-indicator>
-    </div>
+    <transition
+      name="loading-transition"
+      leave-active-class="animated zoomOut"
+    >
+      <div
+        class="loading-container"
+        v-show="isLoading"
+      >
+        <md-activity-indicator
+          :size="66"
+          :text-size="36"
+          color="#9025fc"
+          text-color="#9025fc"
+          vertical
+        >Music loading</md-activity-indicator>
+      </div>
+    </transition>
     <div class="router-view">
       <keep-alive>
         <router-view v-if="$route.meta.KeepAlive" />
       </keep-alive>
       <router-view v-if="!$route.meta.KeepAlive" />
     </div>
-    <div
-      class="bottom-player"
-      v-show="isPlayerShow"
+    <transition
+      name="loading-transition"
+      enter-active-class="animated zoomIn"
     >
-      <player></player>
-    </div>
+      <div
+        class="bottom-player"
+        v-show="isPlayerShow"
+      >
+        <player></player>
+      </div>
+    </transition>
   </div>
 </template>
 
 <script>
 import Player from "./components/Player";
-import {ActivityIndicator} from 'mand-mobile';
+import { ActivityIndicator } from "mand-mobile";
 import { mapState } from "vuex";
 export default {
   components: {
@@ -34,7 +47,7 @@ export default {
     [ActivityIndicator.name]: ActivityIndicator
   },
   computed: {
-    ...mapState(['isPlayerShow','isLoading'])
+    ...mapState(["isPlayerShow", "isLoading"])
   }
 };
 </script>

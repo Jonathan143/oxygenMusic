@@ -28,7 +28,7 @@ export default {
 .back-nav-container
   display flex
   font-size 32px
-  height 80px
+  height 100px
   box-sizing border-box
   align-items center
   background-color #928ffa

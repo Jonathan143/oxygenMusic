@@ -3,7 +3,10 @@
     <md-field class="field">
       <ul class="play-list">
         <li class="play-item top-item">
-          <div class="play-all" @click="playAll">
+          <div
+            class="play-all"
+            @click="playAll"
+          >
             <i class="iconfont icon-playing"></i>
             <p class="text">播放全部<span class="sub-text">{{listLength}}</span></p>
           </div>
@@ -11,7 +14,7 @@
             <i class="iconfont icon-add"></i>
             <p class="text">收藏</p>
           </div>
-        </li> 
+        </li>
         <li
           class="play-item"
           v-for="(music,idx) in listdata"
@@ -19,13 +22,22 @@
           @click="playMusic(music)"
           :class="[playingId == music.id?'playing':'']"
         >
-          <i class="iconfont icon-yinliang" v-if="playingId == music.id"></i>
-          <p class="idx" v-else>{{idx+1}}</p>
+          <i
+            class="iconfont icon-yinliang"
+            v-if="playingId == music.id"
+          ></i>
+          <p
+            class="idx"
+            v-else
+          >{{idx+1}}</p>
           <div class="info">
             <p class="name">{{music.songName}}</p>
             <p class="singer">{{music.singer}} - {{music.alName}}</p>
           </div>
-          <i class="iconfont icon-btn_more" @click.stop="moreOperations"></i>
+          <i
+            class="iconfont icon-btn_more"
+            @click.stop="moreOperations"
+          ></i>
         </li>
       </ul>
     </md-field>
@@ -34,9 +46,7 @@
       :hasMask="false"
       position="top"
     >
-      <div class="popup-info">
-        暂无后续逻辑
-      </div>
+      <div class="popup-info">暂无后续逻辑</div>
     </md-popup>
   </div>
 </template>
@@ -45,34 +55,34 @@
 import { Field, Popup } from "mand-mobile";
 import { mapState, mapMutations } from "vuex";
 import { setMusic } from "@/untils";
-  
+
 export default {
   props: {
     listdata: Array
   },
   components: {
-    [Field.name]: Field,
-    [Popup.name]: Popup
+    "md-field": Field,
+    "md-popup": Popup
   },
   data() {
     return {
       isPopupShow: false,
-      listLength: ''
-    }
+      listLength: ""
+    };
   },
   computed: {
-    ...mapState(['playingId'])
+    ...mapState(["playingId"])
   },
   watch: {
     listdata() {
-      this.listLength = `(共${this.listdata.length}首)`
+      this.listLength = `(共${this.listdata.length}首)`;
     }
   },
   methods: {
-    ...mapMutations(['addMusic','changePlayList']),
+    ...mapMutations(["addMusic", "changePlayList"]),
     playMusic(music) {
-        let playList = setMusic(music);
-        this.addMusic(playList);
+      let playList = setMusic(music);
+      this.addMusic(playList);
     },
     moreOperations() {
       this.isPopupShow = true;
@@ -84,11 +94,11 @@ export default {
       let playList = [];
       for (const item of this.listdata) {
         let music = setMusic(item);
-        playList.push(music)
+        playList.push(music);
       }
-      this.changePlayList(playList)
+      this.changePlayList(playList);
     }
-  },
+  }
 };
 </script>
 
@@ -126,12 +136,12 @@ export default {
       .singer
         width 580px
         margin-top 4px
-        color $subColor 
+        color $subColor
         font-size 20px
         ellipsis()
     .icon-btn_more
       margin-right -20px
-      padding 10px 20px;
+      padding 10px 20px
   .top-item
     margin 0 -20px
     border 1px solid $divider
@@ -168,7 +178,7 @@ export default {
       justify-content center
       .icon-add
         color #ffffff
-        font-size 28px
+        font-size 34px
       .text
         color #fff
         margin-left 10px
@@ -181,6 +191,6 @@ export default {
   width 100%
   height 80px
   line-height 80px
-  text-align center 
+  text-align center
   background-color #919191
 </style>

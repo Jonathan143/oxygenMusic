@@ -1,6 +1,6 @@
 let clearPlayList = state => {
   state.playList = [];
-  state.isPlayerShow = false; 
+  state.isPlayerShow = false;
   localStorage.removeItem(`playList`);
 };
 
