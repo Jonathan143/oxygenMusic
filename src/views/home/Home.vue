@@ -7,6 +7,12 @@
       <div class="music-content">
         <scroll-view
           class="scroll-view"
+          title="推荐歌单"
+          :hasDetails="true"
+          :musicData="personalizList"
+        ></scroll-view>
+        <scroll-view
+          class="scroll-view"
           title="新歌速递"
           :musicData="newSong"
           circle
@@ -18,13 +24,6 @@
           :hasDetails="true"
           :musicData="hotPlayList"
         ></scroll-view>
-        <scroll-view
-          class="scroll-view"
-          title="新碟上架"
-          :hasDetails="true"
-          :musicData="newAlbums"
-          circle
-        ></scroll-view>
       </div>
     </div>
   </div>
@@ -35,7 +34,7 @@ import ScrollView from "./components/ScrollView";
 import TopNav from "@/components/TopNav";
 import Banner from "@/components/Banner";
 import BtnNav from "./components/BtnNav";
-import { getSongs, getPlayList, getAlbums } from "@/untils";
+import { getSongs, getPlayList, getpersonalizList } from "@/untils";
 import { mapMutations } from "vuex";
 export default {
   name: "home",
@@ -48,13 +47,13 @@ export default {
   data() {
     return {
       newSong: [],
-      newAlbums: [],
+      personalizList: [],
       hotPlayList: []
     };
   },
   created() {
     this.getNewSong();
-    this.getNewAlbums();
+    this.getPlList();
     this.getHotPlayList();
   },
   methods: {
@@ -64,9 +63,9 @@ export default {
         this.newSong = getSongs(res.data.result).splice(0, 6);
       });
     },
-    getNewAlbums() {
-      this.axios("top/album?offset=0&limit=6").then(res => {
-        this.newAlbums = getAlbums(res.data.albums);
+    getPlList() {
+      this.axios("personalized").then(res => {
+        this.personalizList = getpersonalizList(res.data.result).splice(0, 6);
       });
     },
     getHotPlayList() {

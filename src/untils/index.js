@@ -13,19 +13,18 @@ let getSongs = data => {
   return songs;
 };
 
-let getAlbums = data => {
-  let albums = [];
+let getpersonalizList = data => {
+  let list = [];
   let item = {};
   for (const i of data) {
     item = {
       songName: i.name,
       id: i.id,
-      singer: i.artist.name,
-      picUrl: i.blurPicUrl
+      picUrl: i.picUrl
     };
-    albums.push(item);
+    list.push(item);
   }
-  return albums;
+  return list;
 };
 
 let getPlayList = data => {
@@ -121,7 +120,7 @@ let setMusic = song => {
 export {
   getSongs,
   getPlayList,
-  getAlbums,
+  getpersonalizList,
   getsinger,
   playListDetail,
   setMusic
