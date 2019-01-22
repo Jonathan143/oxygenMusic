@@ -2,8 +2,18 @@
   <div class="song-list">
     <md-field class="field">
       <ul class="play-list">
+        <li class="play-item top-item">
+          <div class="play-all" @click="playAll">
+            <i class="iconfont icon-playing"></i>
+            <p class="text">播放全部<span class="sub-text">{{listLength}}</span></p>
+          </div>
+          <div class="collection">
+            <i class="iconfont icon-add"></i>
+            <p class="text">收藏</p>
+          </div>
+        </li> 
         <li
-          class="play-item ripple"
+          class="play-item"
           v-for="(music,idx) in listdata"
           :key="idx"
           @click="playMusic(music)"
@@ -25,7 +35,7 @@
       position="top"
     >
       <div class="popup-info">
-        暂无后续逻辑，更多操作敬请期待
+        暂无后续逻辑
       </div>
     </md-popup>
   </div>
@@ -46,14 +56,20 @@ export default {
   },
   data() {
     return {
-      isPopupShow: false
+      isPopupShow: false,
+      listLength: ''
     }
   },
   computed: {
     ...mapState(['playingId'])
   },
+  watch: {
+    listdata() {
+      this.listLength = `(共${this.listdata.length}首)`
+    }
+  },
   methods: {
-    ...mapMutations(["addMusic"]),
+    ...mapMutations(['addMusic','changePlayList']),
     playMusic(music) {
         let playList = setMusic(music);
         this.addMusic(playList);
@@ -63,6 +79,14 @@ export default {
       setTimeout(() => {
         this.isPopupShow = false;
       }, 2000);
+    },
+    playAll() {
+      let playList = [];
+      for (const item of this.listdata) {
+        let music = setMusic(item);
+        playList.push(music)
+      }
+      this.changePlayList(playList)
     }
   },
 };
@@ -82,7 +106,7 @@ export default {
     border-bottom 1px solid $divider
     box-sizing border-box
     .iconfont
-      font-size 36px
+      font-size 40px
     .icon-yinliang
       color $defColor
     .idx
@@ -108,6 +132,46 @@ export default {
     .icon-btn_more
       margin-right -20px
       padding 10px 20px;
+  .top-item
+    margin 0 -20px
+    border 1px solid $divider
+    border-radius 24px 24px 0 0
+    display flex
+    justify-content space-between
+    box-sizing border-box
+    height 80px
+    .play-all
+      display flex
+      flex 1
+      height 100%
+      align-items center
+      padding-left 20px
+      border-radius 24px 0 0 0
+      .icon-playing
+        color $titleColor
+        font-weight 500
+    .text
+      color $titleColor
+      font-weight 500
+      margin-left 20px
+      font-size 26px
+      letter-spacing 1px
+      .sub-text
+        font-size 24px
+    .collection
+      display flex
+      align-items center
+      width 160px
+      height 100%
+      background-color $themeColor
+      border-radius 0 24px 0 0
+      justify-content center
+      .icon-add
+        color #ffffff
+        font-size 28px
+      .text
+        color #fff
+        margin-left 10px
   .playing
     .info
       .name, .singer
@@ -118,5 +182,5 @@ export default {
   height 80px
   line-height 80px
   text-align center 
-  background-color $defColor
+  background-color #919191
 </style>

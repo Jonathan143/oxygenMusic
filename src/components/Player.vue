@@ -227,5 +227,5 @@ export default {
       .icon-yinliang, .name, .singer
         color $defColor
       .icon-yinliang
-        display block
+        display block !important
 </style>

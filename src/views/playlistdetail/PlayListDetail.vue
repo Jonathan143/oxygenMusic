@@ -82,7 +82,7 @@ export default {
         this.avatarUrl = this.listDetail.creator.avatarUrl;
         this.nickname = this.listDetail.creator.nickname;
       });
-    },
+    }
   },
   created() {
     this.getListDetail();

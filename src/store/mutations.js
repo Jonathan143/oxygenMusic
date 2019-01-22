@@ -32,9 +32,15 @@ let delMusic = (state, id) => {
 let changePlayingId = (state, id) => {
   state.playingId = id;
 };
+
+let changePlayList = (state, list) => {
+  state.playList = list;
+  localStorage.setItem(`playList`, JSON.stringify(state.playList));
+};
 export default {
   clearPlayList,
   addMusic,
   delMusic,
-  changePlayingId
+  changePlayingId,
+  changePlayList
 };

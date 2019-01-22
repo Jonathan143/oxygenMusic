@@ -24,6 +24,7 @@ export default {
 
 <style lang=stylus scoped>
 @import '~styles/varibles.styl';
+@import '~styles/mixins.styl';
 .back-nav-container
   display flex
   font-size 32px
@@ -41,6 +42,7 @@ export default {
     &:hover
       background-color rgba(0,0,0,.2)
   .title
-    margin-left 20px
+    margin 0 20px
     color #fff
+    ellipsis()
 </style>

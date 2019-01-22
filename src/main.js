@@ -7,6 +7,9 @@ import "@/assets/styles/glob.styl";
 import Axios from "axios";
 import VueLazyload from "vue-lazyload";
 import APlayer from "@moefe/vue-aplayer";
+import fastclick from "fastclick";
+
+fastclick.attach(document.body);
 
 Vue.use(APlayer, {
   defaultCover:
@@ -14,8 +17,8 @@ Vue.use(APlayer, {
   productionTip: false
 });
 
-Axios.defaults.baseURL = "https://api.yang143.cn/";
-// Axios.defaults.baseURL = "http://api.hejinkang.cn/";
+// Axios.defaults.baseURL = "https://api.yang143.cn/";
+Axios.defaults.baseURL = "http://api.hejinkang.cn/";
 Vue.prototype.axios = Axios;
 Vue.config.productionTip = false;
 
