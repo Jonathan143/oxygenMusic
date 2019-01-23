@@ -9,7 +9,8 @@
         v-show="isLoading"
       >
         <md-activity-indicator
-          :size="66"
+          type="carousel"
+          :size="36"
           :text-size="36"
           color="#9025fc"
           text-color="#9025fc"
@@ -44,7 +45,7 @@ import { mapState } from "vuex";
 export default {
   components: {
     Player,
-    [ActivityIndicator.name]: ActivityIndicator
+    "md-activity-indicator": ActivityIndicator
   },
   computed: {
     ...mapState(["isPlayerShow", "isLoading"])

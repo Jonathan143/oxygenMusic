@@ -158,6 +158,7 @@ export default {
             height 4px
           .aplayer-played
             background-color rgb(144, 37, 252) !important
+            height 4px
             .aplayer-thumb
               height 16px
               width 16px

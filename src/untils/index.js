@@ -117,11 +117,27 @@ let setMusic = song => {
   };
   return music;
 };
+
+let getMusicList = data => {
+  let songs = [];
+  let item = {};
+  for (const i of data) {
+    item = {
+      songName: i.name,
+      id: i.id,
+      singer: i.artists[0].name,
+      picUrl: i.album.picUrl
+    };
+    songs.push(item);
+  }
+  return songs;
+};
 export {
   getSongs,
   getPlayList,
   getpersonalizList,
   getsinger,
   playListDetail,
-  setMusic
+  setMusic,
+  getMusicList
 };

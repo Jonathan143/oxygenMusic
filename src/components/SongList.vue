@@ -192,5 +192,5 @@ export default {
   height 80px
   line-height 80px
   text-align center
-  background-color #919191
+  background-color #2db7f5
 </style>

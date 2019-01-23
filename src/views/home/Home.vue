@@ -7,9 +7,10 @@
       <div class="music-content">
         <scroll-view
           class="scroll-view"
-          title="推荐歌单"
+          title="热门歌单"
+          multi
           :hasDetails="true"
-          :musicData="personalizList"
+          :musicData="hotPlayList"
         ></scroll-view>
         <scroll-view
           class="scroll-view"
@@ -19,10 +20,10 @@
         ></scroll-view>
         <scroll-view
           class="scroll-view"
-          title="热门歌单"
+          title="最新歌单"
           multi
           :hasDetails="true"
-          :musicData="hotPlayList"
+          :musicData="newPlayList"
         ></scroll-view>
       </div>
     </div>
@@ -34,7 +35,7 @@ import ScrollView from "./components/ScrollView";
 import TopNav from "@/components/TopNav";
 import Banner from "@/components/Banner";
 import BtnNav from "./components/BtnNav";
-import { getSongs, getPlayList, getpersonalizList } from "@/untils";
+import { getSongs, getPlayList } from "@/untils";
 import { mapMutations } from "vuex";
 export default {
   name: "home",
@@ -47,25 +48,25 @@ export default {
   data() {
     return {
       newSong: [],
-      personalizList: [],
+      newPlayList: [],
       hotPlayList: []
     };
   },
   created() {
     this.getNewSong();
-    this.getPlList();
+    this.getNewPlayList();
     this.getHotPlayList();
   },
   methods: {
     ...mapMutations(['closeLoading']),
     getNewSong() {
-      this.axios("personalized/newsong?limit=6").then(res => {
+      this.axios("personalized/newsong").then(res => {
         this.newSong = getSongs(res.data.result).splice(0, 6);
       });
     },
-    getPlList() {
-      this.axios("personalized").then(res => {
-        this.personalizList = getpersonalizList(res.data.result).splice(0, 6);
+    getNewPlayList() {
+      this.axios("top/playlist?limit=6&order=new").then(res => {
+        this.newPlayList = getPlayList(res.data.playlists);
       });
     },
     getHotPlayList() {

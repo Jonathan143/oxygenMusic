@@ -1,8 +1,16 @@
 <template>
   <div class="scroll-view">
     <div class="top-container">
-      <h2 class="title">{{title}}</h2>
-      <md-icon name="arrow-right" class="arrow-icon"></md-icon>
+      <h2
+        class="title"
+        @click="loadMore"
+      >{{title}}</h2>
+      <md-icon
+        name="arrow-right"
+        class="arrow-icon"
+        @click="loadMore"
+      ></md-icon>
+
     </div>
     <div class="scroll-view-list">
       <div
@@ -11,12 +19,20 @@
         :key="song.id "
         @click="playMusic(song)"
       >
-        <img
-          class="item-img"
-          v-lazy="song.picUrl"
-          alt=""
-          :class="{circle:circle}"
-        >
+        <div class="bg">
+          <img
+            class="img"
+            v-lazy="song.picUrl"
+            alt=""
+            :class="{circle:circle}"
+          >
+          <img
+            class="item-img"
+            v-lazy="song.picUrl"
+            alt=""
+            :class="{circle:circle}"
+          >
+        </div>
         <p
           class="item-title"
           :class="[multi?'multi-ellipsis':'ellipsis']"
@@ -29,7 +45,7 @@
 
 <script>
 import { ScrollView, Icon } from "mand-mobile";
-import { mapMutations, mapState } from "vuex";
+import { mapMutations } from "vuex";
 import { setMusic } from "@/untils";
 export default {
   props: {
@@ -59,19 +75,20 @@ export default {
     [Icon.name]: Icon
   },
   methods: {
-    ...mapMutations(['addMusic','openLoading']),
+    ...mapMutations(["addMusic", "openLoading"]),
     playMusic(song) {
       if (this.hasDetails) {
-        this.$router.push({ path: '/playlistdetail', query: { id: song.id }});
+        this.$router.push({ path: "/playlistdetail", query: { id: song.id } });
         this.openLoading();
       } else {
         let playList = setMusic(song);
         this.addMusic(playList);
       }
+    },
+    loadMore() {
+      this.$router.push({ path: "/moremusic", query: { title: this.title} });
+      this.openLoading();
     }
-  },
-  computed: {
-    ...mapState(["onPlaying"])
   }
 };
 </script>
@@ -102,14 +119,20 @@ export default {
     .scroll-view-item
       margin-top 20px
       font-size 22px
-      .item-img
+      .bg
+        position relative
         width 180px
         height 180px
-        border-radius 8px
-        box-shadow()
+        .item-img
+          width 180px
+          height 180px
+          border-radius 8px
+          bg-filter()
+        .img
+          filter()
       .item-title
         width 180px
-        margin-top 10px
+        margin-top 20px
         color $titleColor
         line-height 36px
         text-align center

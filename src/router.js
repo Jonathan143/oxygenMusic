@@ -20,6 +20,14 @@ export default new Router({
       meta: {
         KeepAlive: false
       }
+    },
+    {
+      path: "/moremusic",
+      name: "moremusic",
+      component: () => import("./views/moremusic/MoreMusic.vue"),
+      meta: {
+        KeepAlive: false
+      }
     }
   ]
 });
