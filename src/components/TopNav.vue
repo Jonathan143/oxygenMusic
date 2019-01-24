@@ -19,13 +19,13 @@
         </div>
       </template>
     </md-tab-bar>
-    <i class="iconfont icon icon-sousuo1  "></i>
+    <i @click="toSearch" class="iconfont icon icon-sousuo1"></i>
   </div>
 </template>
 
 <script>
 import { TabBar, Icon } from "mand-mobile";
-
+import { mapMutations } from "vuex";
 export default {
   name: "tab-bar-demo",
   components: {
@@ -43,8 +43,13 @@ export default {
     };
   },
   methods: {
+    ...mapMutations(['openLoading']),
     tabBarChange(item) {
       
+    },
+    toSearch() {
+      this.$router.push("/search");
+      this.openLoading();
     }
   }
 };

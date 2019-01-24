@@ -28,6 +28,14 @@ export default new Router({
       meta: {
         KeepAlive: false
       }
+    },
+    {
+      path: "/search",
+      name: "search",
+      component: () => import("./views/search/Search.vue"),
+      meta: {
+        KeepAlive: false
+      }
     }
   ]
 });

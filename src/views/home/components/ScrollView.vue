@@ -78,7 +78,7 @@ export default {
     ...mapMutations(["addMusic", "openLoading"]),
     playMusic(song) {
       if (this.hasDetails) {
-        this.$router.push({ path: "/playlistdetail", query: { id: song.id } });
+        this.$router.push({ path: "/playlistdetail", query: { id: song.id,title: song.songName }});
         this.openLoading();
       } else {
         let playList = setMusic(song);
@@ -129,7 +129,7 @@ export default {
           border-radius 8px
           bg-filter()
         .img
-          filter()
+          f-filter()
       .item-title
         width 180px
         margin-top 20px

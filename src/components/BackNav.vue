@@ -27,7 +27,7 @@ export default {
 @import '~styles/mixins.styl';
 .back-nav-container
   display flex
-  font-size 32px
+  font-size 30px
   height 100px
   box-sizing border-box
   align-items center
@@ -42,6 +42,7 @@ export default {
     &:hover
       background-color rgba(0,0,0,.2)
   .title
+    width 600px
     margin 0 20px
     color #fff
     ellipsis()

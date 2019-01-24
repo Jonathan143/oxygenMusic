@@ -2,11 +2,12 @@ let getSongs = data => {
   let songs = [];
   let item = {};
   for (const i of data) {
+    let picUrl = `${i.song.album.picUrl}?param=180y180`;
     item = {
       songName: i.name,
       id: i.id,
       singer: i.song.artists[0].name,
-      picUrl: i.song.album.blurPicUrl
+      picUrl: picUrl
     };
     songs.push(item);
   }
@@ -17,10 +18,11 @@ let getpersonalizList = data => {
   let list = [];
   let item = {};
   for (const i of data) {
+    let picUrl = `${i.picUrl}?param=180y180`;
     item = {
       songName: i.name,
       id: i.id,
-      picUrl: i.picUrl
+      picUrl: picUrl
     };
     list.push(item);
   }
@@ -31,10 +33,11 @@ let getPlayList = data => {
   let playList = [];
   let item = {};
   for (const i of data) {
+    let picUrl = `${i.coverImgUrl}?param=180y180`;
     item = {
       songName: i.name,
       id: i.id,
-      picUrl: i.coverImgUrl
+      picUrl: picUrl
     };
     playList.push(item);
   }
@@ -65,12 +68,13 @@ let playListDetail = data => {
   let item = {};
   let tracks = [];
   for (const t of data.tracks) {
+    let picUrl = `${t.al.picUrl}?param=180y180`;
     item = {
       songName: t.name, //歌名
       id: t.id,
       singer: t.ar[0].name, //歌手
       alName: t.al.name, //专辑名
-      picUrl: t.al.picUrl //歌曲图片
+      picUrl: picUrl //歌曲图片
     };
     tracks.push(item);
   }
@@ -122,15 +126,39 @@ let getMusicList = data => {
   let songs = [];
   let item = {};
   for (const i of data) {
+    let picUrl = `${i.album.picUrl}?param=180y180`;
     item = {
       songName: i.name,
       id: i.id,
       singer: i.artists[0].name,
-      picUrl: i.album.picUrl
+      picUrl: picUrl
     };
     songs.push(item);
   }
   return songs;
+};
+let getHotSearch = data => {
+  let hotTags = [];
+  for (const tag of data) {
+    hotTags.push(tag.first)
+  }
+  return hotTags;
+};
+let getSearchResult = data => {
+  let item = {};
+  let tracks = [];
+  for (const t of data) {
+    let picUrl = `${t.album.artist.imglvUrl}?param=180y180`;
+    item = {
+      songName: t.name, //歌名
+      id: t.id,
+      singer: t.artists[0].name, //歌手
+      alName: t.album.name, //专辑名
+      picUrl: picUrl //歌曲图片
+    };
+    tracks.push(item);
+  }
+  return tracks;
 };
 export {
   getSongs,
@@ -139,5 +167,7 @@ export {
   getsinger,
   playListDetail,
   setMusic,
-  getMusicList
+  getMusicList,
+  getHotSearch,
+  getSearchResult
 };

@@ -189,8 +189,8 @@ export default {
 .popup-info
   color #fff
   width 100%
-  height 80px
-  line-height 80px
+  height 100px
+  line-height 100px
   text-align center
-  background-color #2db7f5
+  background-color $themeColor
 </style>

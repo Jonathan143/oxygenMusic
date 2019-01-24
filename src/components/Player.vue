@@ -147,6 +147,7 @@ export default {
       box-sizing border-box
       .aplayer-music
         height 40px
+        width 500px
         .aplayer-title
           font-size 28px
         .aplayer-author

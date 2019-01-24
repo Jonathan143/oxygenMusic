@@ -1,6 +1,6 @@
 <template>
   <div class="play-list">
-    <back-nav title="歌单"></back-nav>
+    <back-nav :title="title"></back-nav>
     <div class="play-list-container">
       <div class="list-info">
         <img
@@ -74,7 +74,8 @@ export default {
     return {
       listDetail: {},
       avatarUrl: "",
-      nickname: ""
+      nickname: "",
+      title: '歌单'
     };
   },
   computed: {
@@ -95,6 +96,7 @@ export default {
     }
   },
   created() {
+    this.title += ` - ${this.$route.query.title}`
     this.getListDetail();
   }
 };
