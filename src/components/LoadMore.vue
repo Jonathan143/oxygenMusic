@@ -106,12 +106,13 @@ export default {
           }
           this.list = [...this.list, ...items];
           this.limit += 20;
-          if (this.limit >= 200) {
+          if (this.limit > 200) {
             this.isFinished = true;
           }
           if (this.limit == 40) {
             this.closeLoading();
           }
+          this.$refs.scrollView.finishLoadMore();
         });
       } else {
         this.loadMoreMusic();
@@ -129,9 +130,10 @@ export default {
       let items = this.musicList.slice(this.limit - 20, this.limit);
       this.list = [...this.list, ...items];
       this.limit += 20;
-      if (this.limit >= 100) {
+      if (this.limit > 100) {
         this.isFinished = true;
       }
+      this.$refs.scrollView.finishLoadMore();
     }
   },
   created() {
@@ -181,7 +183,7 @@ export default {
       color $subColor
       text-align center
 .loading-more
-  margin 20px 0 100px
+  margin 20px
   display flex
   justify-content center
   .carry-out
