@@ -122,6 +122,7 @@ export default {
     .aplayer-pic
       height 100px
       width 100px
+      background-color #fff !important
       .aplayer-play
         width 36px
         height 36px

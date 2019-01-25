@@ -64,8 +64,8 @@
       v-show="isLoading"
     >
       <md-activity-indicator
-        :size="48"
-        :text-size="32"
+        :size="56"
+        :text-size="36"
         text-color="#9025fc"
         color="#9025fc"
         vertical
@@ -156,6 +156,7 @@ export default {
       this.axios("search/hot").then(res => {
         this.hotTags = getHotSearch(res.data.result.hots);
         this.closeLoading();
+        this.$refs.search.focus();
       });
     },
     getHistoryTags() {
@@ -176,9 +177,6 @@ export default {
   created() {
     this.setHotTags();
     this.getHistoryTags();
-  },
-  mounted() {
-    this.$refs.search.focus();
   }
 };
 </script>

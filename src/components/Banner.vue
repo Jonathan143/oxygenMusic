@@ -2,6 +2,7 @@
   <div class="swp">
     <md-swiper
       transition="fade"
+      ref="swiper"
     >
       <md-swiper-item
         :key="idx"
@@ -9,7 +10,7 @@
       >
         <div class="banner-item">
           <img
-            :src="item.imageUrl"
+            v-lazy="item.imageUrl"
             alt=""
           >
         </div>
@@ -45,8 +46,7 @@ export default {
       }
       this.banner = imgs;
     });
-  },
-  methods: {}
+  }
 };
 </script>
 
@@ -54,7 +54,7 @@ export default {
 .swp
   width 100%
   height 320px
-  .md-swiper-item 
+  .md-swiper-item
     width 750px
   .banner-item
     float left

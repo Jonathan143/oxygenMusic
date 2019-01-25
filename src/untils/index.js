@@ -148,7 +148,7 @@ let getSearchResult = data => {
   let item = {};
   let tracks = [];
   for (const t of data) {
-    let picUrl = `${t.album.artist.imglvUrl}?param=180y180`;
+    let picUrl = `https://img-1256555015.file.myqcloud.com/2019/01/25/5c4a704d05904.png`;
     item = {
       songName: t.name, //歌名
       id: t.id,

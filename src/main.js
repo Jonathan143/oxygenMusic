@@ -19,6 +19,7 @@ Vue.use(APlayer, {
 
 Axios.defaults.baseURL = "https://api.yang143.cn/";
 // Axios.defaults.baseURL = "http://api.hejinkang.cn/";
+Axios.withCredentials = true;
 Vue.prototype.axios = Axios;
 Vue.config.productionTip = false;
 
