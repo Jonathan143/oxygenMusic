@@ -2,7 +2,7 @@
   <div class="home-container">
     <top-nav></top-nav>
     <div class="content">
-      <banner></banner>
+      <banner :banner="banner"></banner>
       <btn-nav></btn-nav>
       <div class="music-content">
         <scroll-view
@@ -49,16 +49,18 @@ export default {
     return {
       newSong: [],
       newPlayList: [],
-      hotPlayList: []
+      hotPlayList: [],
+      banner: []
     };
   },
   created() {
+    this.getBanner();
     this.getNewSong();
     this.getNewPlayList();
     this.getHotPlayList();
   },
   methods: {
-    ...mapMutations(['closeLoading']),
+    ...mapMutations(["closeLoading"]),
     getNewSong() {
       this.axios("personalized/newsong").then(res => {
         this.newSong = getSongs(res.data.result).splice(0, 6);
@@ -73,6 +75,20 @@ export default {
       this.axios("top/playlist?limit=6&order=hot").then(res => {
         this.hotPlayList = getPlayList(res.data.playlists);
         this.closeLoading();
+      });
+    },
+    getBanner() {
+      this.axios("banner").then(res => {
+        let imgs = [];
+        let banner = {};
+        for (const item of res.data.banners) {
+          banner = {
+            imageUrl: item.imageUrl,
+            targetId: item.targetId
+          };
+          imgs.push(banner);
+        }
+        this.banner = imgs;
       });
     }
   }

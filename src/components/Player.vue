@@ -68,7 +68,7 @@ export default {
   computed: {
     ...mapState(["playList", "onPlaying", "playingId"]),
     playType() {
-      return `列表循环(${this.playList.length})`
+      return `循环(${this.playList.length})`
     }
   },
   watch: {

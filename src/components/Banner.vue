@@ -2,7 +2,6 @@
   <div class="swp">
     <md-swiper
       transition="fade"
-      ref="swiper"
     >
       <md-swiper-item
         :key="idx"
@@ -28,25 +27,7 @@ export default {
     [Swiper.name]: Swiper,
     [SwiperItem.name]: SwiperItem
   },
-  data() {
-    return {
-      banner: []
-    };
-  },
-  created() {
-    this.axios("banner").then(res => {
-      let imgs = [];
-      let banner = {};
-      for (const item of res.data.banners) {
-        banner = {
-          imageUrl: item.imageUrl,
-          targetId: item.targetId
-        };
-        imgs.push(banner);
-      }
-      this.banner = imgs;
-    });
-  }
+  props: ['banner'],
 };
 </script>
 
