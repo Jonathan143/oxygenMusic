@@ -10,7 +10,7 @@ export default new Router({
       name: "home",
       component: Home,
       meta: {
-        KeepAlive: true
+        keepAlive: true
       }
     },
     {
@@ -18,7 +18,7 @@ export default new Router({
       name: "playlistdetail",
       component: () => import("./views/playlistdetail/PlayListDetail.vue"),
       meta: {
-        KeepAlive: false
+        keepAlive: false
       }
     },
     {
@@ -26,7 +26,7 @@ export default new Router({
       name: "moremusic",
       component: () => import("./views/moremusic/MoreMusic.vue"),
       meta: {
-        KeepAlive: false
+        keepAlive: false
       }
     },
     {
@@ -34,7 +34,7 @@ export default new Router({
       name: "search",
       component: () => import("./views/search/Search.vue"),
       meta: {
-        KeepAlive: false
+        keepAlive: false
       }
     }
   ]

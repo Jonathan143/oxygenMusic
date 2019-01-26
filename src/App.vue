@@ -20,9 +20,9 @@
     </transition>
     <div class="router-view">
       <keep-alive>
-        <router-view v-if="$route.meta.KeepAlive" />
+        <router-view v-if="$route.meta.keepAlive" />
       </keep-alive>
-      <router-view v-if="!$route.meta.KeepAlive" />
+      <router-view v-if="!$route.meta.keepAlive" />
     </div>
     <transition
       name="loading-transition"
