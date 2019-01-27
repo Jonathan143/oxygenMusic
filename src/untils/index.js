@@ -160,6 +160,22 @@ let getSearchResult = data => {
   }
   return tracks;
 };
+let getCatlist = data => {
+  let categoryArry = [[], [], [], [], []];
+  let item = {};
+  for (const cate of data.sub) {
+    item = {
+      name: cate.name,
+      hot: cate.hot
+    }
+    categoryArry[cate.category].push(item);
+  }
+  let allCategory = {
+    categories: data.categories,
+    categoryArry: categoryArry,
+  }
+  return allCategory;
+};
 export {
   getSongs,
   getPlayList,
@@ -169,5 +185,6 @@ export {
   setMusic,
   getMusicList,
   getHotSearch,
-  getSearchResult
+  getSearchResult,
+  getCatlist
 };

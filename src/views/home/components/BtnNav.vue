@@ -5,7 +5,7 @@
       :key="idx"
       class="btn-nav-item"
     >
-      <div class="icon-btn">
+      <div class="icon-btn" @click="changeRouter(item.path)">
         <i
           class="iconfont"
           :class="item.icon"
@@ -17,18 +17,22 @@
 </template>
 
 <script>
+import {mapMutations} from 'vuex';
 const iconBtn = [
   {
     icon: "icon-playlist",
-    text: "歌单"
+    text: "歌单",
+    path: "/playlist"
   },
   {
     icon: "icon-singer",
-    text: "歌手"
+    text: "歌手",
+    path: "/playlist"
   },
   {
     icon: "icon-toplist2",
-    text: "排行榜"
+    text: "排行榜",
+    path: "/playlist"
   }
 ];
 export default {
@@ -36,7 +40,14 @@ export default {
     return {
       iconBtn: [...iconBtn]
     };
-  }
+  },
+  methods: {
+    ...mapMutations(['openLoading']),
+    changeRouter(path) {
+      this.openLoading();
+      this.$router.push(path);
+    }
+  },
 };
 </script>
 

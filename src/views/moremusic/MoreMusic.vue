@@ -46,7 +46,7 @@ export default {
           this.url = "top/playlist?order=new&limit=";
           break;
         default:
-          console.log(2);
+          this.url = `top/playlist?cat=${this.$route.query.title}&order=hot&limit=`;
           break;
       }
     }

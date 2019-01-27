@@ -86,8 +86,8 @@ export default {
       }
     },
     loadMore() {
-      this.$router.push({ path: "/moremusic", query: { title: this.title} });
       this.openLoading();
+      this.$router.push({ path: "/moremusic", query: { title: this.title} });
     }
   }
 };

@@ -36,6 +36,14 @@ export default new Router({
       meta: {
         keepAlive: false
       }
+    },
+    {
+      path: "/playlist",
+      name: "playlist",
+      component: () => import("./views/playlist/PlayList.vue"),
+      meta: {
+        keepAlive: true
+      }
     }
   ]
 });
