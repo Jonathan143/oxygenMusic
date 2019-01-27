@@ -176,6 +176,30 @@ let getCatlist = data => {
   }
   return allCategory;
 };
+
+let getArtists = data => {
+  let artists = [];
+  let art = {};
+  for (const i of data) {
+    let alias = ``;
+    let picUrl = `${i.picUrl}?param=180y180`;
+    if (i.alias.length != 0) {
+      alias = i.alias[0];
+    }
+    art = {
+      id: i.id,
+      name: i.name,
+      alias: alias,
+      picUrl: picUrl,
+      albumSize: i.albumSize,
+      musicSize: i.musicSize,
+      score: i.score
+    };
+    artists.push(art);
+  }
+  return artists;
+};
+
 export {
   getSongs,
   getPlayList,
@@ -186,5 +210,6 @@ export {
   getMusicList,
   getHotSearch,
   getSearchResult,
-  getCatlist
+  getCatlist,
+  getArtists
 };

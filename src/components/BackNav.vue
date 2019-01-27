@@ -32,6 +32,7 @@ export default {
   box-sizing border-box
   align-items center
   background-color #928ffa
+  z-index 999
   .btn
     width 56px
     height 56px

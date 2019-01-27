@@ -92,12 +92,12 @@ export default {
       });
     }
   },
-  beforeRouteEnter (to, from, next) {
-    if (from.path !='/search') {
-      to.meta.keepAlive = true;
-    }
-    next();
-  },
+  // beforeRouteEnter (to, from, next) {
+  //   if (from.path !='/search') {
+  //     to.meta.keepAlive = true;
+  //   }
+  //   next();
+  // },
 };
 </script>
 

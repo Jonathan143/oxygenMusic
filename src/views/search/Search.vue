@@ -178,14 +178,14 @@ export default {
     this.setHotTags();
     this.getHistoryTags();
   },
-  beforeRouteLeave(to, from, next) {
-    to.meta.keepAlive = false; // B 跳转到 A 时，让 A 缓存，即不刷新
-    next();
-  }
+  // beforeRouteLeave(to, from, next) {
+  //   to.meta.keepAlive = false; // B 跳转到 A 时，让 A 缓存，即不刷新
+  //   next();
+  // }
 };
 </script>
 
-<style lang='stylus'>
+<style lang='stylus' scoped>
 @import '~styles/mixins.styl'
 @import '~styles/varibles.styl'
 
@@ -197,7 +197,7 @@ export default {
   .search-input
     width 90%
     margin 0 auto
-    .md-field-item-content
+    >>>.md-field-item-content
       &::before
         background-color $themeColor !important
       .md-field-item-title

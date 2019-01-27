@@ -45,7 +45,7 @@ export default {
 };
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 .hot-container
   .title-container
     display flex
@@ -60,7 +60,7 @@ export default {
   .tags
     display flex
     flex-wrap wrap
-    .md-tag
+    >>>.md-tag
       margin 20px 24px 0 0
       .default
         padding 8px 12px !important

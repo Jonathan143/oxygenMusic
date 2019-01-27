@@ -27,7 +27,7 @@ const iconBtn = [
   {
     icon: "icon-singer",
     text: "歌手",
-    path: "/playlist"
+    path: "/artist"
   },
   {
     icon: "icon-toplist2",

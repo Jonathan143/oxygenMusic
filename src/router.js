@@ -44,6 +44,14 @@ export default new Router({
       meta: {
         keepAlive: true
       }
+    },
+    {
+      path: "/artist",
+      name: "artist",
+      component: () => import("./views/artist/Artist.vue"),
+      meta: {
+        keepAlive: false
+      }
     }
   ]
 });
