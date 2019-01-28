@@ -191,8 +191,6 @@ let getArtists = data => {
       name: i.name,
       alias: alias,
       picUrl: picUrl,
-      albumSize: i.albumSize,
-      musicSize: i.musicSize,
       score: i.score
     };
     artists.push(art);

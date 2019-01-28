@@ -162,7 +162,7 @@ export default {
         display flex
         justify-content space-around
         align-items center
-        box-shadow()
+        box-s()
         .operat-item
           text-align center
           .iconfont

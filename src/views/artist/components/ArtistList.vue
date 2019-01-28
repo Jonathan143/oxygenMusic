@@ -1,15 +1,22 @@
 <template>
   <div class="artist-list-container">
-    <div class="artist-item" v-for="(art,idx) in 99" :key="idx">
-      <img
-        class="avatar"
-        src="https://imgavater.ui.cn/avatar/3/0/5/4/934503.jpg?imageMogr2/auto-orient/crop/!748x748a0a1/thumbnail/148x148"
-        alt=""
-      >
+    <div
+      class="artist-item"
+      v-for="art in artistlist"
+      :key="art.id"
+      @click="onArtist(art.id)"
+    >
+      <div class="art-img">
+        <img
+          class="avatar"
+          v-lazy="art.picUrl"
+          alt=""
+        >
+      </div>
       <div class="right-box">
         <div class="info">
-          <p class="name">木子...页</p>
-          <p class="score"><i class="iconfont icon-hot-fire"></i>213134</p>
+          <p class="name">{{art.name}} <span class="art-alias" v-if="art.alias != ''">({{art.alias}})</span></p>
+          <p class="score"><i class="iconfont icon-hot-fire"></i>{{art.score}}</p>
         </div>
         <i class="iconfont icon-arrow-right"></i>
       </div>
@@ -18,41 +25,56 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    artistlist: Array,
+  },
+  methods: {
+    onArtist(id) {
+      this.$emit('onartist',id)
+    }
+  }
+};
 </script>
 
 <style lang="stylus" scoped>
-@import '~styles/mixins.styl';
+@import '~styles/mixins.styl'
+
 .iconfont
   font-size 32px
 .artist-list-container
   font-size 24px
   padding 20px
-  background-color #fff
-  height 100%
   box-sizing border-box
   .artist-item
     display flex
-    align-items flex-end
+    align-items center
     margin-bottom 20px
+    background-color #eee
+    border-radius 12px
+    padding 8px
+    box-sizing border-box
+    box-shadow inset 0 0.12rem 0.3rem 0 rgba(55,56,56,0.2)
     .avatar
-      width 120px
-      height 120px
+      width 100px
+      height 100px
       border-radius 50%
       z-index 1
+      margin-right 12px
+      box-shadow 0 0.2rem 0.5rem 0 rgba(55,56,56,0.5)
     .right-box
       width 100%
       display flex
       align-items center
       justify-content space-between
-      background-color #e8eaec
-      padding 12px 4px 12px 60px
-      box-sizing border-box
-      margin-left -50px
-      border-radius 12px
       .name
+        max-width 560px
         font-size 26px
         margin-bottom 8px
+        margin-left 4px
+        ellipsis()
+        .art-alias
+          font-size 22px
       .icon-hot-fire
         color #ff3d00
         margin-right 4px

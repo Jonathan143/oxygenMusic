@@ -50,8 +50,13 @@ export default new Router({
       name: "artist",
       component: () => import("./views/artist/Artist.vue"),
       meta: {
-        keepAlive: false
+        keepAlive: true
       }
+    },
+    {
+      path: "artistdetail",
+      name: "artistdetail",
+      component: () => import("./views/artist/children/ArtistDetail.vue"),
     }
   ]
 });
