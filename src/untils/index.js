@@ -1,3 +1,4 @@
+//首页新歌速递
 let getSongs = data => {
   let songs = [];
   let item = {};
@@ -14,6 +15,7 @@ let getSongs = data => {
   return songs;
 };
 
+//首页个性推荐列表
 let getpersonalizList = data => {
   let list = [];
   let item = {};
@@ -63,6 +65,7 @@ let getsinger = data => {
   return singer;
 };
 
+//歌单详情列表
 let playListDetail = data => {
   let playList = {};
   let item = {};
@@ -101,6 +104,7 @@ let playListDetail = data => {
   return playList;
 };
 
+//格式化数字
 let checkCount = v => {
   if (v > 10000) {
     let sv = v.toString();
@@ -109,6 +113,8 @@ let checkCount = v => {
     return v;
   }
 };
+
+//设置播放器音乐源
 let setMusic = song => {
   let music = {};
   let url = `https://music.163.com/song/media/outer/url?id=${song.id}.mp3`;
@@ -137,6 +143,8 @@ let getMusicList = data => {
   }
   return songs;
 };
+
+//热搜标签
 let getHotSearch = data => {
   let hotTags = [];
   for (const tag of data) {
@@ -144,6 +152,8 @@ let getHotSearch = data => {
   }
   return hotTags;
 };
+
+//获取搜索结果
 let getSearchResult = data => {
   let item = {};
   let tracks = [];
@@ -160,8 +170,16 @@ let getSearchResult = data => {
   }
   return tracks;
 };
+
+//歌单分类列表
 let getCatlist = data => {
-  let categoryArry = [[], [], [], [], []];
+  let categoryArry = [
+    [],
+    [],
+    [],
+    [],
+    []
+  ];
   let item = {};
   for (const cate of data.sub) {
     item = {
@@ -177,6 +195,7 @@ let getCatlist = data => {
   return allCategory;
 };
 
+//获取歌手榜
 let getArtists = data => {
   let artists = [];
   let art = {};
@@ -198,6 +217,42 @@ let getArtists = data => {
   return artists;
 };
 
+//获取歌手部分信息和热门歌曲
+let getArtistDetail = data => {
+  let alias = ``;
+  if (data.artist.alias.length != 0) {
+    alias = data.artist.alias[0];
+  }
+  let picUrl = `${data.artist.picUrl}?param=400y400`;
+  let artist = {
+    alias: alias,
+    picUrl: picUrl,
+    id: data.artist.id,
+    name: data.artist.name,
+    albumSize: data.artist.albumSize,
+    musicSize: data.artist.musicSize,
+    briefDesc: data.artist.briefDesc
+  }
+  let hotSongs = [];
+  let item = {};
+  for (const i of data.hotSongs) {
+    let picUrl = `${i.al.picUrl}?param=180y180`;
+    item = {
+      songName: i.name,
+      id: i.id,
+      singer: i.ar[0].name,
+      alName: i.al.name,
+      picUrl: picUrl
+    };
+    hotSongs.push(item);
+  }
+  let artDetail = {
+    artist: artist,
+    hotSongs: hotSongs
+  };
+  return artDetail;
+};
+
 export {
   getSongs,
   getPlayList,
@@ -209,5 +264,6 @@ export {
   getHotSearch,
   getSearchResult,
   getCatlist,
-  getArtists
+  getArtists,
+  getArtistDetail
 };

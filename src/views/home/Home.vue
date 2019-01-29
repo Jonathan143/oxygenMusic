@@ -1,6 +1,6 @@
 <template>
   <div class="home-container">
-    <top-nav></top-nav>
+    <top-nav class="top-nav"></top-nav>
     <div class="content">
       <banner :banner="banner"></banner>
       <btn-nav></btn-nav>
@@ -102,13 +102,5 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.home-container
-  height 100%
-  display flex
-  flex-direction column
-  .content
-    flex 1
-    overflow auto
-  .scroll-view
-    margin-bottom 20px
+  
 </style>

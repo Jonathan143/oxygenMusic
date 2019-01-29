@@ -75,7 +75,8 @@ export default {
       listDetail: {},
       avatarUrl: "",
       nickname: "",
-      title: '歌单'
+      title: '歌单',
+      timer: 0
     };
   },
   computed: {
@@ -93,11 +94,29 @@ export default {
         this.nickname = this.listDetail.creator.nickname;
         this.closeLoading();
       });
+    },
+    handleScroll() {   
+      let now = Date.now();
+      if (now - this.timer > 100) {
+        const top = document.documentElement.scrollTop;
+        if (top > 200) {
+          this.title = `歌单 - ${this.$route.query.title}`;
+        }else {
+          this.title = '歌单';
+        }
+        this.timer = now;
+      }
     }
   },
   created() {
-    this.title += ` - ${this.$route.query.title}`
+    // this.title += ` - ${this.$route.query.title}`
     this.getListDetail();
+  },
+  mounted() {
+    window.addEventListener("scroll", this.handleScroll);
+  },
+  destroyed() {
+    window.removeEventListener("scroll", this.handleScroll);
   }
 };
 </script>
@@ -106,14 +125,8 @@ export default {
 @import '~styles/mixins.styl'
 
 .play-list
-  height 100%
-  display flex
-  flex-direction column
   .play-list-container
     font-size 28px
-    flex 1
-    overflow-y auto
-    overflow-x hidden
     background-color #fff
     .list-info
       width 100%
@@ -121,6 +134,7 @@ export default {
       background-color #928ffa
       display flex
       position relative
+      box-sizing border-box
       .list-img
         width 220px
         height 220px

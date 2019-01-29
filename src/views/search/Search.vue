@@ -190,9 +190,6 @@ export default {
 @import '~styles/varibles.styl'
 
 .search-container
-  height 100%
-  display flex
-  flex-direction column
   background-color #fff
   .search-input
     width 90%
@@ -211,9 +208,6 @@ export default {
         font-weight 600
         color $themeColor
   .search
-    flex 1
-    overflow-x hidden
-    overflow-y scroll
     .search-tags
       padding 0 20px
       .hot-tags, .history-tags

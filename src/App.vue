@@ -35,6 +35,7 @@
         <player></player>
       </div>
     </transition>
+    <div class="player-zw"></div>
   </div>
 </template>
 
@@ -54,15 +55,10 @@ export default {
 </script>
 <style lang="stylus" scoped>
 @import '~styles/varibles.styl'
+@import '~styles/mixins.styl'
 
 #app
-  height 100%
   background-color $bgColor
-  display flex
-  flex-direction column
-  .router-view
-    flex 1
-    overflow auto
   .loading-container
     display flex
     align-items center
@@ -70,9 +66,16 @@ export default {
     position absolute
     width 100%
     height 100%
-    z-index 999
+    z-index 9999
     background-color #fff
   .bottom-player
+    position fixed
+    width 100%
+    bottom 0
+    left 0
     font-size 28px
+    background-color #fff
+  .player-zw
+    height 100px
     background-color #fff
 </style>

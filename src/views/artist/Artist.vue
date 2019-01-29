@@ -24,30 +24,30 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['closeLoading']),
+    ...mapMutations(['closeLoading','openLoading']),
     getArtistList() {
       this.axios('toplist/artist').then(res => {
         this.artistList = getArtists(res.data.list.artists);
         this.closeLoading();
+        sessionStorage.setItem('isArtLoading',true);
       })
     },
-    toArtistDetail(id) {
-      this.$router.push({ name: 'artistdetail', query: { id: id }})
+    toArtistDetail(art) {
+      this.openLoading();
+      this.$router.push({ name: 'artistdetail', query: { id: art.id, name: art.name }})
     }
   },
   created() {
     this.getArtistList();
   },
   activated() {
-    this.closeLoading();
+    if(sessionStorage.isArtLoading){
+      this.closeLoading();
+    }
   },
 }
 </script>
 
 <style lang="stylus" scoped>
-@import "~styles/mixins.styl";
-.artist-container
-  flex-container()
-  .artist-list
-    flex-content()
+
 </style>

@@ -32,6 +32,10 @@ export default {
   box-sizing border-box
   align-items center
   background-color #928ffa
+  position sticky
+  top 0
+  left 0
+  width 100%
   z-index 999
   .btn
     width 56px
@@ -39,12 +43,11 @@ export default {
     line-height 56px
     border-radius 50%
     text-align center
-    margin-left 10px
-    &:hover
-      background-color rgba(0,0,0,.2)
+    margin 0 10px
+    background-color $themeColor
   .title
-    width 600px
-    margin 0 20px
+    max-width 660px
+    font-size 26px
     color #fff
     ellipsis()
 </style>

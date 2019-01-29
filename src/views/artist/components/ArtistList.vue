@@ -4,7 +4,7 @@
       class="artist-item"
       v-for="art in artistlist"
       :key="art.id"
-      @click="onArtist(art.id)"
+      @click="onArtist(art)"
     >
       <div class="art-img">
         <img
@@ -30,8 +30,8 @@ export default {
     artistlist: Array,
   },
   methods: {
-    onArtist(id) {
-      this.$emit('onartist',id)
+    onArtist(art) {
+      this.$emit('onartist',art)
     }
   }
 };

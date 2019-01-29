@@ -55,13 +55,5 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.play-list-container
-  display flex
-  height 100%
-  flex-direction column
-  .catlist
-    flex 1
-    overflow-x hidden
-    overflow-y scroll
-    padding-bottom 20px
+
 </style>

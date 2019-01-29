@@ -65,6 +65,12 @@ export default {
     justify-content space-between
     align-items center
     padding 0 20px
+    position sticky
+    top 0
+    left 0
+    width 100%
+    box-sizing border-box
+    z-index 999
     .md-tab-bar
       width 50%
       padding 0

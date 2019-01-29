@@ -55,13 +55,5 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.more-music-container
-  height 100%
-  display flex
-  flex-direction column
-  .more-music-loading
-    // height calc(1334px - 100px)
-    flex 1
-    overflow-x height 
-    overflow-y scroll
+
 </style>

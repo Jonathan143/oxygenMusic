@@ -39,7 +39,7 @@ export default {
 
 <style lang="stylus" scoped>
 .hot-container
-  padding 0 20px
+  padding 0 20px 20px
   .title
     margin-top 28px
     font-size 28px

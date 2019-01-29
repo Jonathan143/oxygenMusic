@@ -119,10 +119,12 @@ export default {
 
 .player-container
   .aplayer
+    margin 0  
     .aplayer-pic
       height 100px
       width 100px
       background-color #fff !important
+      border-radius 8px
       .aplayer-play
         width 36px
         height 36px

@@ -1,5 +1,5 @@
 <template>
-  <div class="load-more-container">
+  <div class="load-more-container" :style="{height: `calc(${cHeight}px - 2rem)`}">
     <md-scroll-view
       ref="scrollView"
       :scrolling-x="false"
@@ -80,7 +80,8 @@ export default {
       list: [],
       isFinished: false,
       limit: 20,
-      musicList: []
+      musicList: [],
+      cHeight: 0
     };
   },
   methods: {
@@ -142,6 +143,9 @@ export default {
     } else {
       this.getMusicList();
     }
+  },
+  mounted() {
+    this.cHeight = document.documentElement.clientHeight;
   }
 };
 </script>
@@ -152,6 +156,7 @@ export default {
 
 .load-more-container
   padding 0 20px
+  box-sizing border-box
 .scroll-view-list
   display flex
   flex-wrap wrap
