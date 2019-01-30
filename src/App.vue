@@ -35,7 +35,7 @@
         <player></player>
       </div>
     </transition>
-    <div class="player-zw"></div>
+    <div v-show="isPlayerShow" class="player-zw"></div>
   </div>
 </template>
 

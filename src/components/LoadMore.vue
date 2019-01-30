@@ -1,5 +1,8 @@
 <template>
-  <div class="load-more-container" :style="{height: `calc(${cHeight}px - 2rem)`}">
+  <div
+    class="load-more-container"
+    :style="{height: cHeight}"
+  >
     <md-scroll-view
       ref="scrollView"
       :scrolling-x="false"
@@ -53,7 +56,7 @@
 <script>
 import { ScrollView, ActivityIndicator } from "mand-mobile";
 import { getMusicList, getPlayList, setMusic } from "@/untils";
-import { mapMutations } from "vuex";
+import { mapMutations, mapState } from "vuex";
 export default {
   name: "load-more",
   components: {
@@ -84,11 +87,17 @@ export default {
       cHeight: 0
     };
   },
+  computed: {
+    ...mapState(["isPlayerShow"])
+  },
   methods: {
     ...mapMutations(["addMusic", "openLoading", "closeLoading"]),
     playMusic(song) {
       if (this.hasDetails) {
-        this.$router.push({ path: "/playlistdetail", query: { id: song.id, title: song.songName } });
+        this.$router.push({
+          path: "/playlistdetail",
+          query: { id: song.id, title: song.songName }
+        });
         this.openLoading();
       } else {
         let playList = setMusic(song);
@@ -145,7 +154,12 @@ export default {
     }
   },
   mounted() {
-    this.cHeight = document.documentElement.clientHeight;
+    let clientHeight = document.documentElement.clientHeight;
+    if (this.isPlayerShow) {
+      this.cHeight = `calc(${clientHeight}px - 2rem)`;
+    } else {
+      this.cHeight = `calc(${clientHeight}px - 1rem)`;
+    }
   }
 };
 </script>

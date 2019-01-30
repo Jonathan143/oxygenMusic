@@ -75,8 +75,8 @@ export default {
       listDetail: {},
       avatarUrl: "",
       nickname: "",
-      title: '歌单',
-      timer: 0
+      title: "歌单",
+      timer: null
     };
   },
   computed: {
@@ -86,7 +86,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['closeLoading']),
+    ...mapMutations(["closeLoading"]),
     getListDetail() {
       this.axios(`/playlist/detail?id=${this.$route.query.id}`).then(res => {
         this.listDetail = playListDetail(res.data.playlist);
@@ -95,17 +95,17 @@ export default {
         this.closeLoading();
       });
     },
-    handleScroll() {   
-      let now = Date.now();
-      if (now - this.timer > 100) {
+    handleScroll() {
+      let t = this.timer;
+      if (t) clearTimeout(t);
+      t = setTimeout(()=>{
         const top = document.documentElement.scrollTop;
         if (top > 200) {
           this.title = `歌单 - ${this.$route.query.title}`;
-        }else {
-          this.title = '歌单';
+        } else {
+          this.title = "歌单";
         }
-        this.timer = now;
-      }
+      }, 200);
     }
   },
   created() {

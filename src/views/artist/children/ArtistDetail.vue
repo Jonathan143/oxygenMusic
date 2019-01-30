@@ -29,7 +29,7 @@ export default {
   data() {
     return {
       artistDetail: {},
-      timer: 0,
+      timer: null,
       rgba: 0,
       title: ''
     };
@@ -43,8 +43,9 @@ export default {
       });
     },
     handleScroll() {
-      let now = Date.now();
-      if (now - this.timer > 100) {
+      let t = this.timer;
+      if (t) clearTimeout(t);
+      t = setTimeout(()=>{
         const top = document.documentElement.scrollTop;
         if (top > 200) {
           let opacity = top / 400;
@@ -55,8 +56,7 @@ export default {
           this.rgba = 0;
           this.title = '';
         }
-        this.timer = now;
-      }
+      }, 200);
     }
   },
   created() {
@@ -74,6 +74,7 @@ export default {
 <style lang="stylus" scoped>
 >>>.back-nav-container
   position fixed
+  transition all 0.4s
 >>>.field
   padding 0 20px 20px 20px
 </style>

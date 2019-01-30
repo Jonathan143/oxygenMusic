@@ -8,10 +8,7 @@ export default new Router({
   routes: [{
       path: "/",
       name: "home",
-      component: Home,
-      meta: {
-        keepAlive: true
-      }
+      component: Home
     },
     {
       path: "/playlistdetail",
@@ -56,7 +53,7 @@ export default new Router({
     {
       path: "artistdetail",
       name: "artistdetail",
-      component: () => import("./views/artist/children/ArtistDetail.vue"),
+      component: () => import("./views/artist/children/ArtistDetail.vue")
     }
   ]
 });

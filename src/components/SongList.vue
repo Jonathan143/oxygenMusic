@@ -192,5 +192,6 @@ export default {
   height 100px
   line-height 100px
   text-align center
+  font-size 26px
   background-color $themeColor
 </style>
