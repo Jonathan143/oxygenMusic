@@ -10,7 +10,7 @@
 
 <script>
 import BackNav from '@/components/BackNav';
-import ArtistList from './components/ArtistList';
+import ArtistList from '../components/ArtistList';
 import { getArtists } from '@/untils';
 import { mapMutations } from 'vuex';
 export default {
@@ -34,7 +34,7 @@ export default {
     },
     toArtistDetail(art) {
       this.openLoading();
-      this.$router.push({ name: 'artistdetail', query: { id: art.id, name: art.name }})
+      this.$router.push({ path: '/artist/detail', query: { id: art.id, name: art.name }})
     }
   },
   created() {

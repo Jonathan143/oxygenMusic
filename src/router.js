@@ -44,16 +44,34 @@ export default new Router({
     },
     {
       path: "/artist",
-      name: "artist",
-      component: () => import("./views/artist/Artist.vue"),
-      meta: {
-        keepAlive: true
-      }
+      component: () => import("./views/artist"),
+      children: [
+        {
+          path: "/",
+          component: () => import("./views/artist/children/Artist.vue"),
+          meta: {
+            keepAlive: true
+          }
+        },
+        {
+          path: "detail",
+          component: () => import("./views/artist/children/ArtistDetail.vue"),
+        }
+      ]
     },
     {
-      path: "artistdetail",
-      name: "artistdetail",
-      component: () => import("./views/artist/children/ArtistDetail.vue")
+      path: "/rankinglist",
+      component: () => import("./views/ranking-list/Ranking.vue"),
+      children: [
+        {
+          path: "/",
+          component: () => import("./views/ranking-list/children/AllList.vue")
+        },
+        {
+          path: "detail",
+          component: () => import("./views/ranking-list/children/ListDetail.vue")
+        }
+      ]
     }
   ]
 });

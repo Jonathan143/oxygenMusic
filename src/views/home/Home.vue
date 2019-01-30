@@ -91,13 +91,7 @@ export default {
         this.banner = imgs;
       });
     }
-  },
-  // beforeRouteEnter (to, from, next) {
-  //   if (from.path !='/search') {
-  //     to.meta.keepAlive = true;
-  //   }
-  //   next();
-  // },
+  }
 };
 </script>
 

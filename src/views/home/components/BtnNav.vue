@@ -32,7 +32,7 @@ const iconBtn = [
   {
     icon: "icon-toplist2",
     text: "排行榜",
-    path: "/playlist"
+    path: "/rankinglist"
   }
 ];
 export default {
