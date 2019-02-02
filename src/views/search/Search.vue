@@ -177,11 +177,7 @@ export default {
   created() {
     this.setHotTags();
     this.getHistoryTags();
-  },
-  // beforeRouteLeave(to, from, next) {
-  //   to.meta.keepAlive = false; // B 跳转到 A 时，让 A 缓存，即不刷新
-  //   next();
-  // }
+  }
 };
 </script>
 
@@ -218,7 +214,9 @@ export default {
   display flex
   align-items center
   justify-content center
-  position absolute
+  position fixed
+  top 0
+  left 0
   width 100%
   height 100%
   z-index 999
