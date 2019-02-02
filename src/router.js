@@ -8,31 +8,25 @@ export default new Router({
   routes: [{
       path: "/",
       name: "home",
-      component: Home
+      component: Home,
+      meta: {
+        keepAlive: true
+      }
     },
     {
       path: "/playlistdetail",
       name: "playlistdetail",
-      component: () => import("./views/playlistdetail/PlayListDetail.vue"),
-      meta: {
-        keepAlive: false
-      }
+      component: () => import("./views/playlistdetail/PlayListDetail.vue")
     },
     {
       path: "/moremusic",
       name: "moremusic",
-      component: () => import("./views/moremusic/MoreMusic.vue"),
-      meta: {
-        keepAlive: false
-      }
+      component: () => import("./views/moremusic/MoreMusic.vue")
     },
     {
       path: "/search",
       name: "search",
-      component: () => import("./views/search/Search.vue"),
-      meta: {
-        keepAlive: false
-      }
+      component: () => import("./views/search/Search.vue")
     },
     {
       path: "/playlist",
@@ -45,8 +39,7 @@ export default new Router({
     {
       path: "/artist",
       component: () => import("./views/artist"),
-      children: [
-        {
+      children: [{
           path: "/",
           component: () => import("./views/artist/children/Artist.vue"),
           meta: {
@@ -55,20 +48,20 @@ export default new Router({
         },
         {
           path: "detail",
-          component: () => import("./views/artist/children/ArtistDetail.vue"),
+          component: () => import("./views/artist/children/ArtistDetail.vue")
         }
       ]
     },
     {
       path: "/rankinglist",
       component: () => import("./views/ranking-list/Ranking.vue"),
-      children: [
-        {
+      children: [{
           path: "/",
           component: () => import("./views/ranking-list/children/AllList.vue")
         },
         {
           path: "detail",
+          name: "rankingDetail",
           component: () => import("./views/ranking-list/children/ListDetail.vue")
         }
       ]

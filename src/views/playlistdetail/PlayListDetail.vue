@@ -171,7 +171,7 @@ export default {
         height 140px
         background-color #fff
         bottom -70px
-        left calc(50% - 340px)
+        left calc(50% - 320px)
         border-radius 8px
         display flex
         justify-content space-around

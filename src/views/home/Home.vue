@@ -7,16 +7,16 @@
       <div class="music-content">
         <scroll-view
           class="scroll-view"
+          title="新歌速递"
+          :musicData="newSong"
+          circle
+        ></scroll-view>
+        <scroll-view
+          class="scroll-view"
           title="热门歌单"
           multi
           :hasDetails="true"
           :musicData="hotPlayList"
-        ></scroll-view>
-        <scroll-view
-          class="scroll-view"
-          title="新歌速递"
-          :musicData="newSong"
-          circle
         ></scroll-view>
         <scroll-view
           class="scroll-view"

@@ -148,7 +148,7 @@ let getMusicList = data => {
 let getHotSearch = data => {
   let hotTags = [];
   for (const tag of data) {
-    hotTags.push(tag.first)
+    hotTags.push(tag.first);
   }
   return hotTags;
 };
@@ -173,25 +173,19 @@ let getSearchResult = data => {
 
 //歌单分类列表
 let getCatlist = data => {
-  let categoryArry = [
-    [],
-    [],
-    [],
-    [],
-    []
-  ];
+  let categoryArry = [[], [], [], [], []];
   let item = {};
   for (const cate of data.sub) {
     item = {
       name: cate.name,
       hot: cate.hot
-    }
+    };
     categoryArry[cate.category].push(item);
   }
   let allCategory = {
     categories: data.categories,
-    categoryArry: categoryArry,
-  }
+    categoryArry: categoryArry
+  };
   return allCategory;
 };
 
@@ -232,7 +226,7 @@ let getArtistDetail = data => {
     albumSize: data.artist.albumSize,
     musicSize: data.artist.musicSize,
     briefDesc: data.artist.briefDesc
-  }
+  };
   let hotSongs = [];
   let item = {};
   for (const i of data.hotSongs) {
@@ -253,6 +247,77 @@ let getArtistDetail = data => {
   return artDetail;
 };
 
+//所有排行榜名称
+const rankinglistName = [
+  "云音乐新歌榜",
+  "云音乐热歌榜",
+  "网易原创歌曲榜",
+  "云音乐飙升榜",
+  "云音乐电音榜",
+  "UK排行榜周榜",
+  "美国Billboard周榜",
+  "KTV唛榜",
+  "iTunes榜",
+  "Hit FM Top榜",
+  "日本Oricon周榜",
+  "韩国Melon排行榜周榜",
+  "韩国Mnet排行榜周榜",
+  "韩国Melon原声周榜",
+  "中国TOP排行榜(港台榜)",
+  "中国TOP排行榜(内地榜)",
+  "香港电台中文歌曲龙虎榜",
+  "华语金曲榜",
+  "中国嘻哈榜",
+  "法国 NRJ EuroHot 30周榜",
+  "台湾Hito排行榜",
+  "Beatport全球电子舞曲榜",
+  "云音乐ACG音乐榜",
+  "江小白YOLO云音乐说唱榜"
+];
+
+//所有排行榜
+let allRankinglist = data => {
+  let officalRanking = [];
+  let otherRanking = [];
+  let list = {};
+  for (const i of data) {
+    let picUrl = `${i.coverImgUrl}?param=200y200`;
+    if (rankinglistName.includes(i.name)) {
+      if (i.tracks.length == 0) {
+        list = {
+          id: i.id,
+          name: i.name,
+          picUrl: picUrl,
+          updateFrequency: i.updateFrequency
+        };
+        otherRanking.push(list);
+      } else {
+        list = {
+          id: i.id,
+          name: i.name,
+          picUrl: picUrl,
+          tracks: i.tracks,
+          updateFrequency: i.updateFrequency
+        };
+        officalRanking.push(list);
+      }
+    }
+  }
+  let rankinglist = {
+    officalRanking: officalRanking,
+    otherRanking: otherRanking
+  };
+  return rankinglist;
+};
+
+//找出排行榜对应的idx
+let findRankinglistIdx = name => {
+  let idx = [...rankinglistName].findIndex(function(value) {
+    return value == name;
+  });
+  return idx;
+};
+
 export {
   getSongs,
   getPlayList,
@@ -265,5 +330,7 @@ export {
   getSearchResult,
   getCatlist,
   getArtists,
-  getArtistDetail
+  getArtistDetail,
+  allRankinglist,
+  findRankinglistIdx
 };

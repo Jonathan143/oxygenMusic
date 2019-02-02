@@ -5,11 +5,16 @@
 </template>
 
 <script>
-  export default {
+import { findRankinglistIdx } from "@/untils";
+export default {
+  methods: {
     
+  },
+  created() {
+    let idx = findRankinglistIdx(this.$route.query.name);
   }
+};
 </script>
 
 <style scoped>
-
 </style>
