@@ -57,7 +57,10 @@ export default new Router({
       component: () => import("./views/ranking-list/Ranking.vue"),
       children: [{
           path: "/",
-          component: () => import("./views/ranking-list/children/AllList.vue")
+          component: () => import("./views/ranking-list/children/AllList.vue"),
+          meta: {
+            keepAlive: true
+          }
         },
         {
           path: "detail",

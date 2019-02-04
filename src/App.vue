@@ -50,6 +50,9 @@ export default {
   },
   computed: {
     ...mapState(["isPlayerShow", "isLoading"])
+  },
+  beforeDestroy() {
+    sessionStorage.clear();
   }
 };
 </script>

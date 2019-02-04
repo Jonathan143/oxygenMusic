@@ -72,9 +72,10 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
->>>.back-nav-container
-  position fixed
-  transition all 0.4s
->>>.field
-  padding 0 20px 20px 20px
+.artist-detail-container
+  >>>.back-nav-container
+    position fixed
+    transition all 0.4s
+  >>>.field
+    padding 0 20px 20px 20px
 </style>

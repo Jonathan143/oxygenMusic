@@ -85,6 +85,7 @@ let playListDetail = data => {
   let commentCount = checkCount(data.commentCount);
   let shareCount = checkCount(data.shareCount);
   let subscribedCount = checkCount(data.subscribedCount);
+  let coverImgUrl = `${data.coverImgUrl}?param=200y200`;
   playList = {
     listName: data.name, //歌单名
     commentCount: commentCount, //评论数
@@ -92,13 +93,11 @@ let playListDetail = data => {
     shareCount: shareCount, //分享数
     subscribedCount: subscribedCount, //收藏数
     trackCount: data.trackCount, //歌曲数量
-    coverImgUrl: data.coverImgUrl, //歌单封面
+    coverImgUrl: coverImgUrl, //歌单封面
     description: data.description, //歌单简介
     tags: data.tags, //标签数组
-    creator: {
-      avatarUrl: data.creator.avatarUrl, //创建者头像
-      nickname: data.creator.nickname //创建者名
-    },
+    avatarUrl: data.creator.avatarUrl, //创建者头像
+    nickname: data.creator.nickname, //创建者名
     tracks: tracks
   };
   return playList;
@@ -106,7 +105,10 @@ let playListDetail = data => {
 
 //格式化数字
 let checkCount = v => {
-  if (v > 10000) {
+  if (v > 100000000) {
+    let sv = v.toString();
+    return sv.substring(0, sv.length - 8) + `亿`;
+  }else if(v > 10000) {
     let sv = v.toString();
     return sv.substring(0, sv.length - 4) + `万`;
   } else {

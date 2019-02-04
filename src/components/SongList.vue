@@ -105,7 +105,6 @@ export default {
 <style lang="stylus" scoped>
 @import '~styles/varibles.styl'
 @import '~styles/mixins.styl'
-
 .field
   padding 20px
   .play-item
