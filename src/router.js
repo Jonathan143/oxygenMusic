@@ -1,14 +1,14 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Home from "./views/home/Home.vue";
 
 Vue.use(Router);
 
 export default new Router({
-  routes: [{
+  routes: [
+    {
       path: "/",
       name: "home",
-      component: Home,
+      component: () => import("./views/home/Home.vue"),
       meta: {
         keepAlive: true
       }
@@ -68,6 +68,14 @@ export default new Router({
           component: () => import("./views/ranking-list/children/ListDetail.vue")
         }
       ]
+    },
+    {
+      path: "/personal",
+      name: "personal",
+      component: () => import("./views/personal/Personal.vue"),
+      // meta: {
+      //   keepAlive: true
+      // }
     }
   ]
 });

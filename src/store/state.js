@@ -1,5 +1,6 @@
 let isLoading = true;
 let isPlay = false;
+let currentIcon = `home`;
 let playList = [];
 if (localStorage.playList) {
   playList = JSON.parse(localStorage.playList);
@@ -14,6 +15,7 @@ let playingId = 0;
 export default {
   isLoading,
   isPlay,
+  currentIcon,
   playList,
   isPlayerShow,
   onPlaying,

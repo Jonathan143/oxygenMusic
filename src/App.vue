@@ -18,6 +18,7 @@
         >Music loading</md-activity-indicator>
       </div>
     </transition>
+    <top-nav v-show="isTopNavShow"></top-nav>
     <div class="router-view">
       <keep-alive>
         <router-view v-if="$route.meta.keepAlive" />
@@ -41,15 +42,26 @@
 
 <script>
 import Player from "./components/Player";
+import TopNav from "./components/TopNav";
 import { ActivityIndicator } from "mand-mobile";
 import { mapState } from "vuex";
 export default {
   components: {
     Player,
+    TopNav,
     "md-activity-indicator": ActivityIndicator
   },
   computed: {
-    ...mapState(["isPlayerShow", "isLoading"])
+    ...mapState(["isPlayerShow", "isLoading"]),
+    isTopNavShow() {
+      let name = this.$route.name;
+      const pathName = ['home', 'personal', 'find'];
+      if(pathName.includes(name)){
+        return true;
+      }else {
+        return false;
+      }
+    }
   },
   beforeDestroy() {
     sessionStorage.clear();
@@ -61,7 +73,6 @@ export default {
 @import '~styles/mixins.styl'
 
 #app
-  background-color $bgColor
   .loading-container
     display flex
     align-items center
@@ -70,15 +81,15 @@ export default {
     width 100%
     height 100%
     z-index 9999
-    background-color #fff
+    background-color #fcfcfc
   .bottom-player
     position fixed
     width 100%
     bottom 0
     left 0
     font-size 28px
-    background-color #fff
+    background-color #bgColor
   .player-zw
     height 100px
-    background-color #fff
+    background-color #bgColor
 </style>

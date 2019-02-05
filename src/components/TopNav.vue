@@ -25,27 +25,34 @@
 
 <script>
 import { TabBar, Icon } from "mand-mobile";
-import { mapMutations } from "vuex";
+import { mapMutations, mapState } from "vuex";
 export default {
-  name: "tab-bar-demo",
   components: {
     "md-tab-bar": TabBar,
     "md-icon": Icon
   },
   data() {
     return {
-     current: 'home',
+      current: 'home',
       items: [
-        { name: 'user', icon: 'icon-wo1' },
+        { name: 'personal', icon: 'icon-wo1' },
         { name: 'home', icon: 'icon-yinle' },
         { name: 'find', icon: 'icon-faxian' }
       ]
     };
   },
+  computed: {
+    ...mapState(['currentIcon']),
+  },
+  watch: {
+    currentIcon(v) {
+      this.current = v;
+    }
+  },
   methods: {
     ...mapMutations(['openLoading']),
     tabBarChange(item) {
-      
+      this.$router.push({name: item.name});
     },
     toSearch() {
       this.$router.push("/search");

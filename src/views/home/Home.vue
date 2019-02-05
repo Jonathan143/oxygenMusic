@@ -1,6 +1,5 @@
 <template>
   <div class="home-container">
-    <top-nav class="top-nav"></top-nav>
     <div class="content">
       <banner :banner="banner"></banner>
       <btn-nav></btn-nav>
@@ -32,7 +31,6 @@
 
 <script>
 import ScrollView from "./components/ScrollView";
-import TopNav from "@/components/TopNav";
 import Banner from "@/components/Banner";
 import BtnNav from "./components/BtnNav";
 import { getSongs, getPlayList } from "@/untils";
@@ -41,12 +39,12 @@ export default {
   name: "home",
   components: {
     ScrollView,
-    TopNav,
     Banner,
     BtnNav
   },
   data() {
     return {
+      current: 'home',
       newSong: [],
       newPlayList: [],
       hotPlayList: [],
@@ -60,7 +58,7 @@ export default {
     this.getHotPlayList();
   },
   methods: {
-    ...mapMutations(["closeLoading"]),
+    ...mapMutations(['closeLoading', 'changeTopNavCurrent']),
     getNewSong() {
       this.axios("personalized/newsong").then(res => {
         this.newSong = getSongs(res.data.result).splice(0, 6);
@@ -91,7 +89,10 @@ export default {
         this.banner = imgs;
       });
     }
-  }
+  },
+  activated() {
+    this.changeTopNavCurrent('home');
+  },
 };
 </script>
 
