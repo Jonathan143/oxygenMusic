@@ -9,7 +9,7 @@
       <div class="cover-img-box">
         <img
           class="cover-img"
-          :src="rank.picUrl"
+          v-lazy="rank.picUrl"
           :alt="rank.name"
         >
         <span class="up-time">{{rank.updateFrequency}}</span>

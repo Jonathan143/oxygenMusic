@@ -15,7 +15,7 @@ import BackNav from "@/components/BackNav";
 import OfficalRanking from "../components/OfficalRanking";
 import OtherRanking from "../components/OtherRanking";
 import { findRankinglistIdx, allRankinglist } from "@/untils";
-// import { mapMutations } from "vuex";
+import { mapMutations } from "vuex";
 export default {
   components: {
     BackNav,
@@ -28,16 +28,16 @@ export default {
     };
   },
   methods: {
-    // ...mapMutations(['openLoading', 'closeLoading']),
+    ...mapMutations(['openLoading', 'closeLoading']),
     getRankinglist() {
       this.axios("toplist/detail").then(res => {
         this.rankinglist = allRankinglist(res.data.list);
-        // this.closeLoading();
+        this.closeLoading();
         sessionStorage.isRanklistLoading = true;
       });
     },
     onRanklist(name) {
-      // this.openLoading();
+      this.openLoading();
       this.$router.push({name: 'rankingDetail', query: {name: name}});
     }
   },
@@ -46,7 +46,7 @@ export default {
   },
   activated() {
     if(sessionStorage.isRanklistLoading){
-      // this.closeLoading();
+      this.closeLoading();
     }
   }
 };
