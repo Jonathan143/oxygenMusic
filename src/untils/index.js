@@ -108,7 +108,7 @@ let checkCount = v => {
   if (v > 100000000) {
     let sv = v.toString();
     return sv.substring(0, sv.length - 8) + `亿`;
-  }else if(v > 10000) {
+  } else if (v > 10000) {
     let sv = v.toString();
     return sv.substring(0, sv.length - 4) + `万`;
   } else {
@@ -175,7 +175,13 @@ let getSearchResult = data => {
 
 //歌单分类列表
 let getCatlist = data => {
-  let categoryArry = [[], [], [], [], []];
+  let categoryArry = [
+    [],
+    [],
+    [],
+    [],
+    []
+  ];
   let item = {};
   for (const cate of data.sub) {
     item = {
@@ -314,12 +320,24 @@ let allRankinglist = data => {
 
 //找出排行榜对应的idx
 let findRankinglistIdx = name => {
-  let idx = [...rankinglistName].findIndex(function(value) {
+  let idx = [...rankinglistName].findIndex(function (value) {
     return value == name;
   });
   return idx;
 };
 
+//从数组中删除相同项
+let removeItem = (arr, item) => {
+  if (arr.length) {
+    let idx = arr.findIndex(value => {
+      return value.id == item.id;
+    });
+    if (idx > -1) {
+      arr.splice(idx, 1);
+    }
+    return arr;
+  }
+}
 export {
   getSongs,
   getPlayList,
@@ -334,5 +352,6 @@ export {
   getArtists,
   getArtistDetail,
   allRankinglist,
-  findRankinglistIdx
+  findRankinglistIdx,
+  removeItem
 };

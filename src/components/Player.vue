@@ -8,6 +8,7 @@
       @listShow="listShow"
       @listAdd="lisenAdd"
       @listSwitch="onPlayingChange"
+      @play="onPlay"
     />
     <md-popup
       v-model="isListShow"
@@ -51,6 +52,7 @@
 <script>
 import { Field, CellItem, Popup, PopupTitleBar } from "mand-mobile";
 import { mapState, mapMutations } from "vuex";
+import { removeItem } from "@/untils";
 
 export default {
   components: {
@@ -108,6 +110,17 @@ export default {
     },
     onPlayingChange() {
       this.changePlayingId(this.$refs.aplayer.currentMusic.id);
+    },
+    onPlay() {
+      let music = this.$refs.aplayer.currentMusic;
+      let list = [];
+      let recebtlyPlayed = localStorage.recebtlyPlayed;
+      if (recebtlyPlayed) {
+        list = JSON.parse(recebtlyPlayed);
+        list = removeItem(list, music);
+      }
+      list.unshift(music);
+      localStorage.setItem('recebtlyPlayed',JSON.stringify(list));
     }
   }
 };
