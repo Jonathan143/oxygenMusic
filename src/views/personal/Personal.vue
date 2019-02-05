@@ -2,18 +2,18 @@
   <div class="personal-container">
     <div class="info">
       <div class="name-box">
-        <h2 class="name">Jonathan</h2>
-        <p class="indicator-text">帅的一批</p>
+        <h2 class="name">Oxygen Music</h2>
+        <p class="indicator-text">一个开源音乐播放器</p>
       </div>
       <div class="avatar">
-        <img class="av-img" src="https://imgavater.ui.cn/avatar/8/9/2/9/949298.png?imageMogr2/auto-orient/crop/!1360x1360a0a0/thumbnail/148x148" alt="">
+        <img class="av-img" src="https://img-1256555015.file.myqcloud.com/2019/01/25/5c4a704d05904.png" alt="Oxygen Music">
       </div>
     </div>
     <div class="list-box">
       <div class="list" v-for="i in list" :key="i.id"> 
         <div class="icon-count">
           <i class="iconfont" :class="i.icon"></i>
-          <span class="count">96</span>
+          <span class="count">{{i.count}}</span>
         </div>
         <p class="title">{{i.title}}</p>
       </div>
@@ -23,15 +23,11 @@
 
 <script>
 import {mapMutations} from "vuex";
+import {getPersonalList} from "@/untils";
 export default {
   data() {
     return {
-      list: [
-        {title: '喜欢的音乐', icon: 'icon-plove', id: 1},
-        {title: '我的电台', icon: 'icon-diantai', id: 2},
-        {title: '最近播放', icon: 'icon-zuijinbofang', id: 3},
-        {title: '我的收藏', icon: 'icon-wodeshoucang', id: 4},
-      ]
+      list: []
     }
   },
   methods: {
@@ -40,12 +36,16 @@ export default {
   mounted() {
     this.closeLoading();
     this.changeTopNavCurrent('personal');
+  },
+  created() {
+    this.list = getPersonalList()
   }
 };
 </script>
 
 <style lang="stylus" scoped>
 @import "~styles/varibles.styl";
+@import "~styles/mixins.styl";
 .personal-container
   padding 20px
   box-sizing border-box
@@ -65,7 +65,10 @@ export default {
         color $titleColor
       .indicator-text
         color #71819B
-        line-height 36px
+        line-height 32px
+        margin-top 12px
+        width 400px
+        multiEllipsis()
     .avatar
       .av-img
         width 148px

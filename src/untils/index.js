@@ -337,7 +337,44 @@ let removeItem = (arr, item) => {
     }
     return arr;
   }
-}
+};
+let getPersonalList = () => {
+  let list = [{
+      title: `喜欢的音乐`,
+      icon: `icon-plove`,
+      id: 1,
+      count: 0
+    },
+    {
+      title: `我的电台`,
+      icon: `icon-diantai`,
+      id: 2,
+      count: 0
+    },
+    {
+      title: `最近播放`,
+      icon: `icon-zuijinbofang`,
+      id: 3,
+      count: 0
+    },
+    {
+      title: `我的收藏`,
+      icon: `icon-wodeshoucang`,
+      id: 4,
+      count: 0
+    }
+  ]
+  list[2].count = getListCount(`recebtlyPlayed`);
+  return list;
+};
+let getListCount = data => {
+  let ls = localStorage.getItem(data);
+  let count = 0;
+  if (ls) {
+    count = JSON.parse(ls).length;
+  }
+  return count;
+};
 export {
   getSongs,
   getPlayList,
@@ -353,5 +390,6 @@ export {
   getArtistDetail,
   allRankinglist,
   findRankinglistIdx,
-  removeItem
+  removeItem,
+  getPersonalList
 };
