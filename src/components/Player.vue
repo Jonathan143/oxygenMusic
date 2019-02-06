@@ -108,18 +108,18 @@ export default {
       this.delMusic(id);
     },
     onPlayingChange() {
+      this.currentMusic = this.$refs.aplayer.currentMusic.id;
       this.changePlayingId(this.$refs.aplayer.currentMusic.id);
     },
     onPlay() {
-      let music = this.$refs.aplayer.currentMusic;
+      let id = this.$refs.aplayer.currentMusic.id;
       let list = [];
       let recebtlyPlayed = localStorage.recebtlyPlayed;
       if (recebtlyPlayed) {
         list = JSON.parse(recebtlyPlayed);
-        list = removeItem(list, music);
+        list = removeItem(list, id);
+        localStorage.setItem('recebtlyPlayed',JSON.stringify(list));
       }
-      list.unshift(music);
-      localStorage.setItem('recebtlyPlayed',JSON.stringify(list));
     }
   }
 };

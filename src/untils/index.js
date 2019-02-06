@@ -8,7 +8,8 @@ let getSongs = data => {
       songName: i.name,
       id: i.id,
       singer: i.song.artists[0].name,
-      picUrl: picUrl
+      picUrl: picUrl,
+      alName: i.song.album.name
     };
     songs.push(item);
   }
@@ -327,12 +328,20 @@ let findRankinglistIdx = name => {
 };
 
 //从数组中删除相同项
-let removeItem = (arr, item) => {
+let removeItem = (arr, id) => {
   if (arr.length) {
-    let idx = arr.findIndex(value => {
-      return value.id == item.id;
+    let t = false;
+    let idx = arr.findIndex((value, index) => {
+      if (index > 0 && value.id == id) {
+        if (arr[0].id != id) {
+          t = true;
+          arr.unshift(value);
+        }
+        return index > 0 && value.id == id;
+      }
     });
     if (idx > -1) {
+      t ? idx++ : idx;
       arr.splice(idx, 1);
     }
     return arr;
@@ -342,29 +351,32 @@ let getPersonalList = () => {
   let list = [{
       title: `喜欢的音乐`,
       icon: `icon-plove`,
-      id: 1,
+      id: `likeMusic`,
       count: 0
     },
     {
       title: `我的电台`,
       icon: `icon-diantai`,
-      id: 2,
+      id: `myRadio`,
       count: 0
     },
     {
       title: `最近播放`,
       icon: `icon-zuijinbofang`,
-      id: 3,
+      id: `recebtlyPlayed`,
       count: 0
     },
     {
       title: `我的收藏`,
       icon: `icon-wodeshoucang`,
-      id: 4,
+      id: `myCollection`,
       count: 0
     }
   ]
+  list[0].count = getListCount(`likeMusic`);
+  list[1].count = getListCount(`myRadio`);
   list[2].count = getListCount(`recebtlyPlayed`);
+  list[3].count = getListCount(`myCollection`);
   return list;
 };
 let getListCount = data => {
@@ -374,6 +386,16 @@ let getListCount = data => {
     count = JSON.parse(ls).length;
   }
   return count;
+};
+let lisenMusicAdd = music => {
+  let list = [];
+  let recebtlyPlayed = localStorage.recebtlyPlayed;
+  if (recebtlyPlayed) {
+    list = JSON.parse(recebtlyPlayed);
+    // list = removeItem(list, music);
+  }
+  list.unshift(music);
+  localStorage.setItem(`recebtlyPlayed`, JSON.stringify(list));
 };
 export {
   getSongs,
@@ -391,5 +413,6 @@ export {
   allRankinglist,
   findRankinglistIdx,
   removeItem,
-  getPersonalList
+  getPersonalList,
+  lisenMusicAdd
 };

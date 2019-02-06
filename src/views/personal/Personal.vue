@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="list-box">
-      <div class="list" v-for="i in list" :key="i.id"> 
+      <div class="list" v-for="i in list" :key="i.id" @click="tolist(i.id)"> 
         <div class="icon-count">
           <i class="iconfont" :class="i.icon"></i>
           <span class="count">{{i.count}}</span>
@@ -31,13 +31,16 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['closeLoading','changeTopNavCurrent'])
+    ...mapMutations(['closeLoading','changeTopNavCurrent']),
+    tolist(name) {
+      this.$router.push({name: 'musiclist', query: {name: name}})
+    }
   },
   mounted() {
     this.closeLoading();
     this.changeTopNavCurrent('personal');
   },
-  created() {
+  activated() {
     this.list = getPersonalList()
   }
 };

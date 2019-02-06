@@ -73,9 +73,14 @@ export default new Router({
       path: "/personal",
       name: "personal",
       component: () => import("./views/personal/Personal.vue"),
-      // meta: {
-      //   keepAlive: true
-      // }
+      meta: {
+        keepAlive: true
+      }
+    },
+    {
+      path: "/musiclist",
+      name: "musiclist",
+      component: () => import("./views/music-list/MusicList.vue")
     }
   ]
 });

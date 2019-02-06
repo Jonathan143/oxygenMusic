@@ -54,7 +54,7 @@
 <script>
 import { Field, Popup } from "mand-mobile";
 import { mapState, mapMutations } from "vuex";
-import { setMusic } from "@/untils";
+import { setMusic, lisenMusicAdd } from "@/untils";
 
 export default {
   props: {
@@ -83,6 +83,7 @@ export default {
     playMusic(music) {
       let playList = setMusic(music);
       this.addMusic(playList);
+      lisenMusicAdd(music);
     },
     moreOperations() {
       this.isPopupShow = true;

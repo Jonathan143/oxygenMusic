@@ -46,7 +46,7 @@
 <script>
 import { ScrollView, Icon } from "mand-mobile";
 import { mapMutations } from "vuex";
-import { setMusic } from "@/untils";
+import { setMusic, lisenMusicAdd } from "@/untils";
 export default {
   props: {
     title: {
@@ -83,6 +83,7 @@ export default {
       } else {
         let playList = setMusic(song);
         this.addMusic(playList);
+        lisenMusicAdd(song);
       }
     },
     loadMore() {
