@@ -45,7 +45,7 @@ export default {
           this.rgba = 0;
           this.title = '';
         }
-      }, 200);
+      }, 100);
     },
     getList() {
       let idx = findRankinglistIdx(this.$route.query.name);

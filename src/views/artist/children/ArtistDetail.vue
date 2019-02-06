@@ -56,7 +56,7 @@ export default {
           this.rgba = 0;
           this.title = '';
         }
-      }, 200);
+      }, 100);
     }
   },
   created() {

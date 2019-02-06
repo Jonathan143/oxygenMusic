@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import { Field, CellItem, Popup, PopupTitleBar } from "mand-mobile";
+import { Field, Popup, PopupTitleBar } from "mand-mobile";
 import { mapState, mapMutations } from "vuex";
 import { removeItem } from "@/untils";
 
@@ -58,8 +58,7 @@ export default {
   components: {
     "md-popup": Popup,
     "md-popup-title-bar": PopupTitleBar,
-    "md-field": Field,
-    "md-cell-item": CellItem
+    "md-field": Field
   },
   data() {
     return {
