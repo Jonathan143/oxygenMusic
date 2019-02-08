@@ -74,16 +74,21 @@
 #### 歌手Top100
 
 <img src="https://img-1256555015.file.myqcloud.com/2019/02/08/5c5d861d52dbb.jpg" alt="歌手Top100" with="400" height="600">
+
 #### 歌手详情
+
 <img src="https://img-1256555015.file.myqcloud.com/2019/02/08/5c5d89c990b2d.jpg" alt="歌手详情" with="400" height="600">
 
 #### 歌单分类标签
+
 <img src="https://img-1256555015.file.myqcloud.com/2019/02/08/5c5d861c34bc1.jpg" alt="歌手详歌单滚动底部加载" with="400" height="600">
 
 #### 歌单滚动至底部加载
+
 <img src="https://img-1256555015.file.myqcloud.com/2019/02/08/5c5d861eb98f9.jpg" alt="歌单分类标签" with="400" height="600">
 
 #### 播放列表
+
 <img src="https://img-1256555015.file.myqcloud.com/2019/02/08/5c5d861d00a6e.jpg" alt="播放列表" with="400" height="600">
 
 ## 鸣谢
