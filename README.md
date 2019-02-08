@@ -1,6 +1,6 @@
 <p align="center"><a href="http://sioxas.github.io/" target="_blank"><img width="200" src="https://img-1256555015.file.myqcloud.com/2019/01/25/5c4a704d05904.png"></a></p>
   <h1 align="center">Oxygen Music</h1>
-  <h4 align="center">基于vue.js的音乐播放器,资源来至于网易云音乐</h4>
+  <h4 align="center">基于vue.js的音乐播放器,资源来至网易云音乐</h4>
   <p align="center">
     <a href="https://github.com/vuejs/vue"><img src="https://img.shields.io/badge/vue-2.5.21-blue.svg" alt="Vue"></a>
     <a href="https://github.com/vuejs/vue-cli"><img src="https://img.shields.io/badge/vue--cli-3.3.0-green.svg" alt="vue-cli"></a>
@@ -12,8 +12,9 @@
     <a href="https://github.com/hilongjw/vue-lazyload"><img src="https://img.shields.io/badge/vue--lazyload-1.2.6-red.svg" alt="vue-lazyload"></a>
     <a href="https://github.com/MoePlayer/vue-aplayer"><img src="https://img.shields.io/badge/vue--aplayer-2.0.0--beta.5-success.svg" alt="vue-aplayer"></a>
   </p>
-  <p align="center">Demo:<a href="https://yun.yang143.cn">https://yun.yang143.cn</a>,在手机上效果更好，扫一扫体验</p>
-  <p align="center"> <a href="https://yun.yang143.cn"><img width="200" src="https://img.yang143.cn/2019/02/08/5c5d35b667608.png" alt="Oxygen Music"></a></p>
+  <p align="center">Demo: <a href="https://yun.yang143.cn">https://yun.yang143.cn</a></p>
+  <p align="center">本项目为移动端项目,pc端按F12调为手机模式查看，推荐使用手机查看，扫一扫二维码即可体验</p>
+  <p align="center"> <a href="https://yun.yang143.cn"><img width="200" src="https://img-1256555015.file.myqcloud.com/2019/02/08/5c5d8613f40ab.png" alt="Oxygen Music"></a></p>
 
 
 ## 目标功能
@@ -34,14 +35,56 @@
 - [ ] 发现页面
 - [ ] 侧边弹窗
 
-## 截图
-
-
 ## 联系我
 ---
 - QQ：1439821144
 - Email: QQ：1439821144@qq.com
 - Blog：[https://www.yang143.cn](https://www.yang143.cn)
+
+## 截图
+---
+#### 首页
+
+<img src="https://img-1256555015.file.myqcloud.com/2019/02/08/5c5d861e5fba7.jpg" alt="首页" with="400" height="600">
+<img src="https://img-1256555015.file.myqcloud.com/2019/02/08/5c5d861f26e81.jpg" alt="首页" with="400" height="600">
+
+---
+#### 我的页面
+
+<img src="https://img-1256555015.file.myqcloud.com/2019/02/08/5c5d8618c2af7.jpg" alt="我的页面" with="400" height="600">
+
+#### 我的收藏--歌单
+
+<img src="https://img-1256555015.file.myqcloud.com/2019/02/08/5c5d861bb5f03.jpg" alt="我的收藏--歌单" with="400" height="600">
+
+#### 我的收藏-歌手
+
+<img src="https://img-1256555015.file.myqcloud.com/2019/02/08/5c5d861a7ed48.jpg" alt="我的收藏--歌手" with="400" height="600">
+
+#### 搜索
+
+<img src="https://img-1256555015.file.myqcloud.com/2019/02/08/5c5d861b56187.jpg" alt="搜索" with="400" height="600">
+<img src="https://img-1256555015.file.myqcloud.com/2019/02/08/5c5d861ca29a0.jpg" alt="我的收藏--歌手" with="400" height="600">
+
+#### 排行榜
+
+<img src="https://img-1256555015.file.myqcloud.com/2019/02/08/5c5d861e03aac.jpg" alt="所有排行榜" with="400" height="600">
+<img src="https://img-1256555015.file.myqcloud.com/2019/02/08/5c5d861d9e3bd.jpg" alt="排行榜详情" with="400" height="600">
+
+#### 歌手Top100
+
+<img src="https://img-1256555015.file.myqcloud.com/2019/02/08/5c5d861d52dbb.jpg" alt="歌手Top100" with="400" height="600">
+#### 歌手详情
+<img src="https://img-1256555015.file.myqcloud.com/2019/02/08/5c5d89c990b2d.jpg" alt="歌手详情" with="400" height="600">
+
+#### 歌单分类标签
+<img src="https://img-1256555015.file.myqcloud.com/2019/02/08/5c5d861c34bc1.jpg" alt="歌手详歌单滚动底部加载" with="400" height="600">
+
+#### 歌单滚动至底部加载
+<img src="https://img-1256555015.file.myqcloud.com/2019/02/08/5c5d861eb98f9.jpg" alt="歌单分类标签" with="400" height="600">
+
+#### 播放列表
+<img src="https://img-1256555015.file.myqcloud.com/2019/02/08/5c5d861d00a6e.jpg" alt="播放列表" with="400" height="600">
 
 ## 鸣谢
 ---
@@ -50,7 +93,6 @@
 - Vue-LazyLoad
 - stylus
 - postcss-pxtorem
-- fastclick
 - mand-mobile
 - vue-aplayer
 - [Binaryify/NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi) (网易云音乐 Node.js API service)
