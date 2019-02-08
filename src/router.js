@@ -81,6 +81,11 @@ export default new Router({
       path: "/musiclist",
       name: "musiclist",
       component: () => import("./views/music-list/MusicList.vue")
+    },
+    {
+      path: "*",
+      name: "notfont",
+      component: () => import("./views/404/404.vue")
     }
   ]
 });
