@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { ScrollView, Icon } from "mand-mobile";
+import { Icon } from "mand-mobile";
 import { mapMutations } from "vuex";
 import { setMusic, lisenMusicAdd } from "@/untils";
 export default {
@@ -71,8 +71,7 @@ export default {
     }
   },
   components: {
-    [ScrollView.name]: ScrollView,
-    [Icon.name]: Icon
+    'md-icon': Icon
   },
   methods: {
     ...mapMutations(["addMusic", "openLoading"]),

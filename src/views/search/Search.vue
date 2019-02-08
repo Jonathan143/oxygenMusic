@@ -208,6 +208,9 @@ export default {
       padding 0 20px
       .hot-tags, .history-tags
         margin-top 32px
+  .search-content
+    >>>.collection
+      display none
 .high-light
   color $themeColor
 .search-loading

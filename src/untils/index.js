@@ -327,7 +327,7 @@ let findRankinglistIdx = name => {
   return idx;
 };
 
-//从数组中删除相同项
+//从数组中删除相同项 (针对最近播放处理)
 let removeItem = (arr, id) => {
   if (arr.length) {
     let t = false;
@@ -372,7 +372,7 @@ let getPersonalList = () => {
       id: `myCollection`,
       count: 0
     }
-  ]
+  ];
   list[0].count = getListCount(`likeMusic`);
   list[1].count = getListCount(`myRadio`);
   list[2].count = getListCount(`recebtlyPlayed`);
@@ -392,10 +392,51 @@ let lisenMusicAdd = music => {
   let recebtlyPlayed = localStorage.recebtlyPlayed;
   if (recebtlyPlayed) {
     list = JSON.parse(recebtlyPlayed);
-    // list = removeItem(list, music);
   }
   list.unshift(music);
   localStorage.setItem(`recebtlyPlayed`, JSON.stringify(list));
+};
+//数组中删除相同项
+let removeRepeat = (arr, id) => {
+  if (arr.length) {
+    let idx = arr.findIndex(value => {
+      return value.id == id;
+    });
+    if (idx > -1) {
+      arr.splice(idx, 1);
+    }
+    return arr;
+  }
+};
+//本地存储
+let lisenAdd = (name, item) => {
+  let list = [];
+  let ls = localStorage.getItem(name);
+  if (ls) {
+    list = JSON.parse(ls);
+    list = removeRepeat(list, item.id);
+  }
+  if (list.length > 99) {
+    list.pop();
+  }
+  list.unshift(item);
+  localStorage.setItem(name, JSON.stringify(list));
+};
+
+//查询存储中是否存在数据
+let findItem = (name, id) => {
+  let ls = localStorage.getItem(name);
+  if (ls) {
+    ls = JSON.parse(ls);
+    let idx = ls.findIndex(value => {
+      return value.id == id;
+    });
+    if (idx > -1) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 };
 export {
   getSongs,
@@ -414,5 +455,8 @@ export {
   findRankinglistIdx,
   removeItem,
   getPersonalList,
-  lisenMusicAdd
+  lisenMusicAdd,
+  removeRepeat,
+  lisenAdd,
+  findItem
 };

@@ -8,6 +8,7 @@
       <song-list
         class="song-list"
         :listdata="listDetail.tracks"
+        :list-info="listInfo"
       ></song-list>
   </div>
 </template>
@@ -31,7 +32,8 @@ export default {
       listDetail: {},
       title: '歌单',
       timer: null,
-      rgba: 0
+      rgba: 0,
+      listInfo: {}
     };
   },
   methods: {
@@ -40,6 +42,7 @@ export default {
       this.axios(`/playlist/detail?id=${this.$route.query.id}`).then(res => {
         this.listDetail = playListDetail(res.data.playlist);
         this.closeLoading();
+        this.setListInfo();
       });
     },
     handleScroll() {
@@ -58,6 +61,14 @@ export default {
         }
       }, 100);
     },
+    setListInfo() {
+      this.listInfo = {
+        id: this.$route.query.id,
+        picUrl: this.listDetail.coverImgUrl,
+        songName: this.listDetail.listName,
+        type: 'playlist'
+      }
+    }
   },
   created() {
     this.getListDetail();

@@ -52,7 +52,7 @@
 <script>
 import { Field, Popup, PopupTitleBar } from "mand-mobile";
 import { mapState, mapMutations } from "vuex";
-import { removeItem } from "@/untils";
+import { removeItem, lisenMusicAdd } from "@/untils";
 
 export default {
   components: {
@@ -95,7 +95,14 @@ export default {
     },
     lisenAdd() {
       this.$refs.aplayer.switch(0);
-      this.$refs.aplayer.play();
+      console.log(this.playList.length);
+      if (this.playList.length == 1) {
+        setTimeout(()=>{
+          this.$refs.aplayer.play();
+        },500)
+      } else {
+        this.$refs.aplayer.play();
+      }
     },
     changePlay(idx) {
       this.$refs.aplayer.switch(idx);

@@ -72,6 +72,8 @@ export default {
   background-color #fff
   .song-list
     margin-top 70px
+    >>>.collection
+      display none
   >>>.back-nav-container
     position fixed
     transition all 0.4s

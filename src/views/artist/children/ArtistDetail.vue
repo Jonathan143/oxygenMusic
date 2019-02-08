@@ -8,7 +8,7 @@
       <topbg :artinfo="artistDetail.artist"></topbg>
       <song-list
         :listdata="artistDetail.hotSongs"
-        ref="box"
+        :list-info="listInfo"
       ></song-list>
     </div>
   </div>
@@ -31,7 +31,8 @@ export default {
       artistDetail: {},
       timer: null,
       rgba: 0,
-      title: ''
+      title: '',
+      listInfo: {}
     };
   },
   methods: {
@@ -40,6 +41,7 @@ export default {
       this.axios(`artists?id=${this.$route.query.id}`).then(res => {
         this.artistDetail = getArtistDetail(res.data);
         this.closeLoading();
+        this.setListInfo();
       });
     },
     handleScroll() {
@@ -57,6 +59,14 @@ export default {
           this.title = '';
         }
       }, 100);
+    },
+    setListInfo() {
+      this.listInfo = {
+        id: this.artistDetail.artist.id,
+        picUrl: this.artistDetail.artist.picUrl,
+        songName: this.artistDetail.artist.name,
+        type: 'artist'
+      }
     }
   },
   created() {

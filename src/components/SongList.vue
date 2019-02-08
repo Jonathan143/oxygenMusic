@@ -10,9 +10,15 @@
             <i class="iconfont icon-playing"></i>
             <p class="text">播放全部<span class="sub-text">{{listLength}}</span></p>
           </div>
-          <div class="collection">
-            <i class="iconfont icon-add"></i>
-            <p class="text">收藏</p>
+          <div
+            class="collection"
+            @click="onRbtnClick"
+          >
+            <i
+              class="iconfont"
+              :class="btn.icon"
+            ></i>
+            <p class="text">{{btn.text}}</p>
           </div>
         </li>
         <li
@@ -52,13 +58,26 @@
 </template>
 
 <script>
-import { Field, Popup } from "mand-mobile";
+import { Field, Popup, Toast } from "mand-mobile";
 import { mapState, mapMutations } from "vuex";
-import { setMusic, lisenMusicAdd } from "@/untils";
+import { setMusic, lisenMusicAdd, lisenAdd, findItem } from "@/untils";
 
 export default {
   props: {
-    listdata: Array
+    listdata: Array,
+    listInfo: Object,
+    clearName: {
+      default: false
+    },
+    rbtn: {
+      type: Object,
+      default() {
+        return {
+          icon: "icon-add",
+          text: "收藏"
+        };
+      }
+    }
   },
   components: {
     "md-field": Field,
@@ -67,7 +86,9 @@ export default {
   data() {
     return {
       isPopupShow: false,
-      listLength: ""
+      listLength: "",
+      btn: this.rbtn,
+      isCollection: false
     };
   },
   computed: {
@@ -98,7 +119,36 @@ export default {
         playList.push(music);
       }
       this.changePlayList(playList);
+    },
+    onRbtnClick() {
+      if (!this.isCollection) {
+        if (this.clearName) {
+          localStorage.removeItem(this.clearName);
+        } else {
+          lisenAdd("myCollection", this.listInfo);
+        }
+        Toast.succeed(`${this.btn.text}成功`);
+      }
+    },
+    onCollection() {
+      if (findItem("myCollection", this.$route.query.id)) {
+        this.btn = {
+          icon: "icon-yishoucang",
+          text: "已收藏"
+        };
+        this.isCollection = true;
+      }
     }
+  },
+  created() {
+    if (this.clearName) {
+      this.btn = {
+        icon: "icon-qingkong",
+        text: "清空"
+      };
+      this.listLength = `(共${this.listdata.length}首)`;
+    }
+    this.onCollection();
   }
 };
 </script>
@@ -106,6 +156,7 @@ export default {
 <style lang="stylus" scoped>
 @import '~styles/varibles.styl'
 @import '~styles/mixins.styl'
+
 .field
   padding 20px
   .play-item
@@ -176,7 +227,7 @@ export default {
       background-color $themeColor
       border-radius 0 24px 0 0
       justify-content center
-      .icon-add
+      .iconfont
         color #ffffff
         font-size 34px
       .text
