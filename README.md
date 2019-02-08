@@ -66,7 +66,6 @@
 │   ├── views          // 各种页面
 │   ├── store          // vuex状态管理器
 │   ├── untils         // 代码模块
-│   ├── filters.js     // 各种过滤器
 │   └── main.js        // Webpack 预编译入口
 │   └── router.js      // 路由文件
 ├── package.json       // 项目配置文件
