@@ -3,7 +3,7 @@
     <div class="info">
       <div class="name-box">
         <h2 class="name">Oxygen Music</h2>
-        <p class="indicator-text">一个开源音乐播放器</p>
+        <p class="indicator-text">一个基于vue.js音乐播放器</p>
       </div>
       <div class="avatar">
         <img class="av-img" src="https://img-1256555015.file.myqcloud.com/2019/01/25/5c4a704d05904.png" alt="Oxygen Music">

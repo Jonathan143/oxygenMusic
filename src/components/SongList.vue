@@ -126,6 +126,10 @@ export default {
           localStorage.removeItem(this.clearName);
         } else {
           lisenAdd("myCollection", this.listInfo);
+            this.btn = {
+            icon: "icon-yishoucang",
+            text: "已收藏"
+          };
         }
         Toast.succeed(`${this.btn.text}成功`);
       }
