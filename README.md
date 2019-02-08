@@ -10,6 +10,7 @@
     <a href="https://github.com/axios/axios"><img src="https://img.shields.io/badge/axios-0.18.0-blue.svg" alt="axios"></a>
     <a href="https://github.com/necolas/normalize.css"><img src="https://img.shields.io/badge/normalize.css-8.0.0-green.svg" alt="normalize.css"></a>
     <a href="https://github.com/hilongjw/vue-lazyload"><img src="https://img.shields.io/badge/vue--lazyload-1.2.6-red.svg" alt="vue-lazyload"></a>
+    <a href="https://github.com/MoePlayer/vue-aplayer"><img src="https://img.shields.io/badge/vue--aplayer-2.0.0--beta.5-success.svg" alt="vue-aplayer"></a>
   </p>
   <p align="center">Demo:<a href="https://yun.yang143.cn">https://yun.yang143.cn</a>,在手机上效果更好，扫一扫体验</p>
   <p align="center"> <a href="https://yun.yang143.cn"><img width="200" src="https://img.yang143.cn/2019/02/08/5c5d35b667608.png" alt="Oxygen Music"></a></p>
@@ -26,12 +27,12 @@
 - [x] 歌单 -- 完成
 - [x] 我的收藏(歌单,歌手) -- 完成
 - [x] 最近播放 -- 完成
-- [] 搜索结果分类显示 
-- [] 切换播放模式 
-- [] 歌词 
-- [] 喜欢音乐
-- [] 发现页面
-- [] 侧边弹窗
+- [ ] 歌词 
+- [ ] 搜索结果分类显示 
+- [ ] 切换播放模式 
+- [ ] 喜欢音乐
+- [ ] 发现页面
+- [ ] 侧边弹窗
 
 ## 截图
 
@@ -51,9 +52,10 @@
 - postcss-pxtorem
 - fastclick
 - mand-mobile
+- vue-aplayer
 - [Binaryify/NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi) (网易云音乐 Node.js API service)
 
-###目录结构
+### 目录结构
 <pre>
 .
 ├── public             // 构建服务和webpack配置
