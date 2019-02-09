@@ -7,9 +7,6 @@ import "@/assets/styles/glob.styl";
 import Axios from "axios";
 import VueLazyload from "vue-lazyload";
 import APlayer from "@moefe/vue-aplayer";
-import fastclick from "fastclick";
-
-fastclick.attach(document.body);
 Vue.use(APlayer, {
   defaultCover:
     "https://img-1256555015.file.myqcloud.com/navigation/webicon/aplyer.png",
