@@ -35,6 +35,18 @@
 - [ ] 发现页面
 - [ ] 侧边弹窗
 
+## 功能特性
+1. 本项目所有数据来源网易云音乐，使用开源项目（NeteaseCloudMusicApi 网易云音乐 NodeJS 版 API）
+2. 网易云音乐16个音乐排行榜
+3. 网易新歌速递
+4. 网易精选歌单，最新歌单
+5. 本地收藏歌单，歌手，随时查看
+6. 本地存储最近播放，最大存储99首，超过自动删除最早播放的歌曲
+7. 搜索歌曲+播放（版权歌曲无法播放）
+8. 热门搜索,一键直达
+9. 所有歌单分类标签，点击对应标签即可查看相对应歌单
+10. 开启腾讯云CDN加速，使用vue-lazyload 实现图片懒加载
+
 ## 联系我
 ---
 - QQ：1439821144
@@ -103,44 +115,54 @@
 - [Binaryify/NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi) (网易云音乐 Node.js API service)
 
 ### 目录结构
-<pre>
-.
-├── public             // 构建服务和webpack配置
-│  ├── index.html         // 项目入口文件
-├── src                // 生产目录
-│   ├── assets         // css js 和图片资源
-│   ├── components     // 各种组件
-│   ├── views          // 各种页面
+
+```js
+├── public            // 构建服务和webpack配置
+│  ├── index.html        // 项目入口文件
+├── src               // 生产目录
+│   ├── assets           // css js 和图片资源
+│   ├── components       // 各种组件
+│   ├── views            // 各种页面
+│     ├── 404               // 404页面  
+│     ├── artist            // 歌手，歌手详情  
+│     ├── home              // 首页  
+│     ├── moremusic         // 首页查看更多音乐页面  
+│     ├── music-list        // 查看更多音乐页面  
+│     ├── personal          // 查看更多音乐页面  
+│     ├── playlist          // 歌单分类标签页面  
+│     ├── playlistdetail    // 歌单详情页面  
+│     ├── ranking-list      // 排行榜  
+│     ├── search            // 搜索  
 │   ├── store          // vuex状态管理器
 │   ├── untils         // 代码模块
 │   └── main.js        // Webpack 预编译入口
 │   └── router.js      // 路由文件
 ├── package.json       // 项目配置文件
 ├── README.md
-</pre>
+```
 
 ## Project setup
-```
+```js
 npm install
 ```
 
 ### Compiles and hot-reloads for development
-```
+```js
 npm run serve
 ```
 
 ### Compiles and minifies for production
-```
+```js
 npm run build
 ```
 
 ### Run your tests
-```
+```js
 npm run test
 ```
 
 ### Lints and fixes files
-```
+```js
 npm run lint
 ```
 
