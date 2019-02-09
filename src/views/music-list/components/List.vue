@@ -49,10 +49,17 @@ export default {
   methods: {
     ...mapMutations(["openLoading"]),
     toDetail(item) {
-      this.$router.push({
-        path: "/playlistdetail",
-        query: { id: item.id, title: item.songName }
-      });
+      if (item.type == 'playlist') {
+        this.$router.push({
+          path: '/playlistdetail',
+          query: { id: item.id, title: item.songName }
+        });
+      } else {
+        this.$router.push({
+          path: '/artist/detail',
+          query: { id: item.id, name: item.songName }
+        });
+      }
       this.openLoading();
     }
   }

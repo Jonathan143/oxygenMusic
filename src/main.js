@@ -7,7 +7,10 @@ import "@/assets/styles/glob.styl";
 import Axios from "axios";
 import VueLazyload from "vue-lazyload";
 import APlayer from "@moefe/vue-aplayer";
+<<<<<<< HEAD
 
+=======
+>>>>>>> personal-view
 Vue.use(APlayer, {
   defaultCover:
     "https://img-1256555015.file.myqcloud.com/navigation/webicon/aplyer.png",
