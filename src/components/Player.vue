@@ -95,7 +95,6 @@ export default {
     },
     lisenAdd() {
       this.$refs.aplayer.switch(0);
-      console.log(this.playList.length);
       if (this.playList.length == 1) {
         setTimeout(()=>{
           this.$refs.aplayer.play();
