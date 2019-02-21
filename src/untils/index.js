@@ -176,13 +176,7 @@ let getSearchResult = data => {
 
 //歌单分类列表
 let getCatlist = data => {
-  let categoryArry = [
-    [],
-    [],
-    [],
-    [],
-    []
-  ];
+  let categoryArry = [[], [], [], [], []];
   let item = {};
   for (const cate of data.sub) {
     item = {
@@ -321,34 +315,15 @@ let allRankinglist = data => {
 
 //找出排行榜对应的idx
 let findRankinglistIdx = name => {
-  let idx = [...rankinglistName].findIndex(function (value) {
+  let idx = [...rankinglistName].findIndex(function(value) {
     return value == name;
   });
   return idx;
 };
 
-//从数组中删除相同项 (针对最近播放处理)
-let removeItem = (arr, id) => {
-  if (arr.length) {
-    let t = false;
-    let idx = arr.findIndex((value, index) => {
-      if (index > 0 && value.id == id) {
-        if (arr[0].id != id) {
-          t = true;
-          arr.unshift(value);
-        }
-        return index > 0 && value.id == id;
-      }
-    });
-    if (idx > -1) {
-      t ? idx++ : idx;
-      arr.splice(idx, 1);
-    }
-    return arr;
-  }
-};
 let getPersonalList = () => {
-  let list = [{
+  let list = [
+    {
       title: `喜欢的音乐`,
       icon: `icon-plove`,
       id: `likeMusic`,
@@ -393,6 +368,7 @@ let lisenMusicAdd = music => {
   if (recebtlyPlayed) {
     list = JSON.parse(recebtlyPlayed);
   }
+  removeRepeat(list, music.id);
   list.unshift(music);
   localStorage.setItem(`recebtlyPlayed`, JSON.stringify(list));
 };
@@ -453,7 +429,6 @@ export {
   getArtistDetail,
   allRankinglist,
   findRankinglistIdx,
-  removeItem,
   getPersonalList,
   lisenMusicAdd,
   removeRepeat,
