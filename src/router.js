@@ -83,6 +83,11 @@ export default new Router({
       component: () => import("./views/music-list/MusicList.vue")
     },
     {
+      path: "/find",
+      name: "find",
+      component: () => import("./views/find/find.vue")
+    },
+    {
       path: "*",
       name: "notfont",
       component: () => import("./views/404/404.vue")

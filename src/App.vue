@@ -1,13 +1,7 @@
 <template>
   <div id="app">
-    <transition
-      name="loading-transition"
-      leave-active-class="animated zoomOut"
-    >
-      <div
-        class="loading-container"
-        v-show="isLoading"
-      >
+    <transition name="loading-transition" leave-active-class="animated zoomOut">
+      <div class="loading-container" v-show="isLoading">
         <md-activity-indicator
           type="carousel"
           :size="36"
@@ -15,7 +9,8 @@
           color="#9025fc"
           text-color="#9025fc"
           vertical
-        >Music loading</md-activity-indicator>
+          >Music loading</md-activity-indicator
+        >
       </div>
     </transition>
     <top-nav v-show="isTopNavShow"></top-nav>
@@ -25,14 +20,8 @@
       </keep-alive>
       <router-view v-if="!$route.meta.keepAlive" />
     </div>
-    <transition
-      name="loading-transition"
-      enter-active-class="animated zoomIn"
-    >
-      <div
-        class="bottom-player"
-        v-show="isPlayerShow"
-      >
+    <transition name="loading-transition" enter-active-class="animated zoomIn">
+      <div class="bottom-player" v-show="isPlayerShow">
         <player></player>
       </div>
     </transition>
@@ -55,10 +44,10 @@ export default {
     ...mapState(["isPlayerShow", "isLoading"]),
     isTopNavShow() {
       let name = this.$route.name;
-      const pathName = ['home', 'personal', 'find'];
-      if(pathName.includes(name)){
+      const pathName = ["home", "personal", "find"];
+      if (pathName.includes(name)) {
         return true;
-      }else {
+      } else {
         return false;
       }
     }
@@ -69,27 +58,33 @@ export default {
 };
 </script>
 <style lang="stylus" scoped>
-@import '~styles/varibles.styl'
-@import '~styles/mixins.styl'
+@import '~styles/varibles.styl';
+@import '~styles/mixins.styl';
 
-#app
-  .loading-container
-    display flex
-    align-items center
-    justify-content center
-    position absolute
-    width 100%
-    height 100%
-    z-index 9999
-    background-color #fcfcfc
-  .bottom-player
-    position fixed
-    width 100%
-    bottom 0
-    left 0
-    font-size 28px
-    background-color #bgColor
-  .player-zw
-    height 100px
-    background-color #bgColor
+#app {
+  .loading-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background-color: #fcfcfc;
+  }
+
+  .bottom-player {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    font-size: 28px;
+    background-color: #b gColor;
+  }
+
+  .player-zw {
+    height: 100px;
+    background-color: #b gColor;
+  }
+}
 </style>

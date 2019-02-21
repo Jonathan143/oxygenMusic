@@ -44,9 +44,6 @@ let closeLoading = state => {
 let openLoading = state => {
   state.isLoading = true;
 };
-let changeTopNavCurrent = (state,current) => {
-  state.currentIcon = current;
-};
 export default {
   clearPlayList,
   addMusic,
@@ -54,6 +51,5 @@ export default {
   changePlayingId,
   changePlayList,
   closeLoading,
-  openLoading,
-  changeTopNavCurrent
+  openLoading
 };

@@ -1,34 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-cmn-Hans">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <link rel="stylesheet" href="https://at.alicdn.com/t/font_1018801_89m8x7oskiy.css">
-    <link rel="stylesheet" href="https://lib.baomitu.com/animate.css/3.7.0/animate.min.css">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,user-scalable=no"
+    />
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
+    <link
+      rel="stylesheet"
+      href="https://at.alicdn.com/t/font_1018801_89m8x7oskiy.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://lib.baomitu.com/animate.css/3.7.0/animate.min.css"
+    />
     <title>Oxygen Music</title>
     <script>
-      (function (window, document) {
-        var docEl = document.documentElement;
-        var viewEl = document.querySelector('meta[name=viewport]');
-        var dpr = window.devicePixelRatio || 1;
-        var scale = 1 / dpr;
-        
-        function layout () {
-          var rem = docEl.clientWidth * 100 / 750;
-          docEl.style.fontSize = rem + 'px';
-        }
-        viewEl.setAttribute('content', 'width=device-width,initial-scale=' + scale + ',maximum-scale=' + scale + ',minimum-scale=' + scale + ',user-scalable=no');
-        layout();
+      ;(function(window, document) {
+        var docEl = document.documentElement
+        var viewEl = document.querySelector('meta[name=viewport]')
+        var dpr = window.devicePixelRatio || 1
+        var scale = 1 / dpr
 
-        window.addEventListener('resize', layout);
-        window.addEventListener('pageshow', function (e) {
+        function layout() {
+          var rem = (docEl.clientWidth * 100) / 750
+          docEl.style.fontSize = rem + 'px'
+        }
+        viewEl.setAttribute(
+          'content',
+          'width=device-width,initial-scale=' +
+            scale +
+            ',maximum-scale=' +
+            scale +
+            ',minimum-scale=' +
+            scale +
+            ',user-scalable=no'
+        )
+        layout()
+
+        window.addEventListener('resize', layout)
+        window.addEventListener('pageshow', function(e) {
           if (e.presisted) {
-            layout();
+            layout()
           }
-        });
-      })(window, document);
+        })
+      })(window, document)
     </script>
   </head>
   <body>

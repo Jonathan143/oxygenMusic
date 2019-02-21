@@ -44,7 +44,7 @@ export default {
   },
   data() {
     return {
-      current: 'home',
+      current: "home",
       newSong: [],
       newPlayList: [],
       hotPlayList: [],
@@ -58,7 +58,7 @@ export default {
     this.getHotPlayList();
   },
   methods: {
-    ...mapMutations(['closeLoading', 'changeTopNavCurrent']),
+    ...mapMutations(["closeLoading"]),
     getNewSong() {
       this.axios("personalized/newsong").then(res => {
         this.newSong = getSongs(res.data.result).splice(0, 6);
@@ -89,13 +89,8 @@ export default {
         this.banner = imgs;
       });
     }
-  },
-  activated() {
-    this.changeTopNavCurrent('home');
-  },
+  }
 };
 </script>
 
-<style lang="stylus" scoped>
-  
-</style>
+<style lang="stylus" scoped></style>
