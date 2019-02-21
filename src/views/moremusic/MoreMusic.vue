@@ -1,13 +1,11 @@
 <template>
   <div class="more-music-container">
     <back-nav :title="this.$route.query.title"></back-nav>
-    <load-more
-      class="more-music-loading"
+    <load-more class="more-music-loading"
       :dataUrl="url"
       :multi="multi"
       :hasDetails="hasDetails"
-      :circle="circle"
-    ></load-more>
+      :circle="circle"></load-more>
   </div>
 </template>
 
@@ -53,7 +51,3 @@ export default {
   }
 };
 </script>
-
-<style lang="stylus" scoped>
-
-</style>

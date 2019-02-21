@@ -1,53 +1,37 @@
 <template>
-  <div
-    class="load-more-container"
-    :style="{height: cHeight}"
-  >
-    <md-scroll-view
-      ref="scrollView"
+  <div class="load-more-container"
+    :style="{height: cHeight}">
+    <md-scroll-view ref="scrollView"
       :scrolling-x="false"
       :auto-reflow="true"
-      @endReached="$_onEndReached"
-    >
+      @endReached="$_onEndReached">
       <div class="scroll-view-list">
-        <div
-          class="scroll-view-item"
+        <div class="scroll-view-item"
           v-for="song in list"
           :key="song.id "
-          @click="playMusic(song)"
-        >
+          @click="playMusic(song)">
           <div class="bg">
-            <img
-              class="img"
+            <img class="img"
               v-lazy="song.picUrl"
               alt=""
-              :class="{circle:circle}"
-            >
-            <img
-              class="item-img"
+              :class="{circle:circle}">
+            <img class="item-img"
               v-lazy="song.picUrl"
               alt=""
-              :class="{circle:circle}"
-            >
+              :class="{circle:circle}">
           </div>
-          <p
-            class="item-title"
-            :class="[multi?'multi-ellipsis':'ellipsis']"
-          >{{song.songName}}</p>
+          <p class="item-title"
+            :class="[multi?'multi-ellipsis':'ellipsis']">{{song.songName}}</p>
           <p class="item-sub-title">{{song.singer}}</p>
         </div>
       </div>
       <div class="loading-more">
-        <md-activity-indicator
-          type="carousel"
+        <md-activity-indicator type="carousel"
           :size="26"
           color="#9025fc"
-          v-if="!isFinished"
-        ></md-activity-indicator>
-        <p
-          v-else
-          class="carry-out"
-        ><i class="iconfont icon-carry-out"></i>已加载全部数据</p>
+          v-if="!isFinished"></md-activity-indicator>
+        <p v-else
+          class="carry-out"><i class="iconfont icon-carry-out"></i>已加载全部数据</p>
       </div>
     </md-scroll-view>
   </div>
@@ -55,7 +39,7 @@
 
 <script>
 import { ScrollView, ActivityIndicator } from "mand-mobile";
-import { getMusicList, getPlayList, setMusic } from "@/untils";
+import { getMusicList, getPlayList, setMusic, lisenMusicAdd } from "@/untils";
 import { mapMutations, mapState } from "vuex";
 export default {
   name: "load-more",
@@ -102,6 +86,7 @@ export default {
       } else {
         let playList = setMusic(song);
         this.addMusic(playList);
+        lisenMusicAdd(song);
       }
     },
     $_onEndReached() {
@@ -165,57 +150,84 @@ export default {
 </script>
 
 <style lang="stylus" scope>
-@import '~styles/varibles.styl'
-@import '~styles/mixins.styl'
+@import '~styles/varibles.styl';
+@import '~styles/mixins.styl';
 
-.load-more-container
-  padding 0 20px
-  box-sizing border-box
-.scroll-view-list
-  display flex
-  flex-wrap wrap
-  justify-content space-between
-  .scroll-view-item
-    margin-top 20px
-    font-size 22px
-    .bg
-      position relative
-      width 180px
-      height 180px
-      .item-img
-        width 180px
-        height 180px
-        border-radius 8px
-        bg-filter()
-      .img
-        f-filter()
-    .item-title
-      width 180px
-      margin-top 20px
-      color $titleColor
-      line-height 36px
-      text-align center
-    .item-sub-title
-      ellipsis()
-      width 180px
-      font-size 18px
-      color $subColor
-      text-align center
-.loading-more
-  margin 20px
-  display flex
-  justify-content center
-  .carry-out
-    font-size 28px
-    color $defColor
-    .iconfont
-      font-size 28px
-      margin-right 10px
-      color $defColor
-.multi-ellipsis
-  multiEllipsis()
-.ellipsis
-  ellipsis()
-.circle
-  border-radius 50% !important
+.load-more-container {
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.scroll-view-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  .scroll-view-item {
+    margin-top: 20px;
+    font-size: 22px;
+
+    .bg {
+      position: relative;
+      width: 180px;
+      height: 180px;
+
+      .item-img {
+        width: 180px;
+        height: 180px;
+        border-radius: 8px;
+        bg-filter();
+      }
+
+      .img {
+        f-filter();
+      }
+    }
+
+    .item-title {
+      width: 180px;
+      margin-top: 20px;
+      color: $titleColor;
+      line-height: 36px;
+      text-align: center;
+    }
+
+    .item-sub-title {
+      ellipsis();
+      width: 180px;
+      font-size: 18px;
+      color: $subColor;
+      text-align: center;
+    }
+  }
+}
+
+.loading-more {
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+
+  .carry-out {
+    font-size: 28px;
+    color: $defColor;
+
+    .iconfont {
+      font-size: 28px;
+      margin-right: 10px;
+      color: $defColor;
+    }
+  }
+}
+
+.multi-ellipsis {
+  multiEllipsis();
+}
+
+.ellipsis {
+  ellipsis();
+}
+
+.circle {
+  border-radius: 50% !important;
+}
 </style>
