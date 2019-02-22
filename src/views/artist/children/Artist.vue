@@ -3,16 +3,19 @@
     <back-nav title="热门歌手"></back-nav>
     <router-view></router-view>
     <div class="artist-list">
-      <artist-list :artistlist="artistList" @onartist="toArtistDetail"></artist-list>
+      <artist-list
+        :artistlist="artistList"
+        @onartist="toArtistDetail"
+      ></artist-list>
     </div>
   </div>
 </template>
 
 <script>
-import BackNav from '@/components/BackNav';
-import ArtistList from '../components/ArtistList';
-import { getArtists } from '@/untils';
-import { mapMutations } from 'vuex';
+import BackNav from "@/components/backNav";
+import ArtistList from "../components/artistList";
+import { getArtists } from "@/untils";
+import { mapMutations } from "vuex";
 export default {
   components: {
     BackNav,
@@ -21,33 +24,34 @@ export default {
   data() {
     return {
       artistList: []
-    }
+    };
   },
   methods: {
-    ...mapMutations(['closeLoading','openLoading']),
+    ...mapMutations(["CLOSE_LOADING", "OPEN_LOADING"]),
     getArtistList() {
-      this.axios('toplist/artist').then(res => {
+      this.axios(`toplist/artist`).then(res => {
         this.artistList = getArtists(res.data.list.artists);
-        this.closeLoading();
-        sessionStorage.setItem('isArtLoading',true);
-      })
+        this.CLOSE_LOADING();
+        sessionStorage.setItem("isArtLoading", true);
+      });
     },
     toArtistDetail(art) {
-      this.openLoading();
-      this.$router.push({ path: '/artist/detail', query: { id: art.id, name: art.name }})
+      this.OPEN_LOADING();
+      this.$router.push({
+        path: `/artist/detail`,
+        query: { id: art.id, name: art.name }
+      });
     }
   },
   created() {
     this.getArtistList();
   },
   activated() {
-    if(sessionStorage.isArtLoading){
-      this.closeLoading();
+    if (sessionStorage.isArtLoading) {
+      this.CLOSE_LOADING();
     }
-  },
-}
+  }
+};
 </script>
 
-<style lang="stylus" scoped>
-
-</style>
+<style lang="stylus" scoped></style>

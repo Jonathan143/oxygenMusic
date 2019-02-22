@@ -17,7 +17,7 @@ export default {
     [ResultPage.name]: ResultPage
   },
   methods: {
-    ...mapMutations(["closeLoading"]),
+    ...mapMutations(["CLOSE_LOADING"]),
     goHome() {
       setTimeout(() => {
         this.$router.push("/");
@@ -25,7 +25,7 @@ export default {
     }
   },
   mounted() {
-    this.closeLoading();
+    this.CLOSE_LOADING();
     this.goHome();
   }
 };

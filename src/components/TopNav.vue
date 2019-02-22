@@ -41,19 +41,19 @@ export default {
   },
   watch: {
     path(v) {
-      let p = "";
-      v == "/" ? (p = "home") : (p = v.slice(1));
+      let p = ``;
+      v == `/` ? (p = `home`) : (p = v.slice(1));
       this.current = p;
     }
   },
   methods: {
-    ...mapMutations(["openLoading"]),
+    ...mapMutations([`OPEN_LOADING`]),
     tabBarChange(item) {
       this.$router.push({ name: item.name });
     },
     toSearch() {
-      this.$router.push("/search");
-      this.openLoading();
+      this.$router.push(`/search`);
+      this.OPEN_LOADING();
     }
   }
 };

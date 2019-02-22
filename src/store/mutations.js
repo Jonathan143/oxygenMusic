@@ -1,10 +1,10 @@
-let clearPlayList = state => {
+let CLEAR_PLAY_LIST = state => {
   state.playList = [];
   state.isPlayerShow = false;
   localStorage.removeItem(`playList`);
 };
 
-let addMusic = (state, item) => {
+let ADD_MUSIC = (state, item) => {
   for (const i of state.playList) {
     if (item.id == i.id) {
       state.onPlaying = state.playList.indexOf(i);
@@ -18,7 +18,7 @@ let addMusic = (state, item) => {
   localStorage.setItem(`playList`, JSON.stringify(state.playList));
 };
 
-let delMusic = (state, id) => {
+let DEL_MUSIC = (state, id) => {
   let items = state.playList;
   for (let i = 0; i < items.length; i++) {
     if (items[i].id == id) {
@@ -29,27 +29,27 @@ let delMusic = (state, id) => {
   localStorage.setItem(`playList`, JSON.stringify(state.playList));
 };
 
-let changePlayingId = (state, id) => {
+let CHANGE_PLAYING_ID = (state, id) => {
   state.playingId = id;
 };
 
-let changePlayList = (state, list) => {
+let CHANGE_PLAYING_LIST = (state, list) => {
   state.playList = list;
   localStorage.setItem(`playList`, JSON.stringify(state.playList));
 };
 
-let closeLoading = state => {
+let CLOSE_LOADING = state => {
   state.isLoading = false;
 };
-let openLoading = state => {
+let OPEN_LOADING = state => {
   state.isLoading = true;
 };
 export default {
-  clearPlayList,
-  addMusic,
-  delMusic,
-  changePlayingId,
-  changePlayList,
-  closeLoading,
-  openLoading
+  CLEAR_PLAY_LIST,
+  ADD_MUSIC,
+  DEL_MUSIC,
+  CHANGE_PLAYING_ID,
+  CHANGE_PLAYING_LIST,
+  CLOSE_LOADING,
+  OPEN_LOADING
 };

@@ -30,21 +30,21 @@
 </template>
 
 <script>
-import Player from "./components/Player";
-import TopNav from "./components/TopNav";
+import player from "./components/player";
+import TopNav from "./components/topNav";
 import { ActivityIndicator } from "mand-mobile";
 import { mapState } from "vuex";
 export default {
   components: {
-    Player,
+    player,
     TopNav,
     "md-activity-indicator": ActivityIndicator
   },
   computed: {
-    ...mapState(["isPlayerShow", "isLoading"]),
+    ...mapState([`isPlayerShow`, `isLoading`]),
     isTopNavShow() {
       let name = this.$route.name;
-      const pathName = ["home", "personal", "find"];
+      const pathName = [`home`, `personal`, `find`];
       if (pathName.includes(name)) {
         return true;
       } else {

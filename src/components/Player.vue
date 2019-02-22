@@ -1,35 +1,40 @@
 <template>
   <div class="player-container">
-    <aplayer :audio="playList"
+    <aplayer
+      :audio="playList"
       :lrcType="0"
       :listFolded="true"
       ref="aplayer"
       @listShow="listShow"
       @listAdd="lisenAdd"
       @listSwitch="onPlayingChange"
-      @play="onPlay" />
-    <md-popup v-model="isListShow"
-      position="bottom"
-      @hide="listHide">
-      <md-popup-title-bar class="popup-title-bar"
+      @play="onPlay"
+    />
+    <md-popup v-model="isListShow" position="bottom" @hide="listHide">
+      <md-popup-title-bar
+        class="popup-title-bar"
         @confirm="clearList"
         title="播放列表"
         ok-text="清空 "
-        :cancel-text="playType"></md-popup-title-bar>
+        :cancel-text="playType"
+      ></md-popup-title-bar>
       <md-field class="field">
         <ul class="play-list">
-          <li class="play-item"
-            :class="[music.id == currentMusic?'playing':'']"
-            v-for="(music,idx) in playList"
-            :key="idx">
+          <li
+            class="play-item"
+            :class="[music.id == currentMusic ? 'playing' : '']"
+            v-for="(music, idx) in playList"
+            :key="idx"
+          >
             <i class="iconfont icon-yinliang"></i>
-            <p class="name"
-              @click="changePlay(idx)">
-              {{music.name}}
-              <span class="singer">- {{music.artist}}</span>
+            <p class="name" @click="changePlay(idx)">
+              {{ music.name }}
+              <span class="singer">- {{ music.artist }}</span>
             </p>
-            <i class="iconfont icon-iconfontclose"
-              @click="removeMusic(music.id)"></i>
+            <i
+              class="iconfont icon-iconfontclose"
+              @click="removeMusic(music.id)"
+            ></i>
           </li>
         </ul>
       </md-field>
@@ -65,7 +70,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(["clearPlayList", "delMusic", "changePlayingId"]),
+    ...mapMutations(["CLEAR_PLAY_LIST", "DEL_MUSIC", "CHANGE_PLAYING_ID"]),
     listShow() {
       this.isListShow = true;
       this.currentMusic = this.$refs.aplayer.currentMusic.id;
@@ -78,7 +83,7 @@ export default {
       this.$refs.aplayer.pause();
       this.isListShow = false;
       this.$refs.aplayer.hideList();
-      this.clearPlayList();
+      this.CLEAR_PLAY_LIST();
     },
     lisenAdd() {
       this.$refs.aplayer.switch(0);
@@ -98,11 +103,11 @@ export default {
       if (this.$refs.aplayer.currentMusic.id == id) {
         this.$refs.aplayer.pause();
       }
-      this.delMusic(id);
+      this.DEL_MUSIC(id);
     },
     onPlayingChange() {
       this.currentMusic = this.$refs.aplayer.currentMusic.id;
-      this.changePlayingId(this.$refs.aplayer.currentMusic.id);
+      this.CHANGE_PLAYING_ID(this.$refs.aplayer.currentMusic.id);
     },
     onPlay() {
       // let id = this.$refs.aplayer.currentMusic.id;

@@ -1,7 +1,9 @@
 <template>
   <div class="msic-list-container">
     <back-nav :title="title"></back-nav>
-    <collection-list v-if="this.$route.query.name == 'myCollection'"></collection-list>
+    <collection-list
+      v-if="this.$route.query.name == 'myCollection'"
+    ></collection-list>
     <song-list
       v-else
       :listdata="list"
@@ -12,9 +14,9 @@
 </template>
 
 <script>
-import BackNav from "@/components/BackNav.vue";
-import SongList from "@/components/SongList.vue";
-import CollectionList from "./components/CollectionList.vue";
+import BackNav from "@/components/backNav.vue";
+import SongList from "@/components/songList.vue";
+import CollectionList from "./components/collectionList.vue";
 import { mapMutations } from "vuex";
 export default {
   components: {
@@ -29,7 +31,7 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(["closeLoading"]),
+    ...mapMutations(["CLOSE_LOADING"]),
     getList() {
       let ls = localStorage.getItem(this.$route.query.name);
       if (ls) {
@@ -38,27 +40,27 @@ export default {
     },
     setTitle() {
       switch (this.$route.query.name) {
-        case "likeMusic":
-          this.title = "喜欢的音乐";
+        case `likeMusic`:
+          this.title = `喜欢的音乐`;
           break;
-        case "myRadio":
-          this.title = "我的电台";
+        case `myRadio`:
+          this.title = `我的电台`;
           break;
-        case "recebtlyPlayed":
-          this.title = "最近播放";
+        case `recebtlyPlayed`:
+          this.title = `最近播放`;
           break;
-        case "myCollection":
-          this.title = "我的收藏";
+        case `myCollection`:
+          this.title = `我的收藏`;
           break;
         default:
-          this.title = "";
+          this.title = ``;
           break;
       }
     }
   },
   created() {
-    this.closeLoading();
-    if (this.$route.query.name != 'myCollection') {
+    this.CLOSE_LOADING();
+    if (this.$route.query.name != `myCollection`) {
       this.getList();
     }
     this.setTitle();
@@ -67,9 +69,11 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.msic-list-container
-  .list
+.msic-list-container {
+  .list {
     // margin-top -20px
     // >>>.collection
     // display none
+  }
+}
 </style>

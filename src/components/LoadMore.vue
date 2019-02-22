@@ -1,37 +1,51 @@
 <template>
-  <div class="load-more-container"
-    :style="{height: cHeight}">
-    <md-scroll-view ref="scrollView"
+  <div class="load-more-container" :style="{ height: cHeight }">
+    <md-scroll-view
+      ref="scrollView"
       :scrolling-x="false"
       :auto-reflow="true"
-      @endReached="$_onEndReached">
+      @endReached="$_onEndReached"
+    >
       <div class="scroll-view-list">
-        <div class="scroll-view-item"
+        <div
+          class="scroll-view-item"
           v-for="song in list"
-          :key="song.id "
-          @click="playMusic(song)">
+          :key="song.id"
+          @click="playMusic(song)"
+        >
           <div class="bg">
-            <img class="img"
+            <img
+              class="img"
               v-lazy="song.picUrl"
               alt=""
-              :class="{circle:circle}">
-            <img class="item-img"
+              :class="{ circle: circle }"
+            />
+            <img
+              class="item-img"
               v-lazy="song.picUrl"
               alt=""
-              :class="{circle:circle}">
+              :class="{ circle: circle }"
+            />
           </div>
-          <p class="item-title"
-            :class="[multi?'multi-ellipsis':'ellipsis']">{{song.songName}}</p>
-          <p class="item-sub-title">{{song.singer}}</p>
+          <p
+            class="item-title"
+            :class="[multi ? 'multi-ellipsis' : 'ellipsis']"
+          >
+            {{ song.songName }}
+          </p>
+          <p class="item-sub-title">{{ song.singer }}</p>
         </div>
       </div>
       <div class="loading-more">
-        <md-activity-indicator type="carousel"
+        <md-activity-indicator
+          type="carousel"
           :size="26"
           color="#9025fc"
-          v-if="!isFinished"></md-activity-indicator>
-        <p v-else
-          class="carry-out"><i class="iconfont icon-carry-out"></i>已加载全部数据</p>
+          v-if="!isFinished"
+        ></md-activity-indicator>
+        <p v-else class="carry-out">
+          <i class="iconfont icon-carry-out"></i>已加载全部数据
+        </p>
       </div>
     </md-scroll-view>
   </div>
@@ -75,17 +89,17 @@ export default {
     ...mapState(["isPlayerShow"])
   },
   methods: {
-    ...mapMutations(["addMusic", "openLoading", "closeLoading"]),
+    ...mapMutations(["ADD_MUSIC", "OPEN_LOADING", "CLOSE_LOADING"]),
     playMusic(song) {
       if (this.hasDetails) {
         this.$router.push({
           path: "/playlistdetail",
           query: { id: song.id, title: song.songName }
         });
-        this.openLoading();
+        this.OPEN_LOADING();
       } else {
         let playList = setMusic(song);
-        this.addMusic(playList);
+        this.ADD_MUSIC(playList);
         lisenMusicAdd(song);
       }
     },
@@ -105,7 +119,7 @@ export default {
             this.isFinished = true;
           }
           if (this.limit == 40) {
-            this.closeLoading();
+            this.CLOSE_LOADING();
           }
           this.$refs.scrollView.finishLoadMore();
         });
@@ -114,11 +128,11 @@ export default {
       }
     },
     getMusicList() {
-      this.axios("/top/song?type=0").then(res => {
+      this.axios(`/top/song?type=0`).then(res => {
         this.musicList = getMusicList(res.data.data);
         this.list = this.musicList.slice(0, 20);
         this.limit += 20;
-        this.closeLoading();
+        this.CLOSE_LOADING();
       });
     },
     loadMoreMusic() {

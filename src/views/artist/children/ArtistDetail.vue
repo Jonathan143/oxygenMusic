@@ -2,7 +2,7 @@
   <div class="artist-detail-container">
     <back-nav
       :title="title"
-      :style="{backgroundColor: `rgba(146, 143, 250, ${rgba})`}"
+      :style="{ backgroundColor: `rgba(146, 143, 250, ${rgba})` }"
     ></back-nav>
     <div class="content">
       <topbg :artinfo="artistDetail.artist"></topbg>
@@ -16,9 +16,9 @@
 
 <script>
 import { mapMutations } from "vuex";
-import BackNav from "@/components/BackNav";
-import SongList from "@/components/SongList";
-import Topbg from "../components/Topbg";
+import BackNav from "@/components/backNav";
+import SongList from "@/components/songList";
+import Topbg from "../components/topBg";
 import { getArtistDetail } from "@/untils";
 export default {
   components: {
@@ -31,32 +31,32 @@ export default {
       artistDetail: {},
       timer: null,
       rgba: 0,
-      title: '',
+      title: "",
       listInfo: {}
     };
   },
   methods: {
-    ...mapMutations(["closeLoading"]),
+    ...mapMutations(["CLOSE_LOADING"]),
     getartDetail() {
       this.axios(`artists?id=${this.$route.query.id}`).then(res => {
         this.artistDetail = getArtistDetail(res.data);
-        this.closeLoading();
+        this.CLOSE_LOADING();
         this.setListInfo();
       });
     },
     handleScroll() {
       let t = this.timer;
       if (t) clearTimeout(t);
-      t = setTimeout(()=>{
+      t = setTimeout(() => {
         const top = document.documentElement.scrollTop;
         if (top > 200) {
           let opacity = top / 400;
           opacity = opacity > 1 ? 1 : opacity;
           this.rgba = opacity;
           this.title = this.$route.query.name;
-        }else {
+        } else {
           this.rgba = 0;
-          this.title = '';
+          this.title = ``;
         }
       }, 100);
     },
@@ -65,27 +65,31 @@ export default {
         id: this.artistDetail.artist.id,
         picUrl: this.artistDetail.artist.picUrl,
         songName: this.artistDetail.artist.name,
-        type: 'artist'
-      }
+        type: `artist`
+      };
     }
   },
   created() {
     this.getartDetail();
   },
   mounted() {
-    window.addEventListener("scroll", this.handleScroll);
+    window.addEventListener(`scroll`, this.handleScroll);
   },
   destroyed() {
-    window.removeEventListener("scroll", this.handleScroll);
+    window.removeEventListener(`scroll`, this.handleScroll);
   }
 };
 </script>
 
 <style lang="stylus" scoped>
-.artist-detail-container
-  >>>.back-nav-container
-    position fixed
-    transition all 0.4s
-  >>>.field
-    padding 0 20px 20px 20px
+.artist-detail-container {
+  >>>.back-nav-container {
+    position: fixed;
+    transition: all 0.4s;
+  }
+
+  >>>.field {
+    padding: 0 20px 20px 20px;
+  }
+}
 </style>

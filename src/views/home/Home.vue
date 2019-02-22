@@ -30,16 +30,16 @@
 </template>
 
 <script>
-import ScrollView from "./components/ScrollView";
-import Banner from "@/components/Banner";
-import BtnNav from "./components/BtnNav";
+import ScrollView from "./components/scrollView";
+import banner from "@/components/banner";
+import BtnNav from "./components/btnNav";
 import { getSongs, getPlayList } from "@/untils";
 import { mapMutations } from "vuex";
 export default {
   name: "home",
   components: {
     ScrollView,
-    Banner,
+    banner,
     BtnNav
   },
   data() {
@@ -58,25 +58,25 @@ export default {
     this.getHotPlayList();
   },
   methods: {
-    ...mapMutations(["closeLoading"]),
+    ...mapMutations(["CLOSE_LOADING"]),
     getNewSong() {
-      this.axios("personalized/newsong").then(res => {
+      this.axios(`personalized/newsong`).then(res => {
         this.newSong = getSongs(res.data.result).splice(0, 6);
       });
     },
     getNewPlayList() {
-      this.axios("top/playlist?limit=6&order=new").then(res => {
+      this.axios(`top/playlist?limit=6&order=new`).then(res => {
         this.newPlayList = getPlayList(res.data.playlists);
       });
     },
     getHotPlayList() {
-      this.axios("top/playlist?limit=6&order=hot").then(res => {
+      this.axios(`top/playlist?limit=6&order=hot`).then(res => {
         this.hotPlayList = getPlayList(res.data.playlists);
-        this.closeLoading();
+        this.CLOSE_LOADING();
       });
     },
     getBanner() {
-      this.axios("banner").then(res => {
+      this.axios(`banner`).then(res => {
         let imgs = [];
         let banner = {};
         for (const item of res.data.banners) {

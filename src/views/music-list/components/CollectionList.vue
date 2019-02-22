@@ -8,13 +8,12 @@
         <list :list="artist" circle></list>
       </md-tab-pane>
     </md-tabs>
-    
   </div>
 </template>
 
 <script>
-import { Tabs, TabPane, Icon } from 'mand-mobile';
-import List from './List.vue';
+import { Tabs, TabPane, Icon } from "mand-mobile";
+import List from "./list.vue";
 export default {
   components: {
     [Tabs.name]: Tabs,
@@ -26,7 +25,7 @@ export default {
     return {
       playlist: [],
       artist: []
-    }
+    };
   },
   methods: {
     getlist() {
@@ -35,7 +34,7 @@ export default {
       if (collection) {
         list = JSON.parse(collection);
         for (const item of list) {
-          if(item.type == 'playlist'){
+          if (item.type == `playlist`) {
             this.playlist.push(item);
           } else {
             this.artist.push(item);
@@ -51,16 +50,19 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.collection-container
-  width 100%
-  padding 20px
-  background #FFF
-  box-sizing border-box
-  .content
-    padding 12px 0
-    font-size 28px
-    background #FFF
-    padding 20px
-    line-height 1.5
-    box-sizing border-box
+.collection-container {
+  width: 100%;
+  padding: 20px;
+  background: #FFF;
+  box-sizing: border-box;
+
+  .content {
+    padding: 12px 0;
+    font-size: 28px;
+    background: #FFF;
+    padding: 20px;
+    line-height: 1.5;
+    box-sizing: border-box;
+  }
+}
 </style>

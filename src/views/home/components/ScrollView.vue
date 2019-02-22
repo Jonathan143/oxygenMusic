@@ -69,22 +69,22 @@ export default {
     "md-icon": Icon
   },
   methods: {
-    ...mapMutations(["addMusic", "openLoading"]),
+    ...mapMutations(["ADD_MUSIC", "OPEN_LOADING"]),
     playMusic(song) {
       if (this.hasDetails) {
         this.$router.push({
           path: "/playlistdetail",
           query: { id: song.id, title: song.songName }
         });
-        this.openLoading();
+        this.OPEN_LOADING();
       } else {
         let playList = setMusic(song);
-        this.addMusic(playList);
+        this.ADD_MUSIC(playList);
         lisenMusicAdd(song);
       }
     },
     loadMore() {
-      this.openLoading();
+      this.OPEN_LOADING();
       this.$router.push({ path: "/moremusic", query: { title: this.title } });
     }
   }

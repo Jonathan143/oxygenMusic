@@ -35,13 +35,13 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(["closeLoading"]),
+    ...mapMutations(["CLOSE_LOADING"]),
     tolist(name) {
-      this.$router.push({ name: "musiclist", query: { name: name } });
+      this.$router.push({ name: `musiclist`, query: { name: name } });
     }
   },
   mounted() {
-    this.closeLoading();
+    this.CLOSE_LOADING();
   },
   activated() {
     this.list = getPersonalList();
