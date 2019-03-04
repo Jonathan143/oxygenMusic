@@ -44,6 +44,7 @@ let CLOSE_LOADING = state => {
 let OPEN_LOADING = state => {
   state.isLoading = true;
 };
+
 export default {
   CLEAR_PLAY_LIST,
   ADD_MUSIC,

@@ -12,6 +12,7 @@ if (playList.length) {
 
 let onPlaying = 0; //添加歌曲时列表有相同歌曲时的index
 let playingId = 0;
+
 export default {
   isLoading,
   isPlay,
