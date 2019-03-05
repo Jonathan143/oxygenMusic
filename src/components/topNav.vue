@@ -59,7 +59,7 @@ export default {
 };
 </script>
 
-<style lang="stylus" scope>
+<style lang="stylus">
 .is-active {
   .icon {
     opacity: 1 !important;

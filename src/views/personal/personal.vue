@@ -18,21 +18,44 @@
         <p class="title">{{ i.title }}</p>
       </div>
     </div>
-    <md-dialog
-      title="窗口标题"
-      :closable="true"
-      v-model="login.open"
-      :btns="login.btns"
-    >
-      <md-input-item
-        v-model="userID"
-        ref="login"
-        title="userid"
-        placeholder="输入userID登录"
-        is-title-latent
-        clearable
-        is-highlight
-      ></md-input-item>
+
+    <md-dialog :closable="true" v-model="login.open" :btns="login.btns">
+      <md-tabs v-model="loginMode">
+        <md-tab-pane name="tel" label="账号密码登录">
+          <md-input-item
+            v-model="userID"
+            ref="login"
+            title="手机号"
+            type="digit"
+            placeholder="请输入手机号"
+            is-title-latent
+            clearable
+            is-highlight
+          ></md-input-item>
+          <md-input-item
+            v-model="password"
+            ref="login"
+            title="密码"
+            type="password"
+            placeholder="密码"
+            is-title-latent
+            clearable
+            is-highlight
+          ></md-input-item>
+        </md-tab-pane>
+        <md-tab-pane name="userId" label="userID登录">
+          <md-input-item
+            v-model="userID"
+            ref="login"
+            title="userid"
+            type="digit"
+            placeholder="输入userID登录"
+            is-title-latent
+            clearable
+            is-highlight
+          ></md-input-item>
+        </md-tab-pane>
+      </md-tabs>
     </md-dialog>
   </div>
 </template>
@@ -40,11 +63,13 @@
 <script>
 import { mapMutations } from "vuex";
 import { getPersonalList, playListDetail } from "@/untils";
-import { Dialog, InputItem, Toast } from "mand-mobile";
+import { Dialog, InputItem, Toast, Tabs, TabPane } from "mand-mobile";
 export default {
   data() {
     return {
       userID: "",
+      password: "",
+      loginMode: "tel",
       list: [],
       login: {
         open: false,
@@ -56,7 +81,7 @@ export default {
             }
           },
           {
-            text: "确认操作",
+            text: "登录",
             handler: this.onLoginConfirm
           }
         ]
@@ -70,7 +95,9 @@ export default {
   },
   components: {
     "md-dialog": Dialog,
-    "md-input-item": InputItem
+    "md-input-item": InputItem,
+    "md-tabs": Tabs,
+    "md-tab-pane": TabPane
   },
   methods: {
     ...mapMutations(["CLOSE_LOADING"]),
@@ -80,29 +107,12 @@ export default {
     onLoginConfirm() {
       let userID = this.userID;
       if (userID) {
+        if (this.loginMode === "tel" && this.password) {
+          this.loginModeTel();
+        } else {
+          this.loginModeUserID();
+        }
         Toast.loading("登录中...");
-        this.axios(`/user/detail?uid=${userID}`)
-          .then(res => {
-            this.userInfo = {
-              id: res.data.userPoint.userId,
-              name: res.data.profile.nickname,
-              signature: res.data.profile.signature,
-              avatarUrl: res.data.profile.avatarUrl
-            };
-            this.login.open = false;
-            localStorage.setItem("userInfo", JSON.stringify(this.userInfo));
-            localStorage.setItem("userID", JSON.stringify(this.userInfo.id));
-            Toast.hide();
-            this.getPlaylist();
-          })
-          .catch(() => {
-            Toast.hide();
-            setTimeout(() => {
-              Toast.failed("登录失败");
-              this.userID = "";
-              this.$refs.login.focus();
-            }, 10);
-          });
       } else {
         Toast.failed("登录失败");
       }
@@ -140,6 +150,43 @@ export default {
         localStorage.setItem("likeMusic", JSON.stringify(likeMusic));
         this.list = getPersonalList();
       });
+    },
+    loginModeTel() {
+      this.axios({
+        method: "post",
+        url: `/login/cellphone`,
+        params: {
+          phone: "18270487784",
+          password: "yj143143"
+        }
+      }).then(res => {
+        this.userID = res.data.account.id;
+        this.loginModeUserID();
+      });
+    },
+    loginModeUserID() {
+      this.axios(`/user/detail?uid=${this.userID}`)
+        .then(res => {
+          this.userInfo = {
+            id: res.data.userPoint.userId,
+            name: res.data.profile.nickname,
+            signature: res.data.profile.signature,
+            avatarUrl: res.data.profile.avatarUrl
+          };
+          this.login.open = false;
+          localStorage.setItem("userInfo", JSON.stringify(this.userInfo));
+          localStorage.setItem("userID", JSON.stringify(this.userInfo.id));
+          Toast.hide();
+          this.getPlaylist();
+        })
+        .catch(() => {
+          Toast.hide();
+          setTimeout(() => {
+            Toast.failed("登录失败");
+            this.userID = "";
+            this.$refs.login.focus();
+          }, 10);
+        });
     }
   },
   mounted() {
@@ -149,7 +196,6 @@ export default {
       this.userInfo = JSON.parse(user);
     } else {
       this.login.open = true;
-      this.$refs.login.focus();
     }
     this.getlikeMusic();
   },
