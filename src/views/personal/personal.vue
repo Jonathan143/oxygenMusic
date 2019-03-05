@@ -1,24 +1,37 @@
 <template>
-  <div class="personal-container">
-    <a class="info" href="https://github.com/Jonathan143/oxygenMusic">
-      <div class="name-box">
-        <h2 class="name">{{ userInfo.name }}</h2>
-        <p class="indicator-text">{{ userInfo.signature }}</p>
-      </div>
-      <div class="avatar">
-        <img class="av-img" :src="userInfo.avatarUrl" alt="Oxygen Music" />
-      </div>
-    </a>
-    <div class="list-box">
-      <div class="list" v-for="i in list" :key="i.id" @click="tolist(i.id)">
-        <div class="icon-count">
-          <i class="iconfont" :class="i.icon"></i>
-          <span class="count">{{ i.count }}</span>
+  <div class="personal">
+    <md-scroll-view
+      class="scroll-view"
+      ref="scrollView"
+      :scrolling-x="false"
+      @refreshing="$_onRefresh"
+    >
+      <md-scroll-view-refresh
+        slot="refresh"
+        slot-scope="{ scrollTop, isRefreshActive, isRefreshing }"
+        :scroll-top="scrollTop"
+        :is-refreshing="isRefreshing"
+        :is-refresh-active="isRefreshActive"
+      ></md-scroll-view-refresh>
+      <a class="info" href="https://github.com/Jonathan143/oxygenMusic">
+        <div class="name-box">
+          <h2 class="name">{{ userInfo.name }}</h2>
+          <p class="indicator-text">{{ userInfo.signature }}</p>
         </div>
-        <p class="title">{{ i.title }}</p>
+        <div class="avatar">
+          <img class="av-img" :src="userInfo.avatarUrl" alt="Oxygen Music" />
+        </div>
+      </a>
+      <div class="list-box">
+        <div class="list" v-for="i in list" :key="i.id" @click="tolist(i.id)">
+          <div class="icon-count">
+            <i class="iconfont" :class="i.icon"></i>
+            <span class="count">{{ i.count }}</span>
+          </div>
+          <p class="title">{{ i.title }}</p>
+        </div>
       </div>
-    </div>
-
+    </md-scroll-view>
     <md-dialog :closable="true" v-model="login.open" :btns="login.btns">
       <md-tabs v-model="loginMode">
         <md-tab-pane name="tel" label="账号密码登录">
@@ -63,7 +76,16 @@
 <script>
 import { mapMutations } from "vuex";
 import { getPersonalList, playListDetail } from "@/untils";
-import { Dialog, InputItem, Toast, Tabs, TabPane } from "mand-mobile";
+import {
+  Dialog,
+  InputItem,
+  Toast,
+  Tabs,
+  TabPane,
+  ScrollView,
+  ScrollViewRefresh
+} from "mand-mobile";
+import { setTimeout } from "timers";
 export default {
   data() {
     return {
@@ -97,7 +119,9 @@ export default {
     "md-dialog": Dialog,
     "md-input-item": InputItem,
     "md-tabs": Tabs,
-    "md-tab-pane": TabPane
+    "md-tab-pane": TabPane,
+    [ScrollView.name]: ScrollView,
+    [ScrollViewRefresh.name]: ScrollViewRefresh
   },
   methods: {
     ...mapMutations(["CLOSE_LOADING"]),
@@ -132,23 +156,29 @@ export default {
             };
             playlist.push(listInfo);
           }
-          let myCollection = [];
-          let ls = localStorage.getItem("myCollection");
+          // 拉去本地存储 我的收藏 数据合并
+          // let myCollection = [];
+          // let ls = localStorage.getItem("myCollection");
 
-          if (ls) {
-            myCollection = JSON.parse(ls);
-          }
-          myCollection = [...playlist, ...myCollection];
-          localStorage.setItem("myCollection", JSON.stringify(myCollection));
-          this.list = getPersonalList();
+          // if (ls) {
+          //   myCollection = JSON.parse(ls);
+          // }
+          // myCollection = [...playlist, ...myCollection];
+          localStorage.setItem("likeListId", JSON.stringify(playlist[0].id));
+
+          localStorage.setItem("myCollection", JSON.stringify(playlist));
+          this.getlikeMusic();
         }
       );
     },
     getlikeMusic() {
-      this.axios(`/playlist/detail?id=326709783`).then(res => {
+      this.axios(
+        `/playlist/detail?id=${JSON.parse(localStorage.likeListId)}`
+      ).then(res => {
         let likeMusic = playListDetail(res.data.playlist).tracks;
         localStorage.setItem("likeMusic", JSON.stringify(likeMusic));
         this.list = getPersonalList();
+        this.$refs.scrollView.finishRefresh();
       });
     },
     loginModeTel() {
@@ -165,7 +195,7 @@ export default {
       });
     },
     loginModeUserID() {
-      this.axios(`/user/detail?uid=${this.userID}`)
+      this.axios(`/user/detail?uid=${JSON.parse(localStorage.userID)}`)
         .then(res => {
           this.userInfo = {
             id: res.data.userPoint.userId,
@@ -187,6 +217,16 @@ export default {
             this.$refs.login.focus();
           }, 10);
         });
+    },
+    $_onRefresh() {
+      if (localStorage.userInfo) {
+        this.loginModeUserID();
+      } else {
+        this.list = getPersonalList();
+        setTimeout(() => {
+          this.$refs.scrollView.finishRefresh();
+        }, 1000);
+      }
     }
   },
   mounted() {
@@ -194,10 +234,10 @@ export default {
     let user = localStorage.userInfo;
     if (user) {
       this.userInfo = JSON.parse(user);
+      // this.$refs.scrollView.triggerRefresh();
     } else {
       this.login.open = true;
     }
-    this.getlikeMusic();
   },
   activated() {
     this.list = getPersonalList();
@@ -209,9 +249,15 @@ export default {
 @import '~styles/varibles.styl';
 @import '~styles/mixins.styl';
 
-.personal-container {
-  padding: 20px;
-  box-sizing: border-box;
+.personal {
+  position: absolute;
+  height: calc(100% - 150px);
+
+  .scroll-view {
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+  }
 
   .info {
     display: flex;
