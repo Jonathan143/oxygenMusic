@@ -30,13 +30,13 @@
 </template>
 
 <script>
-import ScrollView from "./components/scrollView";
-import banner from "@/components/banner";
-import BtnNav from "./components/btnNav";
-import { getSongs, getPlayList } from "@/untils";
-import { mapMutations } from "vuex";
+import ScrollView from './components/scrollView'
+import banner from '@/components/banner'
+import BtnNav from './components/btnNav'
+import { getSongs, getPlayList } from '@/untils'
+import { mapMutations } from 'vuex'
 export default {
-  name: "home",
+  name: 'home',
   components: {
     ScrollView,
     banner,
@@ -44,53 +44,53 @@ export default {
   },
   data() {
     return {
-      current: "home",
+      current: 'home',
       newSong: [],
       newPlayList: [],
       hotPlayList: [],
       banner: []
-    };
+    }
   },
   created() {
-    this.getBanner();
-    this.getNewSong();
-    this.getNewPlayList();
-    this.getHotPlayList();
+    this.getBanner()
+    this.getNewSong()
+    this.getNewPlayList()
+    this.getHotPlayList()
   },
   methods: {
-    ...mapMutations(["CLOSE_LOADING"]),
+    ...mapMutations(['CLOSE_LOADING']),
     getNewSong() {
       this.axios(`personalized/newsong`).then(res => {
-        this.newSong = getSongs(res.data.result).splice(0, 6);
-      });
+        this.newSong = getSongs(res.data.result).splice(0, 6)
+      })
     },
     getNewPlayList() {
       this.axios(`top/playlist?limit=6&order=new`).then(res => {
-        this.newPlayList = getPlayList(res.data.playlists);
-      });
+        this.newPlayList = getPlayList(res.data.playlists)
+      })
     },
     getHotPlayList() {
       this.axios(`top/playlist?limit=6&order=hot`).then(res => {
-        this.hotPlayList = getPlayList(res.data.playlists);
-        this.CLOSE_LOADING();
-      });
+        this.hotPlayList = getPlayList(res.data.playlists)
+        this.CLOSE_LOADING()
+      })
     },
     getBanner() {
       this.axios(`banner`).then(res => {
-        let imgs = [];
-        let banner = {};
+        let imgs = []
+        let banner = {}
         for (const item of res.data.banners) {
           banner = {
             imageUrl: item.imageUrl,
             targetId: item.targetId
-          };
-          imgs.push(banner);
+          }
+          imgs.push(banner)
         }
-        this.banner = imgs;
-      });
+        this.banner = imgs
+      })
     }
   }
-};
+}
 </script>
 
 <style lang="stylus" scoped></style>

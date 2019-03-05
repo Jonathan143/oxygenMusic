@@ -33,7 +33,7 @@
       </div>
       <div class="sign-out">
         <md-button class="sign-out__btn" round size="small" @click="signOut">
-          退出登录
+          {{ signText }}
         </md-button>
       </div>
     </md-scroll-view>
@@ -93,6 +93,15 @@ import {
 } from 'mand-mobile'
 import { setTimeout } from 'timers'
 export default {
+  components: {
+    'md-dialog': Dialog,
+    'md-input-item': InputItem,
+    'md-tabs': Tabs,
+    'md-tab-pane': TabPane,
+    [ScrollView.name]: ScrollView,
+    [ScrollViewRefresh.name]: ScrollViewRefresh,
+    [Button.name]: Button
+  },
   data() {
     return {
       userID: '',
@@ -121,15 +130,6 @@ export default {
       }
     }
   },
-  components: {
-    'md-dialog': Dialog,
-    'md-input-item': InputItem,
-    'md-tabs': Tabs,
-    'md-tab-pane': TabPane,
-    [ScrollView.name]: ScrollView,
-    [ScrollViewRefresh.name]: ScrollViewRefresh,
-    [Button.name]: Button
-  },
   computed: {
     ...mapState(['isLogin']),
     signText() {
@@ -146,43 +146,46 @@ export default {
       if (userID) {
         if (this.loginMode === 'tel' && this.password) {
           this.loginModeTel()
-        } else {
+          this.password = ''
+          Toast.loading('登录中...')
+        } else if (this.loginMode !== 'tel') {
           this.loginModeUserID()
+          Toast.loading('登录中...')
+        } else {
+          Toast.failed('请输入密码')
         }
-        Toast.loading('登录中...')
       } else {
         Toast.failed('登录失败')
       }
     },
     getPlaylist() {
-      this.axios(`/user/playlist?uid=${JSON.parse(localStorage.userID)}`).then(
-        res => {
-          let list = res.data.playlist
-          let listInfo = {}
-          let playlist = []
-          for (const item of list) {
-            listInfo = {
-              id: item.id,
-              picUrl: item.coverImgUrl,
-              songName: item.name,
-              type: 'playlist'
-            }
-            playlist.push(listInfo)
+      const userID = this.userID || JSON.parse(localStorage.userID)
+      this.axios(`/user/playlist?uid=${userID}`).then(res => {
+        let list = res.data.playlist
+        let listInfo = {}
+        let playlist = []
+        for (const item of list) {
+          listInfo = {
+            id: item.id,
+            picUrl: item.coverImgUrl,
+            songName: item.name,
+            type: 'playlist'
           }
-          // 拉去本地存储 我的收藏 数据合并
-          // let myCollection = [];
-          // let ls = localStorage.getItem("myCollection");
-
-          // if (ls) {
-          //   myCollection = JSON.parse(ls);
-          // }
-          // myCollection = [...playlist, ...myCollection];
-          localStorage.setItem('likeListId', JSON.stringify(playlist[0].id))
-
-          localStorage.setItem('myCollection', JSON.stringify(playlist))
-          this.getlikeMusic()
+          playlist.push(listInfo)
         }
-      )
+        // 拉去本地存储 我的收藏 数据合并
+        // let myCollection = [];
+        // let ls = localStorage.getItem("myCollection");
+
+        // if (ls) {
+        //   myCollection = JSON.parse(ls);
+        // }
+        // myCollection = [...playlist, ...myCollection];
+        localStorage.setItem('likeListId', JSON.stringify(playlist[0].id))
+
+        localStorage.setItem('myCollection', JSON.stringify(playlist))
+        this.getlikeMusic()
+      })
     },
     getlikeMusic() {
       this.axios(
@@ -190,7 +193,9 @@ export default {
       ).then(res => {
         let likeMusic = playListDetail(res.data.playlist).tracks
         localStorage.setItem('likeMusic', JSON.stringify(likeMusic))
+
         this.list = getPersonalList()
+
         this.$refs.scrollView.finishRefresh()
       })
     },
@@ -208,7 +213,8 @@ export default {
       })
     },
     loginModeUserID() {
-      this.axios(`/user/detail?uid=${JSON.parse(localStorage.userID)}`)
+      const userID = this.userID || JSON.parse(localStorage.userID)
+      this.axios(`/user/detail?uid=${userID}`)
         .then(res => {
           this.userInfo = {
             id: res.data.userPoint.userId,
@@ -217,6 +223,9 @@ export default {
             avatarUrl: res.data.profile.avatarUrl
           }
           this.login.open = false
+          if (!localStorage.userInfo) {
+            this.changeUserStatus()
+          }
           localStorage.setItem('userInfo', JSON.stringify(this.userInfo))
           localStorage.setItem('userID', JSON.stringify(this.userInfo.id))
           Toast.hide()
@@ -243,8 +252,26 @@ export default {
     },
     signOut() {
       if (this.isLogin) {
-        localStorage.removeItem('userInfo')
+        let removeList = ['userInfo', 'likeMusic', 'myCollection']
+        this.removeLS(removeList)
+
+        this.list = getPersonalList()
+        this.userInfo = {
+          name: `Oxygen Music`,
+          signature: `一个基于vue.js音乐播放器`,
+          avatarUrl: `https://img-1256555015.file.myqcloud.com/2019/01/25/5c4a704d05904.png`
+        }
+
         this.changeUserStatus()
+
+        Toast.succeed('已退出登录')
+      } else {
+        this.login.open = true
+      }
+    },
+    removeLS(removeList) {
+      for (const removeItem of removeList) {
+        localStorage.removeItem(removeItem)
       }
     }
   },

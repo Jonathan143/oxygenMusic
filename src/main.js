@@ -22,8 +22,10 @@ Vue.prototype.axios = Axios
 Vue.config.productionTip = false
 
 Vue.use(VueLazyload, {
-  error: require('./assets/images/error.jpg'),
-  loading: require('./assets/images/loading.gif')
+  error:
+    'https://img-1256555015.file.myqcloud.com/2019/03/05/5c7e6b9e43d27.jpg',
+  loading:
+    'https://img-1256555015.file.myqcloud.com/2019/03/05/5c7e6b9e9befa.gif'
 })
 
 new Vue({
