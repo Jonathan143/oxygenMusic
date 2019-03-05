@@ -10,38 +10,38 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapMutations } from 'vuex'
 const iconBtn = [
   {
-    icon: "icon-playlist",
-    text: "歌单",
-    path: "/playlist"
+    icon: 'icon-playlist',
+    text: '歌单',
+    path: '/playlist'
   },
   {
-    icon: "icon-singer",
-    text: "歌手",
-    path: "/artist"
+    icon: 'icon-singer',
+    text: '歌手',
+    path: '/artist'
   },
   {
-    icon: "icon-toplist2",
-    text: "排行榜",
-    path: "/rankinglist"
+    icon: 'icon-toplist2',
+    text: '排行榜',
+    path: '/rankinglist'
   }
-];
+]
 export default {
   data() {
     return {
       iconBtn: [...iconBtn]
-    };
+    }
   },
   methods: {
-    ...mapMutations(["OPEN_LOADING"]),
+    ...mapMutations(['OPEN_LOADING']),
     changeRouter(path) {
-      this.OPEN_LOADING();
-      this.$router.push(path);
+      this.OPEN_LOADING()
+      this.$router.push(path)
     }
   }
-};
+}
 </script>
 
 <style lang="stylus" scoped>

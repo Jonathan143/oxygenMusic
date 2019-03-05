@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import { Tabs, TabPane, Icon } from "mand-mobile";
-import List from "./list.vue";
+import { Tabs, TabPane, Icon } from 'mand-mobile'
+import List from './list.vue'
 export default {
   components: {
     [Tabs.name]: Tabs,
@@ -25,28 +25,28 @@ export default {
     return {
       playlist: [],
       artist: []
-    };
+    }
   },
   methods: {
     getlist() {
-      let collection = localStorage.myCollection;
-      let list = [];
+      let collection = localStorage.myCollection
+      let list = []
       if (collection) {
-        list = JSON.parse(collection);
+        list = JSON.parse(collection)
         for (const item of list) {
           if (item.type == `playlist`) {
-            this.playlist.push(item);
+            this.playlist.push(item)
           } else {
-            this.artist.push(item);
+            this.artist.push(item)
           }
         }
       }
     }
   },
   created() {
-    this.getlist();
+    this.getlist()
   }
-};
+}
 </script>
 
 <style lang="stylus" scoped>

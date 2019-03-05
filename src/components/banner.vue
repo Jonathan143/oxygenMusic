@@ -11,16 +11,16 @@
 </template>
 
 <script>
-import { Swiper, SwiperItem } from "mand-mobile";
+import { Swiper, SwiperItem } from 'mand-mobile'
 
 export default {
-  name: "swiper",
+  name: 'swiper',
   components: {
     [Swiper.name]: Swiper,
     [SwiperItem.name]: SwiperItem
   },
-  props: ["banner"]
-};
+  props: ['banner']
+}
 </script>
 
 <style lang="stylus">

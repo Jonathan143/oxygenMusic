@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { Tag } from "mand-mobile";
+import { Tag } from 'mand-mobile'
 export default {
   props: {
     title: String,
@@ -33,17 +33,17 @@ export default {
     }
   },
   components: {
-    "md-tag": Tag
+    'md-tag': Tag
   },
   methods: {
     clearTag() {
-      this.$emit(`cleartags`);
+      this.$emit(`cleartags`)
     },
     onClickTag(tag) {
-      this.$emit(`click-tag`, tag);
+      this.$emit(`click-tag`, tag)
     }
   }
-};
+}
 </script>
 
 <style lang="stylus" scoped>

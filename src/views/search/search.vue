@@ -70,49 +70,49 @@
 </template>
 
 <script>
-import BackNav from "@/components/backNav";
-import SongList from "@/components/songList";
-import Tags from "./components/tags";
-import { InputItem, ActivityIndicator } from "mand-mobile";
-import { mapMutations } from "vuex";
-import { getHotSearch, getSearchResult } from "@/untils";
+import BackNav from '@/components/backNav'
+import SongList from '@/components/songList'
+import Tags from './components/tags'
+import { InputItem, ActivityIndicator } from 'mand-mobile'
+import { mapMutations } from 'vuex'
+import { getHotSearch, getSearchResult } from '@/untils'
 export default {
   components: {
     BackNav,
     Tags,
     SongList,
-    "md-input-item": InputItem,
-    "md-activity-indicator": ActivityIndicator
+    'md-input-item': InputItem,
+    'md-activity-indicator': ActivityIndicator
   },
   data() {
     return {
-      title: "搜索",
+      title: '搜索',
       hasResult: false,
-      searchValue: "",
+      searchValue: '',
       highlight: true,
       hotTags: [],
       historyTags: [],
       searchResult: [],
       isLoading: false,
-      oldSearchValue: ""
-    };
+      oldSearchValue: ''
+    }
   },
   computed: {
     showHistory() {
       if (this.historyTags.length > 0) {
-        return true;
+        return true
       } else {
-        return false;
+        return false
       }
     }
   },
   methods: {
-    ...mapMutations(["CLOSE_LOADING"]),
+    ...mapMutations(['CLOSE_LOADING']),
     onSearchFocus() {
-      this.highlight = true;
+      this.highlight = true
     },
     onSearchBlur() {
-      this.highlight = false;
+      this.highlight = false
     },
     onEnter(n, e) {
       if (
@@ -120,59 +120,59 @@ export default {
         this.searchValue &&
         this.searchValue != this.oldSearchValue
       ) {
-        this.isLoading = true;
-        this.getSearch(this.searchValue);
-        this.oldSearchValue = this.searchValue;
-        this.$refs.search.blur();
-        this.searchValue = "";
+        this.isLoading = true
+        this.getSearch(this.searchValue)
+        this.oldSearchValue = this.searchValue
+        this.$refs.search.blur()
+        this.searchValue = ''
       }
     },
     getSearch(searchValue) {
       this.axios(`search?keywords=${searchValue}`).then(res => {
-        this.searchResult = getSearchResult(res.data.result.songs);
-        this.hasResult = true;
-        this.isLoading = false;
-      });
-      this.title = `搜索 - ${searchValue}`;
-      let tags = [];
+        this.searchResult = getSearchResult(res.data.result.songs)
+        this.hasResult = true
+        this.isLoading = false
+      })
+      this.title = `搜索 - ${searchValue}`
+      let tags = []
       if (localStorage.historyTags) {
-        tags = JSON.parse(localStorage.historyTags);
+        tags = JSON.parse(localStorage.historyTags)
       }
       if (!tags.includes(searchValue)) {
-        tags.unshift(searchValue);
+        tags.unshift(searchValue)
         if (tags.length > 10) {
-          tags.splice(-1, tags.length - 10);
+          tags.splice(-1, tags.length - 10)
         }
-        localStorage.setItem(`historyTags`, JSON.stringify(tags));
+        localStorage.setItem(`historyTags`, JSON.stringify(tags))
       }
     },
     setHotTags() {
       this.axios(`search/hot`).then(res => {
-        this.hotTags = getHotSearch(res.data.result.hots);
-        this.CLOSE_LOADING();
-        this.$refs.search.focus();
-      });
+        this.hotTags = getHotSearch(res.data.result.hots)
+        this.CLOSE_LOADING()
+        this.$refs.search.focus()
+      })
     },
     getHistoryTags() {
       if (localStorage.historyTags) {
-        this.historyTags = JSON.parse(localStorage.historyTags);
+        this.historyTags = JSON.parse(localStorage.historyTags)
       }
     },
     clearTags() {
-      localStorage.removeItem(`historyTags`);
-      this.historyTags = [];
+      localStorage.removeItem(`historyTags`)
+      this.historyTags = []
     },
     onTagClick(tagValue) {
-      this.isLoading = true;
-      this.getSearch(tagValue);
-      this.oldSearchValue = tagValue;
+      this.isLoading = true
+      this.getSearch(tagValue)
+      this.oldSearchValue = tagValue
     }
   },
   created() {
-    this.setHotTags();
-    this.getHistoryTags();
+    this.setHotTags()
+    this.getHistoryTags()
   }
-};
+}
 </script>
 
 <style lang="stylus" scoped>

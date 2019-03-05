@@ -30,25 +30,25 @@
 </template>
 
 <script>
-import player from "./components/player";
-import TopNav from "./components/topNav";
-import { ActivityIndicator } from "mand-mobile";
-import { mapState } from "vuex";
+import player from './components/player'
+import TopNav from './components/topNav'
+import { ActivityIndicator } from 'mand-mobile'
+import { mapState } from 'vuex'
 export default {
   components: {
     player,
     TopNav,
-    "md-activity-indicator": ActivityIndicator
+    'md-activity-indicator': ActivityIndicator
   },
   computed: {
     ...mapState([`isPlayerShow`, `isLoading`]),
     isTopNavShow() {
-      let name = this.$route.name;
-      const pathName = [`home`, `personal`, `find`];
+      let name = this.$route.name
+      const pathName = [`home`, `personal`, `find`]
       if (pathName.includes(name)) {
-        return true;
+        return true
       } else {
-        return false;
+        return false
       }
     }
   },
@@ -60,9 +60,9 @@ export default {
     //   })
   },
   beforeDestroy() {
-    sessionStorage.clear();
+    sessionStorage.clear()
   }
-};
+}
 </script>
 <style lang="stylus" scoped>
 @import '~styles/varibles.styl';

@@ -10,25 +10,25 @@
 </template>
 
 <script>
-import { ResultPage } from "mand-mobile";
-import { mapMutations } from "vuex";
+import { ResultPage } from 'mand-mobile'
+import { mapMutations } from 'vuex'
 export default {
   components: {
     [ResultPage.name]: ResultPage
   },
   methods: {
-    ...mapMutations(["CLOSE_LOADING"]),
+    ...mapMutations(['CLOSE_LOADING']),
     goHome() {
       setTimeout(() => {
-        this.$router.push("/");
-      }, 3000);
+        this.$router.push('/')
+      }, 3000)
     }
   },
   mounted() {
-    this.CLOSE_LOADING();
-    this.goHome();
+    this.CLOSE_LOADING()
+    this.goHome()
   }
-};
+}
 </script>
 
 <style lang="stylus" scoped>

@@ -41,19 +41,19 @@
 </template>
 
 <script>
-import { Icon } from "mand-mobile";
+import { Icon } from 'mand-mobile'
 export default {
-  props: ["list"],
+  props: ['list'],
   components: {
     Icon
   },
   computed: {
     tags() {
-      let tags = Array.of(this.list.tags);
-      return tags.join(`.`);
+      let tags = Array.of(this.list.tags)
+      return tags.join(`.`)
     }
   }
-};
+}
 </script>
 
 <style lang="stylus" scoped>

@@ -26,10 +26,10 @@ export default {
   },
   methods: {
     onlistClick(name) {
-      this.$emit(`list-click`, name);
+      this.$emit(`list-click`, name)
     }
   }
-};
+}
 </script>
 
 <style lang="stylus" scoped>

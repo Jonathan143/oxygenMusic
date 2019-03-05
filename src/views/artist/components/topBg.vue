@@ -16,22 +16,22 @@
 
 <script>
 export default {
-  props: ["artinfo"],
+  props: ['artinfo'],
   data() {
     return {
       info: {},
-      alias: ""
-    };
+      alias: ''
+    }
   },
   watch: {
     artinfo(newV) {
-      this.info = newV;
-      if (newV.alias != "") {
-        this.alias = `(${newV.alias})`;
+      this.info = newV
+      if (newV.alias != '') {
+        this.alias = `(${newV.alias})`
       }
     }
   }
-};
+}
 </script>
 
 <style lang="stylus" scoped>

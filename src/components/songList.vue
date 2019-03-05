@@ -38,9 +38,9 @@
 </template>
 
 <script>
-import { Field, Popup, Toast } from "mand-mobile";
-import { mapState, mapMutations } from "vuex";
-import { setMusic, lisenMusicAdd, lisenAdd, findItem } from "@/untils";
+import { Field, Popup, Toast } from 'mand-mobile'
+import { mapState, mapMutations } from 'vuex'
+import { setMusic, lisenMusicAdd, lisenAdd, findItem } from '@/untils'
 
 export default {
   props: {
@@ -53,65 +53,65 @@ export default {
       type: Object,
       default() {
         return {
-          icon: "icon-add",
-          text: "收藏"
-        };
+          icon: 'icon-add',
+          text: '收藏'
+        }
       }
     }
   },
   components: {
-    "md-field": Field,
-    "md-popup": Popup
+    'md-field': Field,
+    'md-popup': Popup
   },
   data() {
     return {
       isPopupShow: false,
-      listLength: "",
+      listLength: '',
       btn: this.rbtn,
       isCollection: false
-    };
+    }
   },
   computed: {
     ...mapState([`playingId`])
   },
   watch: {
     listdata() {
-      this.listLength = `(共${this.listdata.length}首)`;
+      this.listLength = `(共${this.listdata.length}首)`
     }
   },
   methods: {
     ...mapMutations([`ADD_MUSIC`, `CHANGE_PLAYING_LIST`]),
     playMusic(music) {
-      let playList = setMusic(music);
-      this.ADD_MUSIC(playList);
-      lisenMusicAdd(music);
+      let playList = setMusic(music)
+      this.ADD_MUSIC(playList)
+      lisenMusicAdd(music)
     },
     moreOperations() {
-      this.isPopupShow = true;
+      this.isPopupShow = true
       setTimeout(() => {
-        this.isPopupShow = false;
-      }, 2000);
+        this.isPopupShow = false
+      }, 2000)
     },
     playAll() {
-      let playList = [];
+      let playList = []
       for (const item of this.listdata) {
-        let music = setMusic(item);
-        playList.push(music);
+        let music = setMusic(item)
+        playList.push(music)
       }
-      this.CHANGE_PLAYING_LIST(playList);
+      this.CHANGE_PLAYING_LIST(playList)
     },
     onRbtnClick() {
       if (!this.isCollection) {
         if (this.clearName) {
-          localStorage.removeItem(this.clearName);
+          localStorage.removeItem(this.clearName)
         } else {
-          lisenAdd(`myCollection`, this.listInfo);
+          lisenAdd(`myCollection`, this.listInfo)
           this.btn = {
             icon: `icon-yishoucang`,
             text: `已收藏`
-          };
+          }
         }
-        Toast.succeed(`${this.btn.text}成功`);
+        Toast.succeed(`${this.btn.text}成功`)
       }
     },
     onCollection() {
@@ -119,8 +119,8 @@ export default {
         this.btn = {
           icon: `icon-yishoucang`,
           text: `已收藏`
-        };
-        this.isCollection = true;
+        }
+        this.isCollection = true
       }
     }
   },
@@ -129,12 +129,12 @@ export default {
       this.btn = {
         icon: `icon-qingkong`,
         text: `清空`
-      };
-      this.listLength = `(共${this.listdata.length}首)`;
+      }
+      this.listLength = `(共${this.listdata.length}首)`
     }
-    this.onCollection();
+    this.onCollection()
   }
-};
+}
 </script>
 
 <style lang="stylus" scoped>

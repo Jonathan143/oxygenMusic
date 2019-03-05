@@ -18,45 +18,45 @@
 </template>
 
 <script>
-import { TabBar } from "mand-mobile";
-import { mapMutations } from "vuex";
+import { TabBar } from 'mand-mobile'
+import { mapMutations } from 'vuex'
 export default {
   components: {
-    "md-tab-bar": TabBar
+    'md-tab-bar': TabBar
   },
   data() {
     return {
-      current: "home",
+      current: 'home',
       items: [
-        { name: "personal", icon: "icon-wo1" },
-        { name: "home", icon: "icon-yinle" },
-        { name: "find", icon: "icon-faxian" }
+        { name: 'personal', icon: 'icon-wo1' },
+        { name: 'home', icon: 'icon-yinle' },
+        { name: 'find', icon: 'icon-faxian' }
       ]
-    };
+    }
   },
   computed: {
     path() {
-      return this.$route.path;
+      return this.$route.path
     }
   },
   watch: {
     path(v) {
-      let p = ``;
-      v == `/` ? (p = `home`) : (p = v.slice(1));
-      this.current = p;
+      let p = ``
+      v == `/` ? (p = `home`) : (p = v.slice(1))
+      this.current = p
     }
   },
   methods: {
     ...mapMutations([`OPEN_LOADING`]),
     tabBarChange(item) {
-      this.$router.push({ name: item.name });
+      this.$router.push({ name: item.name })
     },
     toSearch() {
-      this.$router.push(`/search`);
-      this.OPEN_LOADING();
+      this.$router.push(`/search`)
+      this.OPEN_LOADING()
     }
   }
-};
+}
 </script>
 
 <style lang="stylus">

@@ -43,71 +43,71 @@
 </template>
 
 <script>
-import { Field, Popup, PopupTitleBar } from "mand-mobile";
-import { mapState, mapMutations } from "vuex";
+import { Field, Popup, PopupTitleBar } from 'mand-mobile'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
   components: {
-    "md-popup": Popup,
-    "md-popup-title-bar": PopupTitleBar,
-    "md-field": Field
+    'md-popup': Popup,
+    'md-popup-title-bar': PopupTitleBar,
+    'md-field': Field
   },
   data() {
     return {
       isListShow: false,
       currentMusic: 0
-    };
+    }
   },
   computed: {
-    ...mapState(["playList", "onPlaying", "playingId"]),
+    ...mapState(['playList', 'onPlaying', 'playingId']),
     playType() {
-      return `循环(${this.playList.length})`;
+      return `循环(${this.playList.length})`
     }
   },
   watch: {
     onPlaying() {
-      this.$refs.aplayer.switch(this.onPlaying);
+      this.$refs.aplayer.switch(this.onPlaying)
     }
   },
   methods: {
-    ...mapMutations(["CLEAR_PLAY_LIST", "DEL_MUSIC", "CHANGE_PLAYING_ID"]),
+    ...mapMutations(['CLEAR_PLAY_LIST', 'DEL_MUSIC', 'CHANGE_PLAYING_ID']),
     listShow() {
-      this.isListShow = true;
-      this.currentMusic = this.$refs.aplayer.currentMusic.id;
+      this.isListShow = true
+      this.currentMusic = this.$refs.aplayer.currentMusic.id
     },
     listHide() {
-      this.isListShow = false;
-      this.$refs.aplayer.hideList();
+      this.isListShow = false
+      this.$refs.aplayer.hideList()
     },
     clearList() {
-      this.$refs.aplayer.pause();
-      this.isListShow = false;
-      this.$refs.aplayer.hideList();
-      this.CLEAR_PLAY_LIST();
+      this.$refs.aplayer.pause()
+      this.isListShow = false
+      this.$refs.aplayer.hideList()
+      this.CLEAR_PLAY_LIST()
     },
     lisenAdd() {
-      this.$refs.aplayer.switch(0);
+      this.$refs.aplayer.switch(0)
       if (this.playList.length == 1) {
         setTimeout(() => {
-          this.$refs.aplayer.play();
-        }, 500);
+          this.$refs.aplayer.play()
+        }, 500)
       } else {
-        this.$refs.aplayer.play();
+        this.$refs.aplayer.play()
       }
     },
     changePlay(idx) {
-      this.$refs.aplayer.switch(idx);
-      this.currentMusic = this.$refs.aplayer.currentMusic.id;
+      this.$refs.aplayer.switch(idx)
+      this.currentMusic = this.$refs.aplayer.currentMusic.id
     },
     removeMusic(id) {
       if (this.$refs.aplayer.currentMusic.id == id) {
-        this.$refs.aplayer.pause();
+        this.$refs.aplayer.pause()
       }
-      this.DEL_MUSIC(id);
+      this.DEL_MUSIC(id)
     },
     onPlayingChange() {
-      this.currentMusic = this.$refs.aplayer.currentMusic.id;
-      this.CHANGE_PLAYING_ID(this.$refs.aplayer.currentMusic.id);
+      this.currentMusic = this.$refs.aplayer.currentMusic.id
+      this.CHANGE_PLAYING_ID(this.$refs.aplayer.currentMusic.id)
     },
     onPlay() {
       // let id = this.$refs.aplayer.currentMusic.id;
@@ -120,7 +120,7 @@ export default {
       // }
     }
   }
-};
+}
 </script>
 
 <style lang="stylus">

@@ -1,18 +1,19 @@
-let isLoading = true;
-let isPlay = false;
-let currentIcon = `home`;
-let playList = [];
+let isLoading = true
+let isPlay = false
+let currentIcon = `home`
+let playList = []
 if (localStorage.playList) {
-  playList = JSON.parse(localStorage.playList);
+  playList = JSON.parse(localStorage.playList)
 }
-let isPlayerShow = false;
+let isPlayerShow = false
 if (playList.length) {
-  isPlayerShow = true;
+  isPlayerShow = true
 }
 
-let onPlaying = 0; //添加歌曲时列表有相同歌曲时的index
-let playingId = 0;
+let onPlaying = 0 //添加歌曲时列表有相同歌曲时的index
+let playingId = 0
 
+let isLogin = false
 export default {
   isLoading,
   isPlay,
@@ -20,5 +21,6 @@ export default {
   playList,
   isPlayerShow,
   onPlaying,
-  playingId
-};
+  playingId,
+  isLogin
+}

@@ -52,11 +52,11 @@
 </template>
 
 <script>
-import { ScrollView, ActivityIndicator } from "mand-mobile";
-import { getMusicList, getPlayList, setMusic, lisenMusicAdd } from "@/untils";
-import { mapMutations, mapState } from "vuex";
+import { ScrollView, ActivityIndicator } from 'mand-mobile'
+import { getMusicList, getPlayList, setMusic, lisenMusicAdd } from '@/untils'
+import { mapMutations, mapState } from 'vuex'
 export default {
-  name: "load-more",
+  name: 'load-more',
   components: {
     [ScrollView.name]: ScrollView,
     [ActivityIndicator.name]: ActivityIndicator
@@ -83,84 +83,84 @@ export default {
       limit: 20,
       musicList: [],
       cHeight: 0
-    };
+    }
   },
   computed: {
-    ...mapState(["isPlayerShow"])
+    ...mapState(['isPlayerShow'])
   },
   methods: {
-    ...mapMutations(["ADD_MUSIC", "OPEN_LOADING", "CLOSE_LOADING"]),
+    ...mapMutations(['ADD_MUSIC', 'OPEN_LOADING', 'CLOSE_LOADING']),
     playMusic(song) {
       if (this.hasDetails) {
         this.$router.push({
-          path: "/playlistdetail",
+          path: '/playlistdetail',
           query: { id: song.id, title: song.songName }
-        });
-        this.OPEN_LOADING();
+        })
+        this.OPEN_LOADING()
       } else {
-        let playList = setMusic(song);
-        this.ADD_MUSIC(playList);
-        lisenMusicAdd(song);
+        let playList = setMusic(song)
+        this.ADD_MUSIC(playList)
+        lisenMusicAdd(song)
       }
     },
     $_onEndReached() {
       if (this.isFinished) {
-        return;
+        return
       }
       if (this.hasDetails) {
         this.axios(this.dataUrl + this.limit).then(res => {
-          let items = getPlayList(res.data.playlists);
+          let items = getPlayList(res.data.playlists)
           if (this.limit > 20) {
-            items = items.slice(this.limit - 20, this.limit);
+            items = items.slice(this.limit - 20, this.limit)
           }
-          this.list = [...this.list, ...items];
-          this.limit += 20;
+          this.list = [...this.list, ...items]
+          this.limit += 20
           if (this.limit > 200) {
-            this.isFinished = true;
+            this.isFinished = true
           }
           if (this.limit == 40) {
-            this.CLOSE_LOADING();
+            this.CLOSE_LOADING()
           }
-          this.$refs.scrollView.finishLoadMore();
-        });
+          this.$refs.scrollView.finishLoadMore()
+        })
       } else {
-        this.loadMoreMusic();
+        this.loadMoreMusic()
       }
     },
     getMusicList() {
       this.axios(`/top/song?type=0`).then(res => {
-        this.musicList = getMusicList(res.data.data);
-        this.list = this.musicList.slice(0, 20);
-        this.limit += 20;
-        this.CLOSE_LOADING();
-      });
+        this.musicList = getMusicList(res.data.data)
+        this.list = this.musicList.slice(0, 20)
+        this.limit += 20
+        this.CLOSE_LOADING()
+      })
     },
     loadMoreMusic() {
-      let items = this.musicList.slice(this.limit - 20, this.limit);
-      this.list = [...this.list, ...items];
-      this.limit += 20;
+      let items = this.musicList.slice(this.limit - 20, this.limit)
+      this.list = [...this.list, ...items]
+      this.limit += 20
       if (this.limit > 100) {
-        this.isFinished = true;
+        this.isFinished = true
       }
-      this.$refs.scrollView.finishLoadMore();
+      this.$refs.scrollView.finishLoadMore()
     }
   },
   created() {
     if (this.hasDetails) {
-      this.$_onEndReached();
+      this.$_onEndReached()
     } else {
-      this.getMusicList();
+      this.getMusicList()
     }
   },
   mounted() {
-    let clientHeight = document.documentElement.clientHeight;
+    let clientHeight = document.documentElement.clientHeight
     if (this.isPlayerShow) {
-      this.cHeight = `calc(${clientHeight}px - 2rem)`;
+      this.cHeight = `calc(${clientHeight}px - 2rem)`
     } else {
-      this.cHeight = `calc(${clientHeight}px - 1rem)`;
+      this.cHeight = `calc(${clientHeight}px - 1rem)`
     }
   }
-};
+}
 </script>
 
 <style lang="stylus" scope>

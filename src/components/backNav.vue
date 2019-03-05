@@ -8,18 +8,18 @@
 </template>
 
 <script>
-import { Icon } from "mand-mobile";
+import { Icon } from 'mand-mobile'
 export default {
-  props: ["title"],
+  props: ['title'],
   components: {
-    "md-icon": Icon
+    'md-icon': Icon
   },
   methods: {
     back() {
-      this.$router.go(-1);
+      this.$router.go(-1)
     }
   }
-};
+}
 </script>
 
 <style lang="stylus" scoped>

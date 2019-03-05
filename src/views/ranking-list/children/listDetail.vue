@@ -10,11 +10,11 @@
 </template>
 
 <script>
-import { findRankinglistIdx, playListDetail } from "@/untils";
-import { mapMutations } from "vuex";
-import BackNav from "@/components/backNav";
-import SongList from "@/components/songList";
-import TopInfo from "@/components/topInfo";
+import { findRankinglistIdx, playListDetail } from '@/untils'
+import { mapMutations } from 'vuex'
+import BackNav from '@/components/backNav'
+import SongList from '@/components/songList'
+import TopInfo from '@/components/topInfo'
 export default {
   components: {
     BackNav,
@@ -24,47 +24,47 @@ export default {
   data() {
     return {
       rgba: 0,
-      title: "",
+      title: '',
       timer: null,
       listDetail: {}
-    };
+    }
   },
   methods: {
-    ...mapMutations(["CLOSE_LOADING"]),
+    ...mapMutations(['CLOSE_LOADING']),
     handleScroll() {
-      let t = this.timer;
-      if (t) clearTimeout(t);
+      let t = this.timer
+      if (t) clearTimeout(t)
       t = setTimeout(() => {
-        const top = document.documentElement.scrollTop;
+        const top = document.documentElement.scrollTop
         if (top > 200) {
-          let opacity = top / 400;
-          opacity = opacity > 1 ? 1 : opacity;
-          this.rgba = opacity;
-          this.title = this.$route.query.name;
+          let opacity = top / 400
+          opacity = opacity > 1 ? 1 : opacity
+          this.rgba = opacity
+          this.title = this.$route.query.name
         } else {
-          this.rgba = 0;
-          this.title = "";
+          this.rgba = 0
+          this.title = ''
         }
-      }, 100);
+      }, 100)
     },
     getList() {
-      let idx = findRankinglistIdx(this.$route.query.name);
+      let idx = findRankinglistIdx(this.$route.query.name)
       this.axios(`top/list?idx=${idx}`).then(res => {
-        this.listDetail = playListDetail(res.data.playlist);
-        this.CLOSE_LOADING();
-      });
+        this.listDetail = playListDetail(res.data.playlist)
+        this.CLOSE_LOADING()
+      })
     }
   },
   created() {
-    this.getList();
+    this.getList()
   },
   mounted() {
-    window.addEventListener(`scroll`, this.handleScroll);
+    window.addEventListener(`scroll`, this.handleScroll)
   },
   destroyed() {
-    window.removeEventListener(`scroll`, this.handleScroll);
+    window.removeEventListener(`scroll`, this.handleScroll)
   }
-};
+}
 </script>
 
 <style lang="stylus" scoped>

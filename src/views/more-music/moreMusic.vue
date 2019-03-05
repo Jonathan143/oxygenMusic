@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import LoadMore from "@/components/loadMore";
-import BackNav from "@/components/backNav";
+import LoadMore from '@/components/loadMore'
+import BackNav from '@/components/backNav'
 export default {
   components: {
     LoadMore,
@@ -21,37 +21,37 @@ export default {
   },
   data() {
     return {
-      url: "",
+      url: '',
       multi: true,
       hasDetails: true,
       circle: false
-    };
+    }
   },
   created() {
-    this.getUrl(this.$route.query.title);
+    this.getUrl(this.$route.query.title)
   },
   methods: {
     getUrl(key) {
       switch (key) {
         case `热门歌单`:
-          this.url = `top/playlist?order=hot&limit=`;
-          break;
+          this.url = `top/playlist?order=hot&limit=`
+          break
         case `新歌速递`:
-          this.url = `personalized/newsong`;
-          this.multi = false;
-          this.hasDetails = false;
-          this.circle = true;
-          break;
+          this.url = `personalized/newsong`
+          this.multi = false
+          this.hasDetails = false
+          this.circle = true
+          break
         case `最新歌单`:
-          this.url = `top/playlist?order=new&limit=`;
-          break;
+          this.url = `top/playlist?order=new&limit=`
+          break
         default:
           this.url = `top/playlist?cat=${
             this.$route.query.title
-          }&order=hot&limit=`;
-          break;
+          }&order=hot&limit=`
+          break
       }
     }
   }
-};
+}
 </script>

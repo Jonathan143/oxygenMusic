@@ -34,10 +34,10 @@ export default {
   },
   methods: {
     onArtist(art) {
-      this.$emit(`onartist`, art);
+      this.$emit(`onartist`, art)
     }
   }
-};
+}
 </script>
 
 <style lang="stylus" scoped>

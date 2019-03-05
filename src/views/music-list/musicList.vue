@@ -14,10 +14,10 @@
 </template>
 
 <script>
-import BackNav from "@/components/backNav.vue";
-import SongList from "@/components/songList.vue";
-import CollectionList from "./components/collectionList.vue";
-import { mapMutations } from "vuex";
+import BackNav from '@/components/backNav.vue'
+import SongList from '@/components/songList.vue'
+import CollectionList from './components/collectionList.vue'
+import { mapMutations } from 'vuex'
 export default {
   components: {
     BackNav,
@@ -27,45 +27,45 @@ export default {
   data() {
     return {
       list: [],
-      title: ""
-    };
+      title: ''
+    }
   },
   methods: {
-    ...mapMutations(["CLOSE_LOADING"]),
+    ...mapMutations(['CLOSE_LOADING']),
     getList() {
-      let ls = localStorage.getItem(this.$route.query.name);
+      let ls = localStorage.getItem(this.$route.query.name)
       if (ls) {
-        this.list = JSON.parse(ls);
+        this.list = JSON.parse(ls)
       }
     },
     setTitle() {
       switch (this.$route.query.name) {
         case `likeMusic`:
-          this.title = `喜欢的音乐`;
-          break;
+          this.title = `喜欢的音乐`
+          break
         case `myRadio`:
-          this.title = `我的电台`;
-          break;
+          this.title = `我的电台`
+          break
         case `recebtlyPlayed`:
-          this.title = `最近播放`;
-          break;
+          this.title = `最近播放`
+          break
         case `myCollection`:
-          this.title = `我的收藏`;
-          break;
+          this.title = `我的收藏`
+          break
         default:
-          this.title = ``;
-          break;
+          this.title = ``
+          break
       }
     }
   },
   created() {
-    this.CLOSE_LOADING();
+    this.CLOSE_LOADING()
     if (this.$route.query.name != `myCollection`) {
-      this.getList();
+      this.getList()
     }
-    this.setTitle();
+    this.setTitle()
   }
-};
+}
 </script>
 
 <style lang="stylus" scoped>

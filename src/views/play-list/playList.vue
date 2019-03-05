@@ -14,10 +14,10 @@
 </template>
 
 <script>
-import { getCatlist } from "@/untils";
-import Catlist from "./components/catList";
-import BackNav from "@/components/backNav";
-import { mapMutations } from "vuex";
+import { getCatlist } from '@/untils'
+import Catlist from './components/catList'
+import BackNav from '@/components/backNav'
+import { mapMutations } from 'vuex'
 export default {
   components: {
     Catlist,
@@ -26,28 +26,28 @@ export default {
   data() {
     return {
       catlist: {}
-    };
+    }
   },
   methods: {
-    ...mapMutations(["OPEN_LOADING", "CLOSE_LOADING"]),
+    ...mapMutations(['OPEN_LOADING', 'CLOSE_LOADING']),
     getData() {
       this.axios(`playlist/catlist`).then(res => {
-        this.catlist = getCatlist(res.data);
-        this.CLOSE_LOADING();
-      });
+        this.catlist = getCatlist(res.data)
+        this.CLOSE_LOADING()
+      })
     },
     clickCate(v) {
-      this.OPEN_LOADING();
-      this.$router.push({ path: `/moremusic`, query: { title: v } });
+      this.OPEN_LOADING()
+      this.$router.push({ path: `/moremusic`, query: { title: v } })
     }
   },
   created() {
-    this.getData();
+    this.getData()
   },
   activated() {
-    this.CLOSE_LOADING();
+    this.CLOSE_LOADING()
   }
-};
+}
 </script>
 
 <style lang="stylus" scoped></style>

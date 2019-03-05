@@ -1,58 +1,58 @@
 //首页新歌速递
 let getSongs = data => {
-  let songs = [];
-  let item = {};
+  let songs = []
+  let item = {}
   for (const i of data) {
-    let picUrl = `${i.song.album.picUrl}?param=180y180`;
+    let picUrl = `${i.song.album.picUrl}?param=180y180`
     item = {
       songName: i.name,
       id: i.id,
       singer: i.song.artists[0].name,
       picUrl: picUrl,
       alName: i.song.album.name
-    };
-    songs.push(item);
+    }
+    songs.push(item)
   }
-  return songs;
-};
+  return songs
+}
 
 //首页个性推荐列表
 let getpersonalizList = data => {
-  let list = [];
-  let item = {};
+  let list = []
+  let item = {}
   for (const i of data) {
-    let picUrl = `${i.picUrl}?param=180y180`;
+    let picUrl = `${i.picUrl}?param=180y180`
     item = {
       songName: i.name,
       id: i.id,
       picUrl: picUrl
-    };
-    list.push(item);
+    }
+    list.push(item)
   }
-  return list;
-};
+  return list
+}
 
 let getPlayList = data => {
-  let playList = [];
-  let item = {};
+  let playList = []
+  let item = {}
   for (const i of data) {
-    let picUrl = `${i.coverImgUrl}?param=180y180`;
+    let picUrl = `${i.coverImgUrl}?param=180y180`
     item = {
       songName: i.name,
       id: i.id,
       picUrl: picUrl
-    };
-    playList.push(item);
+    }
+    playList.push(item)
   }
-  return playList;
-};
+  return playList
+}
 
 let getsinger = data => {
-  let singer = [];
-  let item = {};
-  let alias = ``;
+  let singer = []
+  let item = {}
+  let alias = ``
   if (data.alias) {
-    alias = data.alias;
+    alias = data.alias
   }
   for (const i of data) {
     item = {
@@ -60,33 +60,33 @@ let getsinger = data => {
       id: i.id,
       picUrl: i.imglvUrl,
       alias: alias
-    };
-    singer.push(item);
+    }
+    singer.push(item)
   }
-  return singer;
-};
+  return singer
+}
 
 //歌单详情列表
 let playListDetail = data => {
-  let playList = {};
-  let item = {};
-  let tracks = [];
+  let playList = {}
+  let item = {}
+  let tracks = []
   for (const t of data.tracks) {
-    let picUrl = `${t.al.picUrl}?param=180y180`;
+    let picUrl = `${t.al.picUrl}?param=180y180`
     item = {
       songName: t.name, //歌名
       id: t.id,
       singer: t.ar[0].name, //歌手
       alName: t.al.name, //专辑名
       picUrl: picUrl //歌曲图片
-    };
-    tracks.push(item);
+    }
+    tracks.push(item)
   }
-  let playCount = checkCount(data.playCount);
-  let commentCount = checkCount(data.commentCount);
-  let shareCount = checkCount(data.shareCount);
-  let subscribedCount = checkCount(data.subscribedCount);
-  let coverImgUrl = `${data.coverImgUrl}?param=200y200`;
+  let playCount = checkCount(data.playCount)
+  let commentCount = checkCount(data.commentCount)
+  let shareCount = checkCount(data.shareCount)
+  let subscribedCount = checkCount(data.subscribedCount)
+  let coverImgUrl = `${data.coverImgUrl}?param=200y200`
   playList = {
     listName: data.name, //歌单名
     commentCount: commentCount, //评论数
@@ -100,107 +100,107 @@ let playListDetail = data => {
     avatarUrl: data.creator.avatarUrl, //创建者头像
     nickname: data.creator.nickname, //创建者名
     tracks: tracks
-  };
-  return playList;
-};
+  }
+  return playList
+}
 
 //格式化数字
 let checkCount = v => {
   if (v > 100000000) {
-    let sv = v.toString();
-    return sv.substring(0, sv.length - 8) + `亿`;
+    let sv = v.toString()
+    return sv.substring(0, sv.length - 8) + `亿`
   } else if (v > 10000) {
-    let sv = v.toString();
-    return sv.substring(0, sv.length - 4) + `万`;
+    let sv = v.toString()
+    return sv.substring(0, sv.length - 4) + `万`
   } else {
-    return v;
+    return v
   }
-};
+}
 
 //设置播放器音乐源
 let setMusic = song => {
-  let music = {};
-  let url = `https://music.163.com/song/media/outer/url?id=${song.id}.mp3`;
+  let music = {}
+  let url = `https://music.163.com/song/media/outer/url?id=${song.id}.mp3`
   music = {
     id: song.id,
     url: url,
     cover: song.picUrl,
     artist: song.singer,
     name: song.songName
-  };
-  return music;
-};
+  }
+  return music
+}
 
 let getMusicList = data => {
-  let songs = [];
-  let item = {};
+  let songs = []
+  let item = {}
   for (const i of data) {
-    let picUrl = `${i.album.picUrl}?param=180y180`;
+    let picUrl = `${i.album.picUrl}?param=180y180`
     item = {
       songName: i.name,
       id: i.id,
       singer: i.artists[0].name,
       picUrl: picUrl
-    };
-    songs.push(item);
+    }
+    songs.push(item)
   }
-  return songs;
-};
+  return songs
+}
 
 //热搜标签
 let getHotSearch = data => {
-  let hotTags = [];
+  let hotTags = []
   for (const tag of data) {
-    hotTags.push(tag.first);
+    hotTags.push(tag.first)
   }
-  return hotTags;
-};
+  return hotTags
+}
 
 //获取搜索结果
 let getSearchResult = data => {
-  let item = {};
-  let tracks = [];
+  let item = {}
+  let tracks = []
   for (const t of data) {
-    let picUrl = `https://img-1256555015.file.myqcloud.com/2019/01/25/5c4a704d05904.png`;
+    let picUrl = `https://img-1256555015.file.myqcloud.com/2019/01/25/5c4a704d05904.png`
     item = {
       songName: t.name, //歌名
       id: t.id,
       singer: t.artists[0].name, //歌手
       alName: t.album.name, //专辑名
       picUrl: picUrl //歌曲图片
-    };
-    tracks.push(item);
+    }
+    tracks.push(item)
   }
-  return tracks;
-};
+  return tracks
+}
 
 //歌单分类列表
 let getCatlist = data => {
-  let categoryArry = [[], [], [], [], []];
-  let item = {};
+  let categoryArry = [[], [], [], [], []]
+  let item = {}
   for (const cate of data.sub) {
     item = {
       name: cate.name,
       hot: cate.hot
-    };
-    categoryArry[cate.category].push(item);
+    }
+    categoryArry[cate.category].push(item)
   }
   let allCategory = {
     categories: data.categories,
     categoryArry: categoryArry
-  };
-  return allCategory;
-};
+  }
+  return allCategory
+}
 
 //获取歌手榜
 let getArtists = data => {
-  let artists = [];
-  let art = {};
+  let artists = []
+  let art = {}
   for (const i of data) {
-    let alias = ``;
-    let picUrl = `${i.picUrl}?param=180y180`;
+    let alias = ``
+    let picUrl = `${i.picUrl}?param=180y180`
     if (i.alias.length != 0) {
-      alias = i.alias[0];
+      alias = i.alias[0]
     }
     art = {
       id: i.id,
@@ -208,19 +208,19 @@ let getArtists = data => {
       alias: alias,
       picUrl: picUrl,
       score: i.score
-    };
-    artists.push(art);
+    }
+    artists.push(art)
   }
-  return artists;
-};
+  return artists
+}
 
 //获取歌手部分信息和热门歌曲
 let getArtistDetail = data => {
-  let alias = ``;
+  let alias = ``
   if (data.artist.alias.length != 0) {
-    alias = data.artist.alias[0];
+    alias = data.artist.alias[0]
   }
-  let picUrl = `${data.artist.picUrl}?param=400y400`;
+  let picUrl = `${data.artist.picUrl}?param=400y400`
   let artist = {
     alias: alias,
     picUrl: picUrl,
@@ -229,26 +229,26 @@ let getArtistDetail = data => {
     albumSize: data.artist.albumSize,
     musicSize: data.artist.musicSize,
     briefDesc: data.artist.briefDesc
-  };
-  let hotSongs = [];
-  let item = {};
+  }
+  let hotSongs = []
+  let item = {}
   for (const i of data.hotSongs) {
-    let picUrl = `${i.al.picUrl}?param=180y180`;
+    let picUrl = `${i.al.picUrl}?param=180y180`
     item = {
       songName: i.name,
       id: i.id,
       singer: i.ar[0].name,
       alName: i.al.name,
       picUrl: picUrl
-    };
-    hotSongs.push(item);
+    }
+    hotSongs.push(item)
   }
   let artDetail = {
     artist: artist,
     hotSongs: hotSongs
-  };
-  return artDetail;
-};
+  }
+  return artDetail
+}
 
 //所有排行榜名称
 const rankinglistName = [
@@ -276,15 +276,15 @@ const rankinglistName = [
   `Beatport全球电子舞曲榜`,
   `云音乐ACG音乐榜`,
   `江小白YOLO云音乐说唱榜`
-];
+]
 
 //所有排行榜
 let allRankinglist = data => {
-  let officalRanking = [];
-  let otherRanking = [];
-  let list = {};
+  let officalRanking = []
+  let otherRanking = []
+  let list = {}
   for (const i of data) {
-    let picUrl = `${i.coverImgUrl}?param=200y200`;
+    let picUrl = `${i.coverImgUrl}?param=200y200`
     if (rankinglistName.includes(i.name)) {
       if (i.tracks.length == 0) {
         list = {
@@ -292,8 +292,8 @@ let allRankinglist = data => {
           name: i.name,
           picUrl: picUrl,
           updateFrequency: i.updateFrequency
-        };
-        otherRanking.push(list);
+        }
+        otherRanking.push(list)
       } else {
         list = {
           id: i.id,
@@ -301,25 +301,25 @@ let allRankinglist = data => {
           picUrl: picUrl,
           tracks: i.tracks,
           updateFrequency: i.updateFrequency
-        };
-        officalRanking.push(list);
+        }
+        officalRanking.push(list)
       }
     }
   }
   let rankinglist = {
     officalRanking: officalRanking,
     otherRanking: otherRanking
-  };
-  return rankinglist;
-};
+  }
+  return rankinglist
+}
 
 //找出排行榜对应的idx
 let findRankinglistIdx = name => {
   let idx = [...rankinglistName].findIndex(function(value) {
-    return value == name;
-  });
-  return idx;
-};
+    return value == name
+  })
+  return idx
+}
 
 let getPersonalList = () => {
   let list = [
@@ -347,73 +347,97 @@ let getPersonalList = () => {
       id: `myCollection`,
       count: 0
     }
-  ];
-  list[0].count = getListCount(`likeMusic`);
-  list[1].count = getListCount(`myRadio`);
-  list[2].count = getListCount(`recebtlyPlayed`);
-  list[3].count = getListCount(`myCollection`);
-  return list;
-};
+  ]
+  list[0].count = getListCount(`likeMusic`)
+  list[1].count = getListCount(`myRadio`)
+  list[2].count = getListCount(`recebtlyPlayed`)
+  list[3].count = getListCount(`myCollection`)
+  return list
+}
 let getListCount = data => {
-  let ls = localStorage.getItem(data);
-  let count = 0;
+  let ls = localStorage.getItem(data)
+  let count = 0
   if (ls) {
-    count = JSON.parse(ls).length;
+    count = JSON.parse(ls).length
   }
-  return count;
-};
+  return count
+}
 let lisenMusicAdd = music => {
-  let list = [];
-  let recebtlyPlayed = localStorage.recebtlyPlayed;
+  let list = []
+  let recebtlyPlayed = localStorage.recebtlyPlayed
   if (recebtlyPlayed) {
-    list = JSON.parse(recebtlyPlayed);
+    list = JSON.parse(recebtlyPlayed)
   }
-  removeRepeat(list, music.id);
-  list.unshift(music);
-  localStorage.setItem(`recebtlyPlayed`, JSON.stringify(list));
-};
+  removeRepeat(list, music.id)
+  list.unshift(music)
+  localStorage.setItem(`recebtlyPlayed`, JSON.stringify(list))
+}
 //数组中删除相同项
 let removeRepeat = (arr, id) => {
   if (arr.length) {
     let idx = arr.findIndex(value => {
-      return value.id == id;
-    });
+      return value.id == id
+    })
     if (idx > -1) {
-      arr.splice(idx, 1);
+      arr.splice(idx, 1)
     }
-    return arr;
+    return arr
   }
-};
+}
 //本地存储
 let lisenAdd = (name, item) => {
-  let list = [];
-  let ls = localStorage.getItem(name);
+  let list = []
+  let ls = localStorage.getItem(name)
   if (ls) {
-    list = JSON.parse(ls);
-    list = removeRepeat(list, item.id);
+    list = JSON.parse(ls)
+    list = removeRepeat(list, item.id)
   }
   if (list.length > 99) {
-    list.pop();
+    list.pop()
   }
-  list.unshift(item);
-  localStorage.setItem(name, JSON.stringify(list));
-};
+  list.unshift(item)
+  localStorage.setItem(name, JSON.stringify(list))
+}
 
 //查询存储中是否存在数据
 let findItem = (name, id) => {
-  let ls = localStorage.getItem(name);
+  let ls = localStorage.getItem(name)
   if (ls) {
-    ls = JSON.parse(ls);
+    ls = JSON.parse(ls)
     let idx = ls.findIndex(value => {
-      return value.id == id;
-    });
+      return value.id == id
+    })
     if (idx > -1) {
-      return true;
+      return true
     } else {
-      return false;
+      return false
     }
   }
-};
+}
+
+// 发现页面数据
+let dynamic = data => {
+  let dynamicList = []
+  for (const item of data) {
+    let info = JSON.parse(item.json)
+    let video = info.video
+    if (video) {
+      let detail = {
+        msg: info.msg,
+        coverUrl: video.coverUrl,
+        id: video.videoId,
+        title: video.title,
+        type: video,
+        creator: {
+          avatarUrl: `${video.creator.avatarUrl}?param=200y200`,
+          nickname: video.creator.nickname
+        }
+      }
+      dynamicList.push(detail)
+    }
+  }
+  return dynamicList
+}
 export {
   getSongs,
   getPlayList,
@@ -433,5 +457,6 @@ export {
   lisenMusicAdd,
   removeRepeat,
   lisenAdd,
-  findItem
-};
+  findItem,
+  dynamic
+}

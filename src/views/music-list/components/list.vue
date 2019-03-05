@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapMutations } from 'vuex'
 export default {
   props: {
     list: {
@@ -46,23 +46,23 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(["OPEN_LOADING"]),
+    ...mapMutations(['OPEN_LOADING']),
     toDetail(item) {
       if (item.type == `playlist`) {
         this.$router.push({
           path: `/playlistdetail`,
           query: { id: item.id, title: item.songName }
-        });
+        })
       } else {
         this.$router.push({
           path: `/artist/detail`,
           query: { id: item.id, name: item.songName }
-        });
+        })
       }
-      this.OPEN_LOADING();
+      this.OPEN_LOADING()
     }
   }
-};
+}
 </script>
 
 <style lang="stylus" scoped>

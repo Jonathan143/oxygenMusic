@@ -15,11 +15,11 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
-import BackNav from "@/components/backNav";
-import SongList from "@/components/songList";
-import Topbg from "../components/topBg";
-import { getArtistDetail } from "@/untils";
+import { mapMutations } from 'vuex'
+import BackNav from '@/components/backNav'
+import SongList from '@/components/songList'
+import Topbg from '../components/topBg'
+import { getArtistDetail } from '@/untils'
 export default {
   components: {
     BackNav,
@@ -31,34 +31,34 @@ export default {
       artistDetail: {},
       timer: null,
       rgba: 0,
-      title: "",
+      title: '',
       listInfo: {}
-    };
+    }
   },
   methods: {
-    ...mapMutations(["CLOSE_LOADING"]),
+    ...mapMutations(['CLOSE_LOADING']),
     getartDetail() {
       this.axios(`artists?id=${this.$route.query.id}`).then(res => {
-        this.artistDetail = getArtistDetail(res.data);
-        this.CLOSE_LOADING();
-        this.setListInfo();
-      });
+        this.artistDetail = getArtistDetail(res.data)
+        this.CLOSE_LOADING()
+        this.setListInfo()
+      })
     },
     handleScroll() {
-      let t = this.timer;
-      if (t) clearTimeout(t);
+      let t = this.timer
+      if (t) clearTimeout(t)
       t = setTimeout(() => {
-        const top = document.documentElement.scrollTop;
+        const top = document.documentElement.scrollTop
         if (top > 200) {
-          let opacity = top / 400;
-          opacity = opacity > 1 ? 1 : opacity;
-          this.rgba = opacity;
-          this.title = this.$route.query.name;
+          let opacity = top / 400
+          opacity = opacity > 1 ? 1 : opacity
+          this.rgba = opacity
+          this.title = this.$route.query.name
         } else {
-          this.rgba = 0;
-          this.title = ``;
+          this.rgba = 0
+          this.title = ``
         }
-      }, 100);
+      }, 100)
     },
     setListInfo() {
       this.listInfo = {
@@ -66,19 +66,19 @@ export default {
         picUrl: this.artistDetail.artist.picUrl,
         songName: this.artistDetail.artist.name,
         type: `artist`
-      };
+      }
     }
   },
   created() {
-    this.getartDetail();
+    this.getartDetail()
   },
   mounted() {
-    window.addEventListener(`scroll`, this.handleScroll);
+    window.addEventListener(`scroll`, this.handleScroll)
   },
   destroyed() {
-    window.removeEventListener(`scroll`, this.handleScroll);
+    window.removeEventListener(`scroll`, this.handleScroll)
   }
-};
+}
 </script>
 
 <style lang="stylus" scoped>

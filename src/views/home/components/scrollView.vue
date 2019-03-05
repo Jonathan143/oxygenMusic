@@ -39,9 +39,9 @@
 </template>
 
 <script>
-import { Icon } from "mand-mobile";
-import { mapMutations } from "vuex";
-import { setMusic, lisenMusicAdd } from "@/untils";
+import { Icon } from 'mand-mobile'
+import { mapMutations } from 'vuex'
+import { setMusic, lisenMusicAdd } from '@/untils'
 export default {
   props: {
     title: {
@@ -66,29 +66,29 @@ export default {
     }
   },
   components: {
-    "md-icon": Icon
+    'md-icon': Icon
   },
   methods: {
-    ...mapMutations(["ADD_MUSIC", "OPEN_LOADING"]),
+    ...mapMutations(['ADD_MUSIC', 'OPEN_LOADING']),
     playMusic(song) {
       if (this.hasDetails) {
         this.$router.push({
-          path: "/playlistdetail",
+          path: '/playlistdetail',
           query: { id: song.id, title: song.songName }
-        });
-        this.OPEN_LOADING();
+        })
+        this.OPEN_LOADING()
       } else {
-        let playList = setMusic(song);
-        this.ADD_MUSIC(playList);
-        lisenMusicAdd(song);
+        let playList = setMusic(song)
+        this.ADD_MUSIC(playList)
+        lisenMusicAdd(song)
       }
     },
     loadMore() {
-      this.OPEN_LOADING();
-      this.$router.push({ path: "/moremusic", query: { title: this.title } });
+      this.OPEN_LOADING()
+      this.$router.push({ path: '/moremusic', query: { title: this.title } })
     }
   }
-};
+}
 </script>
 
 <style lang="stylus" scoped>

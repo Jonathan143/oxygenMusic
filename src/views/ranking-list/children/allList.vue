@@ -17,11 +17,11 @@
 </template>
 
 <script>
-import BackNav from "@/components/backNav";
-import OfficalRanking from "../components/officalRanking";
-import OtherRanking from "../components/otherRanking";
-import { allRankinglist } from "@/untils";
-import { mapMutations } from "vuex";
+import BackNav from '@/components/backNav'
+import OfficalRanking from '../components/officalRanking'
+import OtherRanking from '../components/otherRanking'
+import { allRankinglist } from '@/untils'
+import { mapMutations } from 'vuex'
 export default {
   components: {
     BackNav,
@@ -31,31 +31,31 @@ export default {
   data() {
     return {
       rankinglist: {}
-    };
+    }
   },
   methods: {
-    ...mapMutations(["OPEN_LOADING", "CLOSE_LOADING"]),
+    ...mapMutations(['OPEN_LOADING', 'CLOSE_LOADING']),
     getRankinglist() {
       this.axios(`toplist/detail`).then(res => {
-        this.rankinglist = allRankinglist(res.data.list);
-        this.CLOSE_LOADING();
-        sessionStorage.isRanklistLoading = true;
-      });
+        this.rankinglist = allRankinglist(res.data.list)
+        this.CLOSE_LOADING()
+        sessionStorage.isRanklistLoading = true
+      })
     },
     onRanklist(name) {
-      this.OPEN_LOADING();
-      this.$router.push({ name: `rankingDetail`, query: { name: name } });
+      this.OPEN_LOADING()
+      this.$router.push({ name: `rankingDetail`, query: { name: name } })
     }
   },
   created() {
-    this.getRankinglist();
+    this.getRankinglist()
   },
   activated() {
     if (sessionStorage.isRanklistLoading) {
-      this.CLOSE_LOADING();
+      this.CLOSE_LOADING()
     }
   }
-};
+}
 </script>
 
 <style lang="stylus" scoped>
