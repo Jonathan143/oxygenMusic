@@ -1,6 +1,6 @@
-let isLoading = true
-let isPlay = false
-let currentIcon = `home`
+const isLoading = true
+const isPlay = false
+const currentIcon = `home`
 let playList = []
 if (localStorage.playList) {
   playList = JSON.parse(localStorage.playList)
@@ -10,10 +10,10 @@ if (playList.length) {
   isPlayerShow = true
 }
 
-let onPlaying = 0 //添加歌曲时列表有相同歌曲时的index
-let playingId = 0
+const onPlaying = 0 //添加歌曲时列表有相同歌曲时的index
+const playingId = 0
 
-let isLogin = false
+const isLogin = !!localStorage.userInfo
 export default {
   isLoading,
   isPlay,
