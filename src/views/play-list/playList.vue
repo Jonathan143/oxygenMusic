@@ -32,7 +32,7 @@ export default {
     ...mapMutations(['OPEN_LOADING', 'CLOSE_LOADING']),
     getData() {
       this.axios(`playlist/catlist`).then(res => {
-        this.catlist = getCatlist(res.data)
+        this.catlist = getCatlist(res)
         this.CLOSE_LOADING()
       })
     },

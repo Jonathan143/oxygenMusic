@@ -50,7 +50,7 @@ export default {
     getList() {
       let idx = findRankinglistIdx(this.$route.query.name)
       this.axios(`top/list?idx=${idx}`).then(res => {
-        this.listDetail = playListDetail(res.data.playlist)
+        this.listDetail = playListDetail(res.playlist)
         this.CLOSE_LOADING()
       })
     }

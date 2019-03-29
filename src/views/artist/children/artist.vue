@@ -30,7 +30,7 @@ export default {
     ...mapMutations(['CLOSE_LOADING', 'OPEN_LOADING']),
     getArtistList() {
       this.axios(`toplist/artist`).then(res => {
-        this.artistList = getArtists(res.data.list.artists)
+        this.artistList = getArtists(res.list.artists)
         this.CLOSE_LOADING()
         sessionStorage.setItem('isArtLoading', true)
       })

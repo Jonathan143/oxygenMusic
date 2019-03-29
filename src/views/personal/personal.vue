@@ -161,7 +161,7 @@ export default {
     getPlaylist() {
       const userID = this.userID || JSON.parse(localStorage.userID)
       this.axios(`/user/playlist?uid=${userID}`).then(res => {
-        let list = res.data.playlist
+        let list = res.playlist
         let listInfo = {}
         let playlist = []
         for (const item of list) {
@@ -191,7 +191,7 @@ export default {
       this.axios(
         `/playlist/detail?id=${JSON.parse(localStorage.likeListId)}`
       ).then(res => {
-        let likeMusic = playListDetail(res.data.playlist).tracks
+        let likeMusic = playListDetail(res.playlist).tracks
         localStorage.setItem('likeMusic', JSON.stringify(likeMusic))
 
         this.list = getPersonalList()
@@ -208,7 +208,7 @@ export default {
           password: 'yj143143'
         }
       }).then(res => {
-        this.userID = res.data.account.id
+        this.userID = res.account.id
         this.loginModeUserID()
       })
     },
@@ -217,10 +217,10 @@ export default {
       this.axios(`/user/detail?uid=${userID}`)
         .then(res => {
           this.userInfo = {
-            id: res.data.userPoint.userId,
-            name: res.data.profile.nickname,
-            signature: res.data.profile.signature,
-            avatarUrl: res.data.profile.avatarUrl
+            id: res.userPoint.userId,
+            name: res.profile.nickname,
+            signature: res.profile.signature,
+            avatarUrl: res.profile.avatarUrl
           }
           this.login.open = false
           if (!localStorage.userInfo) {

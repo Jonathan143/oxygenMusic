@@ -37,7 +37,7 @@ export default {
     ...mapMutations(['OPEN_LOADING', 'CLOSE_LOADING']),
     getRankinglist() {
       this.axios(`toplist/detail`).then(res => {
-        this.rankinglist = allRankinglist(res.data.list)
+        this.rankinglist = allRankinglist(res.list)
         this.CLOSE_LOADING()
         sessionStorage.isRanklistLoading = true
       })

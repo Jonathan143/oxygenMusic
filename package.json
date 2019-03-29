@@ -10,7 +10,7 @@
   "dependencies": {
     "@moefe/vue-aplayer": "^2.0.0-beta.5",
     "axios": "^0.18.0",
-    "mand-mobile": "2.1.2",
+    "mand-mobile": "^2.1.7",
     "normalize.css": "^8.0.1",
     "vue": "2.6.8",
     "vue-router": "^3.0.2",

@@ -61,17 +61,17 @@ export default {
     ...mapMutations(['CLOSE_LOADING']),
     getNewSong() {
       this.axios(`personalized/newsong`).then(res => {
-        this.newSong = getSongs(res.data.result).splice(0, 6)
+        this.newSong = getSongs(res.result).splice(0, 6)
       })
     },
     getNewPlayList() {
       this.axios(`top/playlist?limit=6&order=new`).then(res => {
-        this.newPlayList = getPlayList(res.data.playlists)
+        this.newPlayList = getPlayList(res.playlists)
       })
     },
     getHotPlayList() {
       this.axios(`top/playlist?limit=6&order=hot`).then(res => {
-        this.hotPlayList = getPlayList(res.data.playlists)
+        this.hotPlayList = getPlayList(res.playlists)
         this.CLOSE_LOADING()
       })
     },
@@ -79,7 +79,7 @@ export default {
       this.axios(`banner`).then(res => {
         let imgs = []
         let banner = {}
-        for (const item of res.data.banners) {
+        for (const item of res.banners) {
           banner = {
             imageUrl: item.imageUrl,
             targetId: item.targetId

@@ -4,7 +4,7 @@ import router from './router'
 import store from '@/store'
 import 'normalize.css'
 import '@/assets/styles/glob.styl'
-import Axios from 'axios'
+import axios from '@/api'
 import VueLazyload from 'vue-lazyload'
 import APlayer from '@moefe/vue-aplayer'
 Vue.use(APlayer, {
@@ -13,12 +13,7 @@ Vue.use(APlayer, {
   productionTip: false
 })
 
-// Axios.defaults.baseURL = "https://api.yang143.cn/";
-Axios.defaults.baseURL = 'http://api.hejinkang.cn/'
-Axios.defaults.headers.post['Content-Type'] =
-  'application/x-www-form-urlencoded'
-Axios.withCredentials = true
-Vue.prototype.axios = Axios
+Vue.prototype.axios = axios
 Vue.config.productionTip = false
 
 Vue.use(VueLazyload, {

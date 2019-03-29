@@ -129,7 +129,7 @@ export default {
     },
     getSearch(searchValue) {
       this.axios(`search?keywords=${searchValue}`).then(res => {
-        this.searchResult = getSearchResult(res.data.result.songs)
+        this.searchResult = getSearchResult(res.result.songs)
         this.hasResult = true
         this.isLoading = false
       })
@@ -148,7 +148,7 @@ export default {
     },
     setHotTags() {
       this.axios(`search/hot`).then(res => {
-        this.hotTags = getHotSearch(res.data.result.hots)
+        this.hotTags = getHotSearch(res.result.hots)
         this.CLOSE_LOADING()
         this.$refs.search.focus()
       })

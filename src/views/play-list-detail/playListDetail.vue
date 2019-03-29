@@ -38,7 +38,7 @@ export default {
     ...mapMutations(['CLOSE_LOADING']),
     getListDetail() {
       this.axios(`/playlist/detail?id=${this.$route.query.id}`).then(res => {
-        this.listDetail = playListDetail(res.data.playlist)
+        this.listDetail = playListDetail(res.playlist)
         this.CLOSE_LOADING()
         this.setListInfo()
       })

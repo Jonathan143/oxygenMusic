@@ -39,7 +39,7 @@ export default {
     ...mapMutations(['CLOSE_LOADING']),
     getartDetail() {
       this.axios(`artists?id=${this.$route.query.id}`).then(res => {
-        this.artistDetail = getArtistDetail(res.data)
+        this.artistDetail = getArtistDetail(res)
         this.CLOSE_LOADING()
         this.setListInfo()
       })

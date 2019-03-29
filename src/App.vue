@@ -56,7 +56,7 @@ export default {
     // 网易云userID  259801485
     // this.axios(`/user/detail?uid=259801485`)
     //   .then(res=>{
-    //     console.log(res.data);
+    //     console.log(res);
     //   })
   },
   beforeDestroy() {

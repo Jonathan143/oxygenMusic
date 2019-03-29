@@ -109,7 +109,7 @@ export default {
       }
       if (this.hasDetails) {
         this.axios(this.dataUrl + this.limit).then(res => {
-          let items = getPlayList(res.data.playlists)
+          let items = getPlayList(res.playlists)
           if (this.limit > 20) {
             items = items.slice(this.limit - 20, this.limit)
           }
@@ -129,7 +129,7 @@ export default {
     },
     getMusicList() {
       this.axios(`/top/song?type=0`).then(res => {
-        this.musicList = getMusicList(res.data.data)
+        this.musicList = getMusicList(res.data)
         this.list = this.musicList.slice(0, 20)
         this.limit += 20
         this.CLOSE_LOADING()
