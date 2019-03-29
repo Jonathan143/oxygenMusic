@@ -4,6 +4,7 @@
  */
 import axios from 'axios'
 import { Toast } from 'mand-mobile'
+import router from '@/router'
 // import qs from 'qs' // 根据需求导入qs模块
 
 /**
@@ -26,15 +27,16 @@ const tip = msg => {
 const errorHandle = (status, other) => {
   // 状态码判断
   switch (status) {
-    // 401: 未登录状态，跳转登录页
+    // 301: 未登录状态，跳转登录页
     case 301:
-      tip('请登录')
+      localStorage.removeItem('userInfo')
+      router.push({ name: 'personal' })
+      tip('请使用手机号登录')
       break
     // 403 token过期
     // 清除token并跳转登录页
     case 403:
       tip('登录过期，请重新登录')
-      localStorage.removeItem('token')
       break
     // 404请求不存在
     case 404:
@@ -84,7 +86,7 @@ instance.interceptors.response.use(
     if (response) {
       // 请求已发出，但是不在2xx的范围
       errorHandle(response.status, response.data.message)
-      return Promise.reject(response)
+      return Promise.reject(response.data)
     } else {
       // 处理断网的情况
       // eg:请求超时或断网时，更新state的network状态
