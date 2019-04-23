@@ -1,17 +1,15 @@
 <template>
   <div class="list-detail-container">
-    <back-nav
-      :title="title"
-      :style="{ backgroundColor: `rgba(146, 143, 250, ${rgba})` }"
-    ></back-nav>
+    <back-nav :title="title"
+      :style="{ backgroundColor: `rgba(146, 143, 250, ${rgba})` }"></back-nav>
     <top-info :list="listDetail"></top-info>
-    <song-list class="song-list" :listdata="listDetail.tracks"></song-list>
+    <song-list class="song-list"
+      :listdata="listDetail.tracks"></song-list>
   </div>
 </template>
 
 <script>
 import { findRankinglistIdx, playListDetail } from '@/untils'
-import { mapMutations } from 'vuex'
 import BackNav from '@/components/backNav'
 import SongList from '@/components/songList'
 import TopInfo from '@/components/topInfo'
@@ -30,7 +28,6 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['CLOSE_LOADING']),
     handleScroll() {
       let t = this.timer
       if (t) clearTimeout(t)
@@ -51,7 +48,6 @@ export default {
       let idx = findRankinglistIdx(this.$route.query.name)
       this.axios(`top/list?idx=${idx}`).then(res => {
         this.listDetail = playListDetail(res.playlist)
-        this.CLOSE_LOADING()
       })
     }
   },

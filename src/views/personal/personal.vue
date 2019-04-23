@@ -1,77 +1,81 @@
 <template>
   <div class="personal">
-    <md-scroll-view
-      class="scroll-view"
+    <md-scroll-view class="scroll-view"
       ref="scrollView"
       :scrolling-x="false"
-      @refreshing="$_onRefresh"
-    >
-      <md-scroll-view-refresh
-        slot="refresh"
+      @refreshing="$_onRefresh">
+      <md-scroll-view-refresh slot="refresh"
         slot-scope="{ scrollTop, isRefreshActive, isRefreshing }"
         :scroll-top="scrollTop"
         :is-refreshing="isRefreshing"
-        :is-refresh-active="isRefreshActive"
-      ></md-scroll-view-refresh>
-      <a class="info" href="https://github.com/Jonathan143/oxygenMusic">
+        :is-refresh-active="isRefreshActive"></md-scroll-view-refresh>
+      <a class="info"
+        href="https://github.com/Jonathan143/oxygenMusic">
         <div class="name-box">
           <h2 class="name">{{ userInfo.name }}</h2>
           <p class="indicator-text">{{ userInfo.signature }}</p>
         </div>
         <div class="avatar">
-          <img class="av-img" :src="userInfo.avatarUrl" alt="Oxygen Music" />
+          <img class="av-img"
+            :src="userInfo.avatarUrl"
+            alt="Oxygen Music" />
         </div>
       </a>
       <div class="list-box">
-        <div class="list" v-for="i in list" :key="i.id" @click="tolist(i.id)">
+        <div class="list"
+          v-for="i in list"
+          :key="i.id"
+          @click="tolist(i.id)">
           <div class="icon-count">
-            <i class="iconfont" :class="i.icon"></i>
+            <i class="iconfont"
+              :class="i.icon"></i>
             <span class="count">{{ i.count }}</span>
           </div>
           <p class="title">{{ i.title }}</p>
         </div>
       </div>
       <div class="sign-out">
-        <md-button class="sign-out__btn" round size="small" @click="signOut">
+        <md-button class="sign-out__btn"
+          round
+          size="small"
+          @click="signOut">
           {{ signText }}
         </md-button>
       </div>
     </md-scroll-view>
-    <md-dialog :closable="true" v-model="login.open" :btns="login.btns">
+    <md-dialog :closable="true"
+      v-model="login.open"
+      :btns="login.btns">
       <md-tabs v-model="loginMode">
-        <md-tab-pane name="tel" label="账号密码登录">
-          <md-input-item
-            v-model="userID"
+        <md-tab-pane name="tel"
+          label="账号密码登录">
+          <md-input-item v-model="userID"
             ref="login"
             title="手机号"
             type="digit"
             placeholder="请输入手机号"
             is-title-latent
             clearable
-            is-highlight
-          ></md-input-item>
-          <md-input-item
-            v-model="password"
+            is-highlight></md-input-item>
+          <md-input-item v-model="password"
             ref="login"
             title="密码"
             type="password"
             placeholder="密码"
             is-title-latent
             clearable
-            is-highlight
-          ></md-input-item>
+            is-highlight></md-input-item>
         </md-tab-pane>
-        <md-tab-pane name="userId" label="userID登录">
-          <md-input-item
-            v-model="userID"
+        <md-tab-pane name="userId"
+          label="userID登录">
+          <md-input-item v-model="userID"
             ref="login"
             title="userid"
             type="digit"
             placeholder="输入userID登录"
             is-title-latent
             clearable
-            is-highlight
-          ></md-input-item>
+            is-highlight></md-input-item>
         </md-tab-pane>
       </md-tabs>
     </md-dialog>
@@ -137,7 +141,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['CLOSE_LOADING', 'changeUserStatus']),
+    ...mapMutations(['changeUserStatus']),
     tolist(name) {
       this.$router.push({ name: `musiclist`, query: { name: name } })
     },
@@ -276,7 +280,6 @@ export default {
     }
   },
   mounted() {
-    this.CLOSE_LOADING()
     let user = localStorage.userInfo
     if (user) {
       this.userInfo = JSON.parse(user)

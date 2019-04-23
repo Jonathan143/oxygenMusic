@@ -1,15 +1,11 @@
 <template>
   <div class="play-list-container">
-    <back-nav
-      :title="title"
-      :style="{ backgroundColor: `rgba(146, 143, 250, ${rgba})` }"
-    ></back-nav>
+    <back-nav :title="title"
+      :style="{ backgroundColor: `rgba(146, 143, 250, ${rgba})` }"></back-nav>
     <top-info :list="listDetail"></top-info>
-    <song-list
-      class="song-list"
+    <song-list class="song-list"
       :listdata="listDetail.tracks"
-      :list-info="listInfo"
-    ></song-list>
+      :list-info="listInfo"></song-list>
   </div>
 </template>
 
@@ -18,7 +14,6 @@ import { playListDetail } from '@/untils'
 import BackNav from '@/components/backNav'
 import SongList from '@/components/songList'
 import TopInfo from '@/components/topInfo'
-import { mapMutations } from 'vuex'
 export default {
   components: {
     BackNav,
@@ -35,11 +30,10 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['CLOSE_LOADING']),
     getListDetail() {
       this.axios(`/playlist/detail?id=${this.$route.query.id}`).then(res => {
         this.listDetail = playListDetail(res.playlist)
-        this.CLOSE_LOADING()
+
         this.setListInfo()
       })
     },

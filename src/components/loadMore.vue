@@ -89,14 +89,13 @@ export default {
     ...mapState(['isPlayerShow'])
   },
   methods: {
-    ...mapMutations(['ADD_MUSIC', 'OPEN_LOADING', 'CLOSE_LOADING']),
+    ...mapMutations(['ADD_MUSIC']),
     playMusic(song) {
       if (this.hasDetails) {
         this.$router.push({
           path: '/playlistdetail',
           query: { id: song.id, title: song.songName }
         })
-        this.OPEN_LOADING()
       } else {
         let playList = setMusic(song)
         this.ADD_MUSIC(playList)
@@ -118,9 +117,6 @@ export default {
           if (this.limit > 200) {
             this.isFinished = true
           }
-          if (this.limit == 40) {
-            this.CLOSE_LOADING()
-          }
           this.$refs.scrollView.finishLoadMore()
         })
       } else {
@@ -132,7 +128,6 @@ export default {
         this.musicList = getMusicList(res.data)
         this.list = this.musicList.slice(0, 20)
         this.limit += 20
-        this.CLOSE_LOADING()
       })
     },
     loadMoreMusic() {

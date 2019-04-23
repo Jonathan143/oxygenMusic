@@ -4,7 +4,7 @@ import router from './router'
 import store from '@/store'
 import 'normalize.css'
 import '@/assets/styles/glob.styl'
-import axios from '@/api'
+import api from '@/api'
 import VueLazyload from 'vue-lazyload'
 import APlayer from '@moefe/vue-aplayer'
 Vue.use(APlayer, {
@@ -13,7 +13,7 @@ Vue.use(APlayer, {
   productionTip: false
 })
 
-Vue.prototype.axios = axios
+Vue.prototype.axios = api
 Vue.config.productionTip = false
 
 Vue.use(VueLazyload, {

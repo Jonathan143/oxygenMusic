@@ -5,18 +5,23 @@
 <script>
 export default {
   data() {
-    return {}
+    return {
+      userid: 259801485,
+      dynamicList: []
+    }
   },
   computed: {},
-  methods: {},
+  methods: {
+    reDynamic() {
+      this.axios('event').then(data => {
+        this.dynamicList = data.event
+      })
+    }
+  },
   mounted() {
-    this.axios('event')
-      .then(res => {
-        console.log(res)
-      })
-      .catch(error => {
-        console.log(error.message)
-      })
+    // mock: 'http://10.10.10.11:7300/mock/5cbed8d04641760f22d2ceba/music/event'
+    // if (localStorage.userID) this.userid = localStorage.userID
+    this.reDynamic()
   }
 }
 </script>

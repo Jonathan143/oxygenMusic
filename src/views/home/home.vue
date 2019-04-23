@@ -4,26 +4,20 @@
       <banner :banner="banner"></banner>
       <btn-nav></btn-nav>
       <div class="music-content">
-        <scroll-view
-          class="scroll-view"
+        <scroll-view class="scroll-view"
           title="新歌速递"
           :musicData="newSong"
-          circle
-        ></scroll-view>
-        <scroll-view
-          class="scroll-view"
+          circle></scroll-view>
+        <scroll-view class="scroll-view"
           title="热门歌单"
           multi
           :hasDetails="true"
-          :musicData="hotPlayList"
-        ></scroll-view>
-        <scroll-view
-          class="scroll-view"
+          :musicData="hotPlayList"></scroll-view>
+        <scroll-view class="scroll-view"
           title="最新歌单"
           multi
           :hasDetails="true"
-          :musicData="newPlayList"
-        ></scroll-view>
+          :musicData="newPlayList"></scroll-view>
       </div>
     </div>
   </div>
@@ -34,7 +28,6 @@ import ScrollView from './components/scrollView'
 import banner from '@/components/banner'
 import BtnNav from './components/btnNav'
 import { getSongs, getPlayList } from '@/untils'
-import { mapMutations } from 'vuex'
 export default {
   name: 'home',
   components: {
@@ -58,7 +51,6 @@ export default {
     this.getHotPlayList()
   },
   methods: {
-    ...mapMutations(['CLOSE_LOADING']),
     getNewSong() {
       this.axios(`personalized/newsong`).then(res => {
         this.newSong = getSongs(res.result).splice(0, 6)
@@ -72,7 +64,6 @@ export default {
     getHotPlayList() {
       this.axios(`top/playlist?limit=6&order=hot`).then(res => {
         this.hotPlayList = getPlayList(res.playlists)
-        this.CLOSE_LOADING()
       })
     },
     getBanner() {

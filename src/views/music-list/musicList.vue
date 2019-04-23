@@ -1,15 +1,11 @@
 <template>
   <div class="msic-list-container">
     <back-nav :title="title"></back-nav>
-    <collection-list
-      v-if="this.$route.query.name == 'myCollection'"
-    ></collection-list>
-    <song-list
-      v-else
+    <collection-list v-if="this.$route.query.name == 'myCollection'"></collection-list>
+    <song-list v-else
       :listdata="list"
       class="list"
-      :clear-name="this.$route.query.name"
-    ></song-list>
+      :clear-name="this.$route.query.name"></song-list>
   </div>
 </template>
 
@@ -17,7 +13,6 @@
 import BackNav from '@/components/backNav.vue'
 import SongList from '@/components/songList.vue'
 import CollectionList from './components/collectionList.vue'
-import { mapMutations } from 'vuex'
 export default {
   components: {
     BackNav,
@@ -31,7 +26,6 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['CLOSE_LOADING']),
     getList() {
       let ls = localStorage.getItem(this.$route.query.name)
       if (ls) {
@@ -59,7 +53,6 @@ export default {
     }
   },
   created() {
-    this.CLOSE_LOADING()
     if (this.$route.query.name != `myCollection`) {
       this.getList()
     }

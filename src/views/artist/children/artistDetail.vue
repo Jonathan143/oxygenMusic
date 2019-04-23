@@ -1,21 +1,16 @@
 <template>
   <div class="artist-detail-container">
-    <back-nav
-      :title="title"
-      :style="{ backgroundColor: `rgba(146, 143, 250, ${rgba})` }"
-    ></back-nav>
+    <back-nav :title="title"
+      :style="{ backgroundColor: `rgba(146, 143, 250, ${rgba})` }"></back-nav>
     <div class="content">
       <topbg :artinfo="artistDetail.artist"></topbg>
-      <song-list
-        :listdata="artistDetail.hotSongs"
-        :list-info="listInfo"
-      ></song-list>
+      <song-list :listdata="artistDetail.hotSongs"
+        :list-info="listInfo"></song-list>
     </div>
   </div>
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
 import BackNav from '@/components/backNav'
 import SongList from '@/components/songList'
 import Topbg from '../components/topBg'
@@ -36,11 +31,10 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['CLOSE_LOADING']),
     getartDetail() {
       this.axios(`artists?id=${this.$route.query.id}`).then(res => {
         this.artistDetail = getArtistDetail(res)
-        this.CLOSE_LOADING()
+
         this.setListInfo()
       })
     },

@@ -1,25 +1,25 @@
 <template>
   <div class="tab-bar">
     <i class="iconfont icon icon-menuon"></i>
-    <md-tab-bar
-      v-model="current"
+    <md-tab-bar v-model="current"
       :items="items"
       :has-ink="false"
-      @change="tabBarChange"
-    >
-      <template slot="item" slot-scope="{ item }">
+      @change="tabBarChange">
+      <template slot="item"
+        slot-scope="{ item }">
         <div class="custom-item">
-          <i class="iconfont icon" :class="item.icon"></i>
+          <i class="iconfont icon"
+            :class="item.icon"></i>
         </div>
       </template>
     </md-tab-bar>
-    <i @click="toSearch" class="iconfont icon icon-sousuo1"></i>
+    <i @click="toSearch"
+      class="iconfont icon icon-sousuo1"></i>
   </div>
 </template>
 
 <script>
 import { TabBar } from 'mand-mobile'
-import { mapMutations } from 'vuex'
 export default {
   components: {
     'md-tab-bar': TabBar
@@ -47,13 +47,11 @@ export default {
     }
   },
   methods: {
-    ...mapMutations([`OPEN_LOADING`]),
     tabBarChange(item) {
       this.$router.push({ name: item.name })
     },
     toSearch() {
       this.$router.push(`/search`)
-      this.OPEN_LOADING()
     }
   }
 }

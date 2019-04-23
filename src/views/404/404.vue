@@ -11,13 +11,11 @@
 
 <script>
 import { ResultPage } from 'mand-mobile'
-import { mapMutations } from 'vuex'
 export default {
   components: {
     [ResultPage.name]: ResultPage
   },
   methods: {
-    ...mapMutations(['CLOSE_LOADING']),
     goHome() {
       setTimeout(() => {
         this.$router.push('/')
@@ -25,7 +23,6 @@ export default {
     }
   },
   mounted() {
-    this.CLOSE_LOADING()
     this.goHome()
   }
 }

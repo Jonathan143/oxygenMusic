@@ -2,8 +2,7 @@
   <div class="search-container">
     <back-nav :title="title"></back-nav>
     <div class="search-input">
-      <md-input-item
-        v-model="searchValue"
+      <md-input-item v-model="searchValue"
         ref="search"
         title="search"
         placeholder="音乐/视频/电台/用户"
@@ -12,59 +11,45 @@
         :is-highlight="highlight"
         @focus="onSearchFocus"
         @blur="onSearchBlur"
-        @keyup="onEnter"
-      >
-        <i
-          class="iconfont icon-sousuo1"
+        @keyup="onEnter">
+        <i class="iconfont icon-sousuo1"
           slot="left"
-          :class="{ 'high-light': highlight }"
-        ></i>
+          :class="{ 'high-light': highlight }"></i>
       </md-input-item>
     </div>
     <div class="search">
-      <div class="search-tags" v-show="!hasResult">
-        <tags
-          class="hot-tags"
+      <div class="search-tags"
+        v-show="!hasResult">
+        <tags class="hot-tags"
           title="热门搜索"
           :tags="hotTags"
-          @click-tag="onTagClick"
-        ></tags>
-        <transition
-          name="loading-transition"
+          @click-tag="onTagClick"></tags>
+        <transition name="loading-transition"
           leave-active-class="animated fadeOutRight"
-          enter-active-class="animated bounceIn"
-        >
-          <tags
-            class="history-tags"
+          enter-active-class="animated bounceIn">
+          <tags class="history-tags"
             title="历史搜索"
             :tags="historyTags"
             deleicon
             v-show="showHistory"
             @cleartags="clearTags"
-            @click-tag="onTagClick"
-          ></tags>
+            @click-tag="onTagClick"></tags>
         </transition>
       </div>
-      <transition
-        name="loading-transition"
-        enter-active-class="animated bounceIn"
-      >
-        <song-list
-          class="search-content"
+      <transition name="loading-transition"
+        enter-active-class="animated bounceIn">
+        <song-list class="search-content"
           v-show="hasResult"
-          :listdata="searchResult"
-        ></song-list>
+          :listdata="searchResult"></song-list>
       </transition>
     </div>
-    <div class="search-loading" v-show="isLoading">
-      <md-activity-indicator
-        :size="56"
+    <div class="search-loading"
+      v-show="isLoading">
+      <md-activity-indicator :size="56"
         :text-size="36"
         text-color="#9025fc"
         color="#9025fc"
-        vertical
-        >loading</md-activity-indicator
-      >
+        vertical>loading</md-activity-indicator>
     </div>
   </div>
 </template>
@@ -74,7 +59,6 @@ import BackNav from '@/components/backNav'
 import SongList from '@/components/songList'
 import Tags from './components/tags'
 import { InputItem, ActivityIndicator } from 'mand-mobile'
-import { mapMutations } from 'vuex'
 import { getHotSearch, getSearchResult } from '@/untils'
 export default {
   components: {
@@ -107,7 +91,6 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['CLOSE_LOADING']),
     onSearchFocus() {
       this.highlight = true
     },
@@ -149,7 +132,7 @@ export default {
     setHotTags() {
       this.axios(`search/hot`).then(res => {
         this.hotTags = getHotSearch(res.result.hots)
-        this.CLOSE_LOADING()
+
         this.$refs.search.focus()
       })
     },

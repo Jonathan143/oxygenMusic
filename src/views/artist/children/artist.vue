@@ -3,10 +3,8 @@
     <back-nav title="热门歌手"></back-nav>
     <router-view></router-view>
     <div class="artist-list">
-      <artist-list
-        :artistlist="artistList"
-        @onartist="toArtistDetail"
-      ></artist-list>
+      <artist-list :artistlist="artistList"
+        @onartist="toArtistDetail"></artist-list>
     </div>
   </div>
 </template>
@@ -15,7 +13,6 @@
 import BackNav from '@/components/backNav'
 import ArtistList from '../components/artistList'
 import { getArtists } from '@/untils'
-import { mapMutations } from 'vuex'
 export default {
   components: {
     BackNav,
@@ -27,16 +24,14 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['CLOSE_LOADING', 'OPEN_LOADING']),
     getArtistList() {
       this.axios(`toplist/artist`).then(res => {
         this.artistList = getArtists(res.list.artists)
-        this.CLOSE_LOADING()
+
         sessionStorage.setItem('isArtLoading', true)
       })
     },
     toArtistDetail(art) {
-      this.OPEN_LOADING()
       this.$router.push({
         path: `/artist/detail`,
         query: { id: art.id, name: art.name }
@@ -48,7 +43,6 @@ export default {
   },
   activated() {
     if (sessionStorage.isArtLoading) {
-      this.CLOSE_LOADING()
     }
   }
 }

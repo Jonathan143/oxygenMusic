@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
 export default {
   props: {
     list: {
@@ -46,7 +45,6 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['OPEN_LOADING']),
     toDetail(item) {
       if (item.type == `playlist`) {
         this.$router.push({
@@ -59,7 +57,6 @@ export default {
           query: { id: item.id, name: item.songName }
         })
       }
-      this.OPEN_LOADING()
     }
   }
 }

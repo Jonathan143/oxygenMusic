@@ -4,6 +4,7 @@
  */
 import axios from 'axios'
 import { Toast } from 'mand-mobile'
+import store from '../store/index'
 // import qs from 'qs' // 根据需求导入qs模块
 
 /**
@@ -50,7 +51,7 @@ const errorHandle = (status, other) => {
  */
 let baseURL = ''
 if (process.env.NODE_ENV === 'development') {
-  baseURL = 'http://api.hejinkang.cn/'
+  baseURL = 'http://127.0.0.1:3000'
 } else if (process.env.NODE_ENV === 'production') {
   baseURL = 'https://api.yang143.cn/'
 }
@@ -69,6 +70,9 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   config => {
+    store.commit('OPEN_LOADING')
+    console.log(config)
+
     return config
   },
   error => Promise.error(error)
@@ -77,9 +81,13 @@ instance.interceptors.request.use(
 // 响应拦截器
 instance.interceptors.response.use(
   // 请求成功
-  res => (res.status === 200 ? Promise.resolve(res.data) : Promise.reject(res)),
+  res => {
+    store.commit('CLOSE_LOADING')
+    return res.status === 200 ? Promise.resolve(res.data) : Promise.reject(res)
+  },
   // 请求失败
   error => {
+    store.commit('CLOSE_LOADING')
     const { response } = error
     if (response) {
       // 请求已发出，但是不在2xx的范围

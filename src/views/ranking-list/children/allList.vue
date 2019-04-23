@@ -3,15 +3,11 @@
     <back-nav title="排行榜"></back-nav>
     <div class="rankinglist-content">
       <h2 class="title">官方榜</h2>
-      <offical-ranking
-        :rankinglist="rankinglist.officalRanking"
-        @list-click="onRanklist"
-      ></offical-ranking>
+      <offical-ranking :rankinglist="rankinglist.officalRanking"
+        @list-click="onRanklist"></offical-ranking>
       <h2 class="title other-title">其他排行榜</h2>
-      <other-ranking
-        :rankinglist="rankinglist.otherRanking"
-        @list-click="onRanklist"
-      ></other-ranking>
+      <other-ranking :rankinglist="rankinglist.otherRanking"
+        @list-click="onRanklist"></other-ranking>
     </div>
   </div>
 </template>
@@ -21,7 +17,6 @@ import BackNav from '@/components/backNav'
 import OfficalRanking from '../components/officalRanking'
 import OtherRanking from '../components/otherRanking'
 import { allRankinglist } from '@/untils'
-import { mapMutations } from 'vuex'
 export default {
   components: {
     BackNav,
@@ -34,16 +29,14 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['OPEN_LOADING', 'CLOSE_LOADING']),
     getRankinglist() {
       this.axios(`toplist/detail`).then(res => {
         this.rankinglist = allRankinglist(res.list)
-        this.CLOSE_LOADING()
+
         sessionStorage.isRanklistLoading = true
       })
     },
     onRanklist(name) {
-      this.OPEN_LOADING()
       this.$router.push({ name: `rankingDetail`, query: { name: name } })
     }
   },
@@ -52,7 +45,6 @@ export default {
   },
   activated() {
     if (sessionStorage.isRanklistLoading) {
-      this.CLOSE_LOADING()
     }
   }
 }

@@ -10,7 +10,6 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
 const iconBtn = [
   {
     icon: 'icon-playlist',
@@ -35,9 +34,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['OPEN_LOADING']),
     changeRouter(path) {
-      this.OPEN_LOADING()
       this.$router.push(path)
     }
   }
