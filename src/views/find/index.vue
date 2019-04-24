@@ -76,7 +76,7 @@
 </template>
 
 <script>
-import { ImageViewer, Icon } from 'mand-mobile'
+import { ImageViewer, Icon, Toast } from 'mand-mobile'
 import { mapMutations } from 'vuex'
 import { setMusic, lisenMusicAdd } from '@/untils'
 export default {
@@ -110,52 +110,55 @@ export default {
     },
 
     reDynamic(api = 'event') {
-      this.axios(api)
-        .then(data => {
-          let event = []
+      this.axios(api).then(data => {
+        let eventList = []
+        const event = data.events || data.event
+        event.forEach(item => {
+          const json = JSON.parse(item.json)
+          let source = {}
+          let state = ''
 
-          data.event.forEach(item => {
-            const json = JSON.parse(item.json)
-            let source = {}
-            let state = ''
+          if (json.song) {
+            state = 'song'
+            source = this.setSong(json.song)
+          } else if (json.video) {
+            state = 'video'
+            source = { id: json.video.videoId }
+          } else {
+            return
+          }
+          // else if (json.playList) {
+          //   state = 'playList'
+          //   source = this.setPlayList(json.playList)
+          // }
 
-            if (json.song) {
-              state = 'song'
-              source = this.setSong(json.song)
-            } else if (json.video) {
-              state = 'video'
-              source = { id: json.video.videoId }
-            } else {
-              return
-            }
-            // else if (json.playList) {
-            //   state = 'playList'
-            //   source = this.setPlayList(json.playList)
-            // }
-
-            const pics = item.pics.map(pic => pic.originUrl)
-            // console.log(json.msg.split('#'))
-            const dynamic = {
-              msg: json.msg,
-              source: source,
-              state: state,
-              pics: pics,
-              userReason: item.rcmdInfo ? item.rcmdInfo.userReason : '0粉丝',
-              actName: item.actName ? item.actName : item.user.nickname,
-              avatarUrl: item.user.avatarUrl,
-              forwardCount: item.forwardCount ? item.forwardCount : 0, // 转发
-              likedCount: item.info.likedCount ? item.info.likedCount : 0, // 点赞
-              commentCount: item.info.commentCount ? item.info.commentCount : 0 // 评论
-            }
-            event.push(dynamic)
-            if (json.video) this.reVieoUrl(event.length - 1, dynamic)
-          })
-          this.dynamicList = event
+          const pics = item.pics.map(pic => pic.originUrl)
+          // console.log(json.msg.split('#'))
+          const dynamic = {
+            msg: json.msg,
+            source: source,
+            state: state,
+            pics: pics,
+            userReason: item.rcmdInfo
+              ? item.rcmdInfo.userReason
+              : `${this.setCount(item.user.followeds)}粉丝` || '0粉丝',
+            actName: item.actName ? item.actName : item.user.nickname,
+            avatarUrl: item.user.avatarUrl,
+            forwardCount: item.forwardCount ? item.forwardCount : 0, // 转发
+            likedCount: item.info.likedCount ? item.info.likedCount : 0, // 点赞
+            commentCount: item.info.commentCount ? item.info.commentCount : 0 // 评论
+          }
+          eventList.push(dynamic)
+          if (json.video) this.reVieoUrl(eventList.length - 1, dynamic)
         })
-        .catch(error => {
-          this.reDynamic('user/event?uid=1')
-          console.log(error)
-        })
+        this.dynamicList = eventList
+        if (api !== 'event') {
+          Toast.loading('登录加载更多数据')
+          setTimeout(() => {
+            Toast.hide()
+          }, 3000)
+        }
+      })
     },
 
     reVieoUrl(index, dynamic) {
@@ -175,6 +178,11 @@ export default {
         alName: data.album.name
       }
       return song
+    },
+
+    setCount(count) {
+      count = String(count)
+      if (count.length > 4) return count.slice(0, count.length - 4) + '万'
     }
 
     // setPlayList(data) {
@@ -188,7 +196,7 @@ export default {
     // }
   },
   mounted() {
-    this.reDynamic()
+    localStorage.userID ? this.reDynamic() : this.reDynamic('user/event?uid=1')
   }
 }
 </script>
