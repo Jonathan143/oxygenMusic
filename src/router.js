@@ -88,7 +88,7 @@ export default new Router({
     {
       path: `/find`,
       name: `find`,
-      component: () => import(`./views/find/find.vue`)
+      component: () => import(`./views/find`)
     },
     {
       path: `*`,

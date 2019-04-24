@@ -72,7 +72,6 @@ const instance = axios.create({
 instance.interceptors.request.use(
   config => {
     store.commit('OPEN_LOADING')
-    console.log(config)
 
     return config
   },
