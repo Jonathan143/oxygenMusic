@@ -267,8 +267,9 @@ export default {
         }
 
         this.changeUserStatus()
-
-        Toast.succeed('已退出登录')
+        this.axios('login/status').then(() => {
+          Toast.succeed('已退出登录')
+        })
       } else {
         this.login.open = true
       }

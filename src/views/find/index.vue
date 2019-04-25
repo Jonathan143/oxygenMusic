@@ -1,42 +1,39 @@
 <template>
   <div class="find">
-    <div
-      class="find__item"
+    <div class="find__item"
       v-for="(dynamic, index) in dynamicList"
-      :key="index"
-    >
-      <img
-        class="item__avatar"
+      :key="index">
+      <img class="item__avatar"
         v-lazy="dynamic.avatarUrl"
-        :alt="dynamic.actName"
-      />
+        :alt="dynamic.actName" />
       <div class="item__content">
         <div class="content__author">
           <p class="author__name">{{ dynamic.actName }}</p>
           <p class="author__reason">{{ dynamic.userReason }}</p>
         </div>
         <p class="content__msg">{{ dynamic.msg }}</p>
-        <div class="content__song" v-if="dynamic.state === 'song'">
+        <div class="content__song"
+          v-if="dynamic.state === 'song'">
           <ul class="song__pics">
             <template v-for="(pic, index) in dynamic.pics">
-              <li @click="showViewer(index, dynamic.pics)" :key="index">
-                <img
-                  class="song__pic"
+              <li @click="showViewer(index, dynamic.pics)"
+                :key="index">
+                <img class="song__pic"
                   :class="{ song__pic2: dynamic.pics.length === 2 }"
-                  v-lazy="pic"
-                />
+                  v-lazy="pic" />
               </li>
             </template>
           </ul>
-          <div class="song__source" @click="onSongClick(dynamic.source)">
+          <div class="song__source"
+            @click="onSongClick(dynamic.source)">
             <div class="song__img-wrap">
-              <img
-                class="song__img"
+              <img class="song__img"
                 v-lazy="dynamic.source.picUrl"
-                :alt="dynamic.source.songName"
-              />
+                :alt="dynamic.source.songName" />
               <div class="song__play">
-                <md-icon name="rectangle" size="xs" color="#F56C6C"></md-icon>
+                <md-icon name="rectangle"
+                  size="xs"
+                  color="#F56C6C"></md-icon>
               </div>
             </div>
             <div class="song__info">
@@ -45,12 +42,11 @@
             </div>
           </div>
         </div>
-        <div class="content__video" v-if="dynamic.state === 'video'">
-          <video
-            class="video__player"
+        <div class="content__video"
+          v-if="dynamic.state === 'video'">
+          <video class="video__player"
             :src="dynamic.source.url"
-            controls="controls"
-          >
+            controls="controls">
             your browser does not support the video tag
           </video>
         </div>
@@ -65,12 +61,10 @@
         </div>
       </div>
     </div>
-    <md-image-viewer
-      v-model="isViewerShow"
+    <md-image-viewer v-model="isViewerShow"
       :list="imgViewList"
       :has-dots="true"
-      :initial-index="viewerIndex"
-    >
+      :initial-index="viewerIndex">
     </md-image-viewer>
   </div>
 </template>
