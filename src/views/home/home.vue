@@ -4,26 +4,20 @@
       <banner :banner="banner"></banner>
       <btn-nav></btn-nav>
       <div class="music-content">
-        <scroll-view
-          class="scroll-view"
+        <scroll-view class="scroll-view"
           title="新歌速递"
           :musicData="newSong"
-          circle
-        ></scroll-view>
-        <scroll-view
-          class="scroll-view"
+          circle></scroll-view>
+        <scroll-view class="scroll-view"
           title="热门歌单"
           multi
           :hasDetails="true"
-          :musicData="hotPlayList"
-        ></scroll-view>
-        <scroll-view
-          class="scroll-view"
+          :musicData="hotPlayList"></scroll-view>
+        <scroll-view class="scroll-view"
           title="最新歌单"
           multi
           :hasDetails="true"
-          :musicData="newPlayList"
-        ></scroll-view>
+          :musicData="newPlayList"></scroll-view>
       </div>
     </div>
   </div>
@@ -55,6 +49,7 @@ export default {
     this.getNewSong()
     this.getNewPlayList()
     this.getHotPlayList()
+    this.reUserState()
   },
   methods: {
     getNewSong() {
@@ -85,6 +80,16 @@ export default {
         }
         this.banner = imgs
       })
+    },
+
+    reUserState() {
+      this.axios('login/status')
+        .then(data => {
+          sessionStorage.isLogin = true
+        })
+        .catch(error => {
+          sessionStorage.isLogin = false
+        })
     }
   }
 }

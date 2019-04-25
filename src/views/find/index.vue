@@ -136,7 +136,7 @@ export default {
             userReason: item.rcmdInfo
               ? item.rcmdInfo.userReason
               : `${this.setCount(item.user.followeds)}粉丝` || '0粉丝',
-            actName: item.actName ? item.actName : item.user.nickname,
+            actName: item.user.nickname,
             avatarUrl: item.user.avatarUrl,
             forwardCount: item.forwardCount ? item.forwardCount : 0, // 转发
             likedCount: item.info.likedCount ? item.info.likedCount : 0, // 点赞
@@ -190,7 +190,9 @@ export default {
     // }
   },
   mounted() {
-    localStorage.userID ? this.reDynamic() : this.reDynamic('user/event?uid=1')
+    sessionStorage.isLogin
+      ? this.reDynamic()
+      : this.reDynamic('user/event?uid=278675941')
   }
 }
 </script>

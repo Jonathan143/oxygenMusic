@@ -47,6 +47,17 @@
       v-model="login.open"
       :btns="login.btns">
       <md-tabs v-model="loginMode">
+        <md-tab-pane name="verify"
+          label="验证码登录">
+          <md-input-item v-model="userID"
+            ref="login"
+            title="手机号码"
+            type="phone"
+            placeholder="输入手机号码"
+            is-title-latent
+            clearable
+            is-highlight></md-input-item>
+        </md-tab-pane>
         <md-tab-pane name="tel"
           label="账号密码登录">
           <md-input-item v-model="userID"
@@ -66,19 +77,16 @@
             clearable
             is-highlight></md-input-item>
         </md-tab-pane>
-        <md-tab-pane name="userId"
-          label="userID登录">
-          <md-input-item v-model="userID"
-            ref="login"
-            title="userid"
-            type="digit"
-            placeholder="输入userID登录"
-            is-title-latent
-            clearable
-            is-highlight></md-input-item>
-        </md-tab-pane>
       </md-tabs>
     </md-dialog>
+
+    <md-captcha v-model="isCaptchaShow"
+      :maxlength="4"
+      brief="最新验证码依然有效，请勿重发"
+      @send="reCaptchSend"
+      @submit="onCaptchaSubmit">
+      验证码已发送至{{telTxt}}
+    </md-captcha>
   </div>
 </template>
 
@@ -93,7 +101,8 @@ import {
   TabPane,
   ScrollView,
   ScrollViewRefresh,
-  Button
+  Button,
+  Captcha
 } from 'mand-mobile'
 import { setTimeout } from 'timers'
 export default {
@@ -102,15 +111,18 @@ export default {
     'md-input-item': InputItem,
     'md-tabs': Tabs,
     'md-tab-pane': TabPane,
+    'md-captcha': Captcha,
     [ScrollView.name]: ScrollView,
     [ScrollViewRefresh.name]: ScrollViewRefresh,
     [Button.name]: Button
   },
   data() {
     return {
+      isCaptchaShow: false,
+      CanSendCaptcha: true,
       userID: '',
       password: '',
-      loginMode: 'tel',
+      loginMode: 'verify',
       list: [],
       login: {
         open: false,
@@ -122,7 +134,7 @@ export default {
             }
           },
           {
-            text: '登录',
+            text: '获取验证码',
             handler: this.onLoginConfirm
           }
         ]
@@ -138,6 +150,17 @@ export default {
     ...mapState(['isLogin']),
     signText() {
       return this.isLogin ? '退出登录' : '登录'
+    },
+    telTxt() {
+      const telTxt = String(this.userID)
+      return telTxt.substr(0, 3) + '****' + telTxt.substr(7)
+    }
+  },
+  watch: {
+    loginMode(value) {
+      let txt = ''
+      value === 'tel' ? (txt = '登录') : (txt = '获取验证码')
+      this.login.btns[1].text = txt
     }
   },
   methods: {
@@ -152,9 +175,15 @@ export default {
           this.loginModeTel()
           this.password = ''
           Toast.loading('登录中...')
-        } else if (this.loginMode !== 'tel') {
-          this.loginModeUserID()
-          Toast.loading('登录中...')
+        } else if (this.loginMode === 'verify') {
+          // this.loginModeUserID()
+          if (userID.length !== 11) {
+            Toast.failed('请输入正确的手机号')
+            this.userID = ''
+            return
+          }
+
+          this.isCaptchaShow = true
         } else {
           Toast.failed('请输入密码')
         }
@@ -162,6 +191,35 @@ export default {
         Toast.failed('登录失败')
       }
     },
+    // 发送验证码
+    reCaptchSend() {
+      this.axios(`captch/sent?phone=${this.userID}`)
+        .then(data => {
+          this.login.open = false
+        })
+        .catch(error => {
+          this.isCaptchaShow = false
+          this.userID = ''
+        })
+    },
+
+    onCaptchaSubmit(code) {
+      this.axios(`captch/verify?phone=${this.userID}&captcha=${code}`).then(
+        data => {
+          this.isCaptchaShow = false
+          Toast.succeed('登录成功')
+          this.reUserStatus()
+        }
+      )
+    },
+
+    reUserStatus() {
+      this.axios('login/status').then(data => {
+        this.userID = data.userId
+        this.loginModeUserID()
+      })
+    },
+
     getPlaylist() {
       const userID = this.userID || JSON.parse(localStorage.userID)
       this.axios(`/user/playlist?uid=${userID}`).then(res => {
@@ -208,8 +266,8 @@ export default {
         method: 'post',
         url: `/login/cellphone`,
         params: {
-          phone: '18270487784',
-          password: 'yj143143'
+          phone: this.userID,
+          password: this.password
         }
       }).then(res => {
         this.userID = res.account.id

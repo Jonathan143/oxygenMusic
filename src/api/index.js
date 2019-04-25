@@ -42,7 +42,7 @@ const errorHandle = (status, other) => {
       tip('请求的资源不存在')
       break
     default:
-      console.log(other)
+      tip(other)
   }
 }
 /**
@@ -88,6 +88,7 @@ instance.interceptors.response.use(
   // 请求失败
   error => {
     store.commit('CLOSE_LOADING')
+    
     const { response } = error
     if (response) {
       // 请求已发出，但是不在2xx的范围
