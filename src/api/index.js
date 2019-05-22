@@ -29,13 +29,19 @@ const errorHandle = (status, other) => {
   switch (status) {
     // 401: 未登录状态，跳转登录页
     case 301:
-      tip('请登录')
+      if(localStorage.userInfo) {
+        localStorage.removeItem('userInfo')
+        tip('登录过期，请重新登录')
+      }else {
+        tip('请登录')
+      }
+      
       break
     // 403 token过期
     // 清除token并跳转登录页
     case 403:
       tip('登录过期，请重新登录')
-      localStorage.removeItem('token')
+      localStorage.removeItem('userInfo')
       break
     // 404请求不存在
     case 404:

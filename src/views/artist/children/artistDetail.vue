@@ -39,10 +39,10 @@ export default {
       })
     },
     handleScroll() {
-      let t = this.timer
-      if (t) clearTimeout(t)
-      t = setTimeout(() => {
-        const top = document.documentElement.scrollTop
+      clearTimeout(this.timer)
+      this.timer = setTimeout(() => {
+        const top =
+          document.documentElement.scrollTop || document.body.scrollTop
         if (top > 200) {
           let opacity = top / 400
           opacity = opacity > 1 ? 1 : opacity
