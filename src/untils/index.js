@@ -1,14 +1,16 @@
+function setPicUrl(params) {
+  return `${params.slice(5)}?param=180y180`
+}
 //首页新歌速递
 let getSongs = data => {
   let songs = []
   let item = {}
   for (const i of data) {
-    let picUrl = `${i.song.album.picUrl}?param=180y180`
     item = {
       songName: i.name,
       id: i.id,
       singer: i.song.artists[0].name,
-      picUrl: picUrl,
+      picUrl: setPicUrl(i.song.album.picUrl),
       alName: i.song.album.name
     }
     songs.push(item)
@@ -21,11 +23,10 @@ let getpersonalizList = data => {
   let list = []
   let item = {}
   for (const i of data) {
-    let picUrl = `${i.picUrl}?param=180y180`
     item = {
       songName: i.name,
       id: i.id,
-      picUrl: picUrl
+      picUrl: setPicUrl(i.picUrl)
     }
     list.push(item)
   }
@@ -36,11 +37,10 @@ let getPlayList = data => {
   let playList = []
   let item = {}
   for (const i of data) {
-    let picUrl = `${i.coverImgUrl}?param=180y180`
     item = {
       songName: i.name,
       id: i.id,
-      picUrl: picUrl
+      picUrl: setPicUrl(i.coverImgUrl)
     }
     playList.push(item)
   }
@@ -58,7 +58,7 @@ let getsinger = data => {
     item = {
       name: i.name,
       id: i.id,
-      picUrl: i.imglvUrl,
+      picUrl: setPicUrl(i.imglvUrl),
       alias: alias
     }
     singer.push(item)
@@ -72,13 +72,12 @@ let playListDetail = data => {
   let item = {}
   let tracks = []
   for (const t of data.tracks) {
-    let picUrl = `${t.al.picUrl}?param=180y180`
     item = {
       songName: t.name, //歌名
       id: t.id,
       singer: t.ar[0].name, //歌手
       alName: t.al.name, //专辑名
-      picUrl: picUrl //歌曲图片
+      picUrl: setPicUrl(t.al.picUrl) //歌曲图片
     }
     tracks.push(item)
   }
@@ -86,7 +85,7 @@ let playListDetail = data => {
   let commentCount = checkCount(data.commentCount)
   let shareCount = checkCount(data.shareCount)
   let subscribedCount = checkCount(data.subscribedCount)
-  let coverImgUrl = `${data.coverImgUrl}?param=200y200`
+  let coverImgUrl = setPicUrl(data.coverImgUrl)
   playList = {
     listName: data.name, //歌单名
     commentCount: commentCount, //评论数
@@ -135,12 +134,11 @@ let getMusicList = data => {
   let songs = []
   let item = {}
   for (const i of data) {
-    let picUrl = `${i.album.picUrl}?param=180y180`
     item = {
       songName: i.name,
       id: i.id,
       singer: i.artists[0].name,
-      picUrl: picUrl
+      picUrl: setPicUrl(i.album.picUrl)
     }
     songs.push(item)
   }
@@ -220,10 +218,9 @@ let getArtistDetail = data => {
   if (data.artist.alias.length != 0) {
     alias = data.artist.alias[0]
   }
-  let picUrl = `${data.artist.picUrl}?param=400y400`
   let artist = {
     alias: alias,
-    picUrl: picUrl,
+    picUrl: setPicUrl(data.artist.picUrl),
     id: data.artist.id,
     name: data.artist.name,
     albumSize: data.artist.albumSize,
@@ -233,13 +230,12 @@ let getArtistDetail = data => {
   let hotSongs = []
   let item = {}
   for (const i of data.hotSongs) {
-    let picUrl = `${i.al.picUrl}?param=180y180`
     item = {
       songName: i.name,
       id: i.id,
       singer: i.ar[0].name,
       alName: i.al.name,
-      picUrl: picUrl
+      picUrl: setPicUrl(i.al.picUrl)
     }
     hotSongs.push(item)
   }

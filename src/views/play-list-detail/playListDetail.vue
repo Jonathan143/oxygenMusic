@@ -57,7 +57,7 @@ export default {
     setListInfo() {
       this.listInfo = {
         id: this.$route.query.id,
-        picUrl: this.listDetail.coverImgUrl,
+        picUrl: this.listDetail.coverImgUrl.slice(5),
         songName: this.listDetail.listName,
         type: 'playlist'
       }
