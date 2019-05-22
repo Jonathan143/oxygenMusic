@@ -3,42 +3,53 @@
     <md-field class="field">
       <ul class="play-list">
         <li class="play-item top-item">
-          <div class="play-all" @click="playAll">
+          <div class="play-all"
+            @click="playAll">
             <i class="iconfont icon-playing"></i>
             <p class="text">
               播放全部<span class="sub-text">{{ listLength }}</span>
             </p>
           </div>
-          <div class="collection" @click="onRbtnClick">
-            <i class="iconfont" :class="btn.icon"></i>
+          <div class="collection"
+            @click="onRbtnClick">
+            <i class="iconfont"
+              :class="btn.icon"></i>
             <p class="text">{{ btn.text }}</p>
           </div>
         </li>
-        <li
-          class="play-item"
+        <li class="play-item"
           v-for="(music, idx) in listdata"
           :key="idx"
           @click="playMusic(music)"
-          :class="[playingId == music.id ? 'playing' : '']"
-        >
-          <i class="iconfont icon-yinliang" v-if="playingId == music.id"></i>
-          <p class="idx" v-else>{{ idx + 1 }}</p>
+          :class="[playingId == music.id ? 'playing' : '']">
+          <i class="iconfont icon-yinliang"
+            v-if="playingId == music.id"></i>
+          <p class="idx"
+            v-else>{{ idx + 1 }}</p>
           <div class="info">
             <p class="name">{{ music.songName }}</p>
             <p class="singer">{{ music.singer }} - {{ music.alName }}</p>
           </div>
-          <i class="iconfont icon-btn_more" @click.stop="moreOperations"></i>
+          <i class="iconfont icon-btn_more"
+            @click.stop="moreOperations(music)"></i>
         </li>
       </ul>
     </md-field>
-    <md-popup v-model="isPopupShow" :hasMask="false" position="top">
+    <md-popup v-model="isPopupShow"
+      :hasMask="false"
+      position="top">
       <div class="popup-info">暂无后续逻辑</div>
     </md-popup>
+    <action-sheet class="song__action"
+      v-model="isActionShow"
+      :title="musicOperations.name"
+      :options="musicOperations.options"
+      @selected="onActionSelect"></action-sheet>
   </div>
 </template>
 
 <script>
-import { Field, Popup, Toast } from 'mand-mobile'
+import { Field, Popup, Toast, ActionSheet } from 'mand-mobile'
 import { mapState, mapMutations } from 'vuex'
 import { setMusic, lisenMusicAdd, lisenAdd, findItem } from '@/untils'
 
@@ -61,14 +72,35 @@ export default {
   },
   components: {
     'md-field': Field,
-    'md-popup': Popup
+    'md-popup': Popup,
+    ActionSheet
   },
   data() {
     return {
       isPopupShow: false,
       listLength: '',
       btn: this.rbtn,
-      isCollection: false
+      isCollection: false,
+
+      isActionShow: false,
+      musicOperations: {
+        name: '歌曲：',
+        id: '',
+        options: [
+          {
+            label: '下一首播放',
+            value: 'nextPlaying'
+          },
+          {
+            label: '评论',
+            value: 'comment'
+          },
+          {
+            label: '歌手',
+            value: 'singer'
+          }
+        ]
+      }
     }
   },
   computed: {
@@ -86,12 +118,21 @@ export default {
       this.ADD_MUSIC(playList)
       lisenMusicAdd(music)
     },
-    moreOperations() {
+    moreOperations(music) {
+      console.log(music)
+      this.musicOperations.name = `歌曲：${music.songName}`
+      this.musicOperations.id = music.id
+      this.isActionShow = true
+    },
+
+    onActionSelect(action) {
+      console.log(action)
       this.isPopupShow = true
       setTimeout(() => {
         this.isPopupShow = false
       }, 2000)
     },
+
     playAll() {
       let playList = []
       for (const item of this.listdata) {
@@ -267,5 +308,26 @@ export default {
   text-align: center;
   font-size: 26px;
   background-color: $themeColor;
+}
+
+.song__action {
+  /deep/ .md-popup-box {
+    border-radius: 16px 16px 0 0;
+  }
+
+  /deep/ .md-action-sheet-header {
+    padding-left: 20px;
+  }
+
+  /deep/ .md-action-sheet-header, /deep/ .md-action-sheet-item {
+    height: 80px;
+    line-height: 80px;
+    // text-align: left;
+    font-size: 26px;
+  }
+
+  /deep/ .md-action-sheet-cancel {
+    display: none;
+  }
 }
 </style>

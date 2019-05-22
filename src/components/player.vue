@@ -1,40 +1,36 @@
 <template>
   <div class="player-container">
-    <aplayer
-      :audio="playList"
+    <aplayer :audio="playList"
       :lrcType="0"
       :listFolded="true"
       ref="aplayer"
       @listShow="listShow"
       @listAdd="lisenAdd"
       @listSwitch="onPlayingChange"
-      @play="onPlay"
-    />
-    <md-popup v-model="isListShow" position="bottom" @hide="listHide">
-      <md-popup-title-bar
-        class="popup-title-bar"
+      @play="onPlay" />
+    <md-popup v-model="isListShow"
+      position="bottom"
+      @hide="listHide">
+      <md-popup-title-bar class="popup-title-bar"
         @confirm="clearList"
+        @cancel="onSwitchPlaybackMode"
         title="播放列表"
         ok-text="清空 "
-        :cancel-text="playType"
-      ></md-popup-title-bar>
+        :cancel-text="playType"></md-popup-title-bar>
       <md-field class="field">
         <ul class="play-list">
-          <li
-            class="play-item"
+          <li class="play-item"
             :class="[music.id == currentMusic ? 'playing' : '']"
             v-for="(music, idx) in playList"
-            :key="idx"
-          >
+            :key="idx">
             <i class="iconfont icon-yinliang"></i>
-            <p class="name" @click="changePlay(idx)">
+            <p class="name"
+              @click="changePlay(idx)">
               {{ music.name }}
               <span class="singer">- {{ music.artist }}</span>
             </p>
-            <i
-              class="iconfont icon-iconfontclose"
-              @click="removeMusic(music.id)"
-            ></i>
+            <i class="iconfont icon-iconfontclose"
+              @click="removeMusic(music.id)"></i>
           </li>
         </ul>
       </md-field>
@@ -43,7 +39,7 @@
 </template>
 
 <script>
-import { Field, Popup, PopupTitleBar } from 'mand-mobile'
+import { Field, Popup, PopupTitleBar, Dialog } from 'mand-mobile'
 import { mapState, mapMutations } from 'vuex'
 
 export default {
@@ -80,10 +76,16 @@ export default {
       this.$refs.aplayer.hideList()
     },
     clearList() {
-      this.$refs.aplayer.pause()
-      this.isListShow = false
-      this.$refs.aplayer.hideList()
-      this.CLEAR_PLAY_LIST()
+      Dialog.confirm({
+        content: '是否清空播放列表',
+        confirmText: '清空',
+        onConfirm: () => {
+          this.$refs.aplayer.pause()
+          this.isListShow = false
+          this.$refs.aplayer.hideList()
+          this.CLEAR_PLAY_LIST()
+        }
+      })
     },
     lisenAdd() {
       this.$refs.aplayer.switch(0)
@@ -118,6 +120,9 @@ export default {
       //   list = removeItem(list, id);
       //   localStorage.setItem('recebtlyPlayed',JSON.stringify(list));
       // }
+    },
+    onSwitchPlaybackMode() {
+      console.log(1)
     }
   }
 }
