@@ -57,7 +57,7 @@ const errorHandle = (status, other) => {
  */
 let baseURL = ''
 if (process.env.NODE_ENV === 'development') {
-  baseURL = 'http://127.0.0.1:3000'
+  baseURL = 'http://localhost:3000'
 } else if (process.env.NODE_ENV === 'production') {
   baseURL = 'https://api.yang143.cn/'
 }

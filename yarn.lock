@@ -2954,13 +2954,6 @@ eslint-loader@^2.1.2:
     object-hash "^1.1.4"
     rimraf "^2.6.1"
 
-eslint-plugin-html@^5.0.3:
-  version "5.0.3"
-  resolved "https://registry.npm.taobao.org/eslint-plugin-html/download/eslint-plugin-html-5.0.3.tgz#3db133995e49a73596f6a473c16a1b83634deffd"
-  integrity sha1-PbEzmV5JpzWW9qRzwWobg2NN7/0=
-  dependencies:
-    htmlparser2 "^3.10.0"
-
 eslint-plugin-prettier@^3.0.0:
   version "3.0.1"
   resolved "http://registry.npm.taobao.org/eslint-plugin-prettier/download/eslint-plugin-prettier-3.0.1.tgz#19d521e3981f69dd6d14f64aec8c6a6ac6eb0b0d"
@@ -2968,10 +2961,12 @@ eslint-plugin-prettier@^3.0.0:
   dependencies:
     prettier-linter-helpers "^1.0.0"
 
-eslint-plugin-standard@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.npm.taobao.org/eslint-plugin-standard/download/eslint-plugin-standard-4.0.0.tgz#f845b45109c99cd90e77796940a344546c8f6b5c"
-  integrity sha1-+EW0UQnJnNkOd3lpQKNEVGyPa1w=
+eslint-plugin-prettier@^3.0.1:
+  version "3.1.0"
+  resolved "https://registry.npm.taobao.org/eslint-plugin-prettier/download/eslint-plugin-prettier-3.1.0.tgz#8695188f95daa93b0dc54b249347ca3b79c4686d"
+  integrity sha1-hpUYj5XaqTsNxUskk0fKO3nEaG0=
+  dependencies:
+    prettier-linter-helpers "^1.0.0"
 
 eslint-plugin-vue@^4.7.1:
   version "4.7.1"
@@ -3973,7 +3968,7 @@ html-webpack-plugin@^3.2.0:
     toposort "^1.0.0"
     util.promisify "1.0.0"
 
-htmlparser2@^3.10.0, htmlparser2@^3.3.0, htmlparser2@^3.8.3:
+htmlparser2@^3.3.0, htmlparser2@^3.8.3:
   version "3.10.1"
   resolved "http://registry.npm.taobao.org/htmlparser2/download/htmlparser2-3.10.1.tgz#bd679dc3f59897b6a34bb10749c855bb53a9392f"
   integrity sha1-vWedw/WYl7ajS7EHSchVu1OpOS8=
@@ -4872,10 +4867,10 @@ make-dir@^1.0.0:
   dependencies:
     pify "^3.0.0"
 
-mand-mobile@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.npm.taobao.org/mand-mobile/download/mand-mobile-2.2.0.tgz#55e4c4f6df23be4c971ef4d15d0dc7b6d8ba74e8"
-  integrity sha1-VeTE9t8jvkyXHvTRXQ3Htti6dOg=
+mand-mobile@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.npm.taobao.org/mand-mobile/download/mand-mobile-2.2.2.tgz#6a1d944cc64ee62d707cdb3c2e22494157acda25"
+  integrity sha1-ah2UTMZO5i1wfNs8LiJJQVes2iU=
 
 map-age-cleaner@^0.1.1:
   version "0.1.3"
