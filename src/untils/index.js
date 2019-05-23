@@ -1,5 +1,5 @@
 function setPicUrl(params) {
-  return `${params.slice(5)}?param=180y180`
+  if (params) return `${params.slice(5)}?param=180y180`
 }
 //首页新歌速递
 let getSongs = data => {
@@ -358,6 +358,8 @@ let getListCount = data => {
   }
   return count
 }
+
+// 最近播放
 let lisenMusicAdd = music => {
   let list = []
   let recebtlyPlayed = localStorage.recebtlyPlayed

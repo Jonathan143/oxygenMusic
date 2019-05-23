@@ -18,6 +18,21 @@ let ADD_MUSIC = (state, item) => {
   localStorage.setItem(`playList`, JSON.stringify(state.playList))
 }
 
+// 添加下一首
+let ADD_Next_MUSIC = (state, item) => {
+  for (const i of state.playList) {
+    if (item.id == i.id) {
+      state.onPlaying = state.playList.indexOf(i)
+      return
+    }
+  }
+  state.playList.splice(1, 0, item)
+  if (state.playList.length) {
+    state.isPlayerShow = true
+  }
+  localStorage.setItem(`playList`, JSON.stringify(state.playList))
+}
+
 let DEL_MUSIC = (state, id) => {
   let items = state.playList
   for (let i = 0; i < items.length; i++) {
@@ -56,5 +71,6 @@ export default {
   CHANGE_PLAYING_LIST,
   CLOSE_LOADING,
   OPEN_LOADING,
-  changeUserStatus
+  changeUserStatus,
+  ADD_Next_MUSIC
 }

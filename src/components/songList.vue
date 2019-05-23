@@ -85,7 +85,7 @@ export default {
       isActionShow: false,
       musicOperations: {
         name: '歌曲：',
-        id: '',
+        music: {},
         options: [
           {
             label: '下一首播放',
@@ -112,25 +112,36 @@ export default {
     }
   },
   methods: {
-    ...mapMutations([`ADD_MUSIC`, `CHANGE_PLAYING_LIST`]),
+    ...mapMutations([`ADD_MUSIC`, `CHANGE_PLAYING_LIST`, 'ADD_Next_MUSIC']),
     playMusic(music) {
-      let playList = setMusic(music)
-      this.ADD_MUSIC(playList)
+      const musicInfo = setMusic(music)
+      this.ADD_MUSIC(musicInfo)
       lisenMusicAdd(music)
     },
     moreOperations(music) {
       console.log(music)
       this.musicOperations.name = `歌曲：${music.songName}`
-      this.musicOperations.id = music.id
+      this.musicOperations.music = music
       this.isActionShow = true
     },
 
     onActionSelect(action) {
-      console.log(action)
-      this.isPopupShow = true
-      setTimeout(() => {
-        this.isPopupShow = false
-      }, 2000)
+      const methods = {
+        nextPlaying: this.nextPlaying()
+      }
+
+      if (action.value === 'nextPlaying') methods[action.value]
+      else {
+        this.isPopupShow = true
+        setTimeout(() => {
+          this.isPopupShow = false
+        }, 2000)
+      }
+    },
+
+    nextPlaying() {
+      const musicInfo = setMusic(this.musicOperations.music)
+      this.ADD_Next_MUSIC(musicInfo)
     },
 
     playAll() {
