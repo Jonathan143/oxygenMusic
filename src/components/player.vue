@@ -1,6 +1,7 @@
 <template>
   <div class="player-container">
-    <aplayer :audio="playList"
+    <aplayer v-if="isRedraw"
+      :audio="playList"
       :lrcType="0"
       :listFolded="true"
       ref="aplayer"
@@ -51,7 +52,8 @@ export default {
   data() {
     return {
       isListShow: false,
-      currentMusic: 0
+      currentMusic: 0,
+      isRedraw: true
     }
   },
   computed: {
@@ -66,7 +68,12 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['CLEAR_PLAY_LIST', 'DEL_MUSIC', 'CHANGE_PLAYING_ID']),
+    ...mapMutations([
+      'CLEAR_PLAY_LIST',
+      'DEL_MUSIC',
+      'CHANGE_PLAYING_ID',
+      'shuffleModel'
+    ]),
     listShow() {
       this.isListShow = true
       this.currentMusic = this.$refs.aplayer.currentMusic.id
@@ -122,7 +129,12 @@ export default {
       // }
     },
     onSwitchPlaybackMode() {
-      console.log(1)
+      this.shuffleModel()
+      this.isRedraw = false
+
+      this.$nextTick(() => {
+        this.isRedraw = true
+      })
     }
   }
 }

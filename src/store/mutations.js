@@ -1,3 +1,5 @@
+import {shuffle} from '@/untils/methods.js'
+
 let CLEAR_PLAY_LIST = state => {
   state.playList = []
   state.isPlayerShow = false
@@ -31,6 +33,18 @@ let ADD_Next_MUSIC = (state, item) => {
     state.isPlayerShow = true
   }
   localStorage.setItem(`playList`, JSON.stringify(state.playList))
+}
+
+// 随机播放
+let shuffleModel = state => {
+  const shuffleList = shuffle(state.playList)
+  state.playList = []
+  state.playList = shuffleList
+}
+
+// 心动模式
+let HeartbeatModel = state => {
+
 }
 
 let DEL_MUSIC = (state, id) => {
@@ -72,5 +86,7 @@ export default {
   CLOSE_LOADING,
   OPEN_LOADING,
   changeUserStatus,
-  ADD_Next_MUSIC
+  ADD_Next_MUSIC,
+  shuffleModel,
+  HeartbeatModel
 }

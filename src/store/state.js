@@ -1,4 +1,4 @@
-const isLoading = true
+const isLoading = false
 const isPlay = false
 const currentIcon = `home`
 let playList = []

@@ -10,9 +10,13 @@
         :is-refreshing="isRefreshing"
         :is-refresh-active="isRefreshActive"></md-scroll-view-refresh>
       <a class="info"
+        target="_blank"
         href="https://github.com/Jonathan143/oxygenMusic">
         <div class="name-box">
-          <h2 class="name">{{ userInfo.name }}</h2>
+          <h2 class="name__wrap">
+            <span class="name">{{ userInfo.name }}</span>
+            <i class="info__level">Lv.{{userInfo.level}}</i>
+          </h2>
           <p class="indicator-text">{{ userInfo.signature }}</p>
         </div>
         <div class="avatar">
@@ -282,7 +286,8 @@ export default {
             id: res.userPoint.userId,
             name: res.profile.nickname,
             signature: res.profile.signature,
-            avatarUrl: res.profile.avatarUrl
+            avatarUrl: res.profile.avatarUrl,
+            level: res.level
           }
           this.login.open = false
           if (!localStorage.userInfo) {
@@ -391,9 +396,18 @@ export default {
     box-sizing: border-box;
     text-decoration: none;
 
+    &__level {
+      display: inline-block;
+      font-size: 20px;
+      padding: 4px 16px;
+      background-color: #e8eaec;
+      border-radius: 18px;
+      margin-left: 8px;
+    }
+
     .name-box {
       .name {
-        font-size: 46px;
+        font-size: 42px;
         font-weight: 500;
         color: $titleColor;
       }
